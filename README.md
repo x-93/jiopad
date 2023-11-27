@@ -1,6 +1,5 @@
-
 Karlsend
-====
+========
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/karlsen-network/karlsend/)
@@ -52,7 +51,7 @@ $ karlsend
 ```
 
 ## Discord
-Join our discord server using the following link: https://discord.gg/YNYnNN5Pf2
+Join our discord server using the following link: https://discord.gg/ZPZRvgMJDT
 
 ## Issue Tracker
 
