@@ -55,10 +55,10 @@ type sendConfig struct {
 	KeysFile                 string   `long:"keys-file" short:"f" description:"Keys file location (default: ~/.karlsenwallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\karlsenwallet\\key.json (Windows))"`
 	Password                 string   `long:"password" short:"p" description:"Wallet password"`
 	DaemonAddress            string   `long:"daemonaddress" short:"d" description:"Wallet daemon server to connect to"`
-	ToAddress                string   `long:"to-address" short:"t" description:"The public address to send Kaspa to" required:"true"`
-	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Kaspa from. Use multiple times to accept several addresses" required:"false"`
-	SendAmount               float64  `long:"send-amount" short:"v" description:"An amount to send in Kaspa (e.g. 1234.12345678)"`
-	IsSendAll                bool     `long:"send-all" description:"Send all the Kaspa in the wallet (mutually exclusive with --send-amount)"`
+	ToAddress                string   `long:"to-address" short:"t" description:"The public address to send Karlsen to" required:"true"`
+	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Karlsen from. Use multiple times to accept several addresses" required:"false"`
+	SendAmount               float64  `long:"send-amount" short:"v" description:"An amount to send in Karlsen (e.g. 1234.12345678)"`
+	IsSendAll                bool     `long:"send-all" description:"Send all the Karlsen in the wallet (mutually exclusive with --send-amount)"`
 	UseExistingChangeAddress bool     `long:"use-existing-change-address" short:"u" description:"Will use an existing change address (in case no change address was ever used, it will use a new one)"`
 	Verbose                  bool     `long:"show-serialized" short:"s" description:"Show a list of hex encoded sent transactions"`
 	config.NetworkFlags
@@ -72,10 +72,10 @@ type sweepConfig struct {
 
 type createUnsignedTransactionConfig struct {
 	DaemonAddress            string   `long:"daemonaddress" short:"d" description:"Wallet daemon server to connect to"`
-	ToAddress                string   `long:"to-address" short:"t" description:"The public address to send Kaspa to" required:"true"`
-	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Kaspa from. Use multiple times to accept several addresses" required:"false"`
-	SendAmount               float64  `long:"send-amount" short:"v" description:"An amount to send in Kaspa (e.g. 1234.12345678)"`
-	IsSendAll                bool     `long:"send-all" description:"Send all the Kaspa in the wallet (mutually exclusive with --send-amount)"`
+	ToAddress                string   `long:"to-address" short:"t" description:"The public address to send Karlsen to" required:"true"`
+	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Karlsen from. Use multiple times to accept several addresses" required:"false"`
+	SendAmount               float64  `long:"send-amount" short:"v" description:"An amount to send in Karlsen (e.g. 1234.12345678)"`
+	IsSendAll                bool     `long:"send-all" description:"Send all the Karlsen in the wallet (mutually exclusive with --send-amount)"`
 	UseExistingChangeAddress bool     `long:"use-existing-change-address" short:"u" description:"Will use an existing change address (in case no change address was ever used, it will use a new one)"`
 	config.NetworkFlags
 }
@@ -139,11 +139,11 @@ func parseCommandLine() (subCommand string, config interface{}) {
 
 	balanceConf := &balanceConfig{DaemonAddress: defaultListen}
 	parser.AddCommand(balanceSubCmd, "Shows the balance of a public address",
-		"Shows the balance for a public address in Kaspa", balanceConf)
+		"Shows the balance for a public address in Karlsen", balanceConf)
 
 	sendConf := &sendConfig{DaemonAddress: defaultListen}
-	parser.AddCommand(sendSubCmd, "Sends a Kaspa transaction to a public address",
-		"Sends a Kaspa transaction to a public address", sendConf)
+	parser.AddCommand(sendSubCmd, "Sends a Karlsen transaction to a public address",
+		"Sends a Karlsen transaction to a public address", sendConf)
 
 	sweepConf := &sweepConfig{DaemonAddress: defaultListen}
 	parser.AddCommand(sweepSubCmd, "Sends all funds associated with the given schnorr private key to a new address of the current wallet",
@@ -152,8 +152,8 @@ func parseCommandLine() (subCommand string, config interface{}) {
 			"to send funds to your main wallet.", sweepConf)
 
 	createUnsignedTransactionConf := &createUnsignedTransactionConfig{DaemonAddress: defaultListen}
-	parser.AddCommand(createUnsignedTransactionSubCmd, "Create an unsigned Kaspa transaction",
-		"Create an unsigned Kaspa transaction", createUnsignedTransactionConf)
+	parser.AddCommand(createUnsignedTransactionSubCmd, "Create an unsigned Karlsen transaction",
+		"Create an unsigned Karlsen transaction", createUnsignedTransactionConf)
 
 	signConf := &signConfig{}
 	parser.AddCommand(signSubCmd, "Sign the given partially signed transaction",
