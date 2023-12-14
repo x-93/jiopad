@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+
+  karlsend:
+    container_name: karlsend
+    image: karlsennetwork/karlsend:latest
+    restart: unless-stopped
+    ports:
+      - "42110:42110/tcp"
+      - "42111:42111/tcp"
+    volumes:
+      - $HOME/.karlsend:/app/data/
+# use managed volumes
+#      - karlsend:/app/data/
+    command:  ./karlsend --utxoindex --connect=mainnet-dnsseed-1.karlsencoin.com --appdir=/app/data
