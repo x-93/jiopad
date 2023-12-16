@@ -279,14 +279,12 @@ var MainnetParams = Params{
 // TestnetParams defines the network parameters for the test Kaspa network.
 var TestnetParams = Params{
 	K:           defaultGHOSTDAGK,
-	Name:        "karlsen-testnet-10",
+	Name:        "karlsen-testnet-1",
 	Net:         appmessage.Testnet,
-	RPCPort:     "16210",
-	DefaultPort: "16211",
+	RPCPort:     "42210",
+	DefaultPort: "42211",
 	DNSSeeds: []string{
-		"testnet-10-dnsseed.kas.pa",
-		// This DNS seeder is run by Tiram
-		"seeder1-testnet.kaspad.net",
+		"testnet-1.karlsencoin.com",
 	},
 
 	// DAG parameters
@@ -353,8 +351,8 @@ var SimnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "karlsen-simnet",
 	Net:         appmessage.Simnet,
-	RPCPort:     "16510",
-	DefaultPort: "16511",
+	RPCPort:     "42510",
+	DefaultPort: "42511",
 	DNSSeeds:    []string{}, // NOTE: There must NOT be any seeds.
 
 	// DAG parameters
@@ -413,8 +411,8 @@ var DevnetParams = Params{
 	K:           defaultGHOSTDAGK,
 	Name:        "karlsen-devnet",
 	Net:         appmessage.Devnet,
-	RPCPort:     "16610",
-	DefaultPort: "16611",
+	RPCPort:     "42610",
+	DefaultPort: "42611",
 	DNSSeeds:    []string{}, // NOTE: There must NOT be any seeds.
 
 	// DAG parameters
