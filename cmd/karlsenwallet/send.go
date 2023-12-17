@@ -10,7 +10,7 @@ import (
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/keys"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/utils"
 	"github.com/pkg/errors"
 )
 
@@ -35,7 +35,11 @@ func send(conf *sendConfig) error {
 
 	var sendAmountSompi uint64
 	if !conf.IsSendAll {
-		sendAmountSompi = uint64(conf.SendAmount * constants.SompiPerKaspa)
+		sendAmountSompi, err = utils.KasToSompi(conf.SendAmount)
+
+		if err != nil {
+			return err
+		}
 	}
 
 	createUnsignedTransactionsResponse, err :=
