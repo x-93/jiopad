@@ -106,9 +106,16 @@ func (s *server) selectUTXOs(spendAmount uint64, isSendAll bool, feePerInput uin
 		return nil, 0, 0, err
 	}
 
+	coinbaseMaturity := s.params.BlockCoinbaseMaturity
+	// merged from kaspa-testnet-11
+	// https://github.com/kaspanet/kaspad/commit/8e71f79f98a1b365aa19220b3fcdd4d5ad1df4c4
+	if dagInfo.NetworkName == "karlsen-testnet-1" {
+		coinbaseMaturity = 1000
+	}
+
 	for _, utxo := range s.utxosSortedByAmount {
 		if (fromAddresses != nil && !slices.Contains(fromAddresses, utxo.address)) ||
-			!isUTXOSpendable(utxo, dagInfo.VirtualDAAScore, s.params.BlockCoinbaseMaturity) {
+			!isUTXOSpendable(utxo, dagInfo.VirtualDAAScore, coinbaseMaturity) {
 			continue
 		}
 

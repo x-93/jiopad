@@ -3,8 +3,10 @@ package mempool
 import (
 	"sync"
 
+	"github.com/karlsen-network/karlsend/domain/consensus/ruleerrors"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
+	"github.com/pkg/errors"
 
 	"github.com/karlsen-network/karlsend/domain/consensusreference"
 
@@ -204,11 +206,19 @@ func (mp *mempool) RevalidateHighPriorityTransactions() (validTransactions []*ex
 	return mp.revalidateHighPriorityTransactions()
 }
 
-func (mp *mempool) RemoveTransactions(transactions []*externalapi.DomainTransaction, removeRedeemers bool) error {
+func (mp *mempool) RemoveInvalidTransactions(err *ruleerrors.ErrInvalidTransactionsInNewBlock) error {
 	mp.mtx.Lock()
 	defer mp.mtx.Unlock()
 
-	return mp.removeTransactions(transactions, removeRedeemers)
+	for _, tx := range err.InvalidTransactions {
+		removeRedeemers := !errors.As(tx.Error, &ruleerrors.ErrMissingTxOut{})
+		err := mp.removeTransaction(consensushashing.TransactionID(tx.Transaction), removeRedeemers)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (mp *mempool) RemoveTransaction(transactionID *externalapi.DomainTransactionID, removeRedeemers bool) error {
