@@ -35,7 +35,7 @@ func Set(template *appmessage.GetBlockTemplateResponseMessage) error {
 	lock.Lock()
 	defer lock.Unlock()
 	currentTemplate = block
-	currentState = pow.NewState(block.Header.ToMutable())
+	currentState = pow.NewState(block.Header.ToMutable(), true)
 	isSynced = template.IsSynced
 	return nil
 }

@@ -161,7 +161,7 @@ func measureMachineHashNanoseconds(t *testing.T) int64 {
 	defer t.Logf("Finished measuring machine hash rate")
 
 	genesisBlock := dagconfig.DevnetParams.GenesisBlock
-	state := pow.NewState(genesisBlock.Header.ToMutable())
+	state := pow.NewState(genesisBlock.Header.ToMutable(), false)
 
 	machineHashesPerSecondMeasurementDuration := 10 * time.Second
 	hashes := int64(0)
@@ -200,7 +200,7 @@ func runDAATest(t *testing.T, testName string, runDuration time.Duration,
 	loopForDuration(runDuration, func(isFinished *bool) {
 		templateBlock := fetchBlockForMining(t, rpcClient)
 		headerForMining := templateBlock.Header.ToMutable()
-		minerState := pow.NewState(headerForMining)
+		minerState := pow.NewState(headerForMining, false)
 
 		// Try hashes until we find a valid block
 		miningStartTime := time.Now()

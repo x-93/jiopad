@@ -6,10 +6,10 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashes"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/serialization"
 	"github.com/karlsen-network/karlsend/util/difficulty"
-
-	"math/big"
-
 	"github.com/pkg/errors"
+
+	"fmt"
+	"math/big"
 )
 
 // State is an intermediate data structure with pre-computed values to speed up mining.
@@ -19,11 +19,16 @@ type State struct {
 	Nonce      uint64
 	Target     big.Int
 	prePowHash externalapi.DomainHash
+	//cache 	   cache
+	context fishhashContext
 }
+
+// var context *fishhashContext
+var sharedContext *fishhashContext
 
 // NewState creates a new state with pre-computed values to speed up mining
 // It takes the target from the Bits field
-func NewState(header externalapi.MutableBlockHeader) *State {
+func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 	target := difficulty.CompactToBig(header.Bits())
 	// Zero out the time and nonce.
 	timestamp, nonce := header.TimeInMilliseconds(), header.Nonce()
@@ -33,12 +38,18 @@ func NewState(header externalapi.MutableBlockHeader) *State {
 	header.SetTimeInMilliseconds(timestamp)
 	header.SetNonce(nonce)
 
+	if sharedContext != nil {
+		fmt.Printf("NewState object 12345 : %x\n", sharedContext.FullDataset[12345])
+	}
+
 	return &State{
 		Target:     *target,
 		prePowHash: *prePowHash,
-		mat:        *generateMatrix(prePowHash),
-		Timestamp:  timestamp,
-		Nonce:      nonce,
+		//will remove matrix opow
+		//mat:       *generateMatrix(prePowHash),
+		Timestamp: timestamp,
+		Nonce:     nonce,
+		context:   *getContext(generatedag),
 	}
 }
 
@@ -51,15 +62,33 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	if err != nil {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
+
 	zeroes := [32]byte{}
 	writer.InfallibleWrite(zeroes[:])
 	err = serialization.WriteElement(writer, state.Nonce)
 	if err != nil {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
+	fmt.Printf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
 	powHash := writer.Finalize()
-	heavyHash := state.mat.HeavyHash(powHash)
-	return toBig(heavyHash)
+	//middleHash := state.mat.HeavyHash(powHash)
+	fmt.Printf("Hash b3-1: %x\n", powHash.ByteSlice())
+	middleHash := fishHash(&state.context, powHash)
+	fmt.Printf("Hash fish: %x\n", middleHash.ByteSlice())
+
+	/*
+		writer2 := hashes.NewHeavyHashWriter()
+		writer2.InfallibleWrite(heavyHash.ByteSlice())
+		finalHash := writer2.Finalize()
+	*/
+
+	writer2 := hashes.NewPoWHashWriter()
+	writer2.InfallibleWrite(middleHash.ByteSlice())
+	finalHash := writer2.Finalize()
+
+	fmt.Printf("Hash b3-2: %x\n", finalHash.ByteSlice())
+	return toBig(finalHash)
+	//return toBig(heavyHash)
 }
 
 // IncrementNonce the nonce in State by 1
@@ -80,7 +109,7 @@ func (state *State) CheckProofOfWork() bool {
 // CheckProofOfWorkByBits check's if the block has a valid PoW according to its Bits field
 // it does not check if the difficulty itself is valid or less than the maximum for the appropriate network
 func CheckProofOfWorkByBits(header externalapi.MutableBlockHeader) bool {
-	return NewState(header).CheckProofOfWork()
+	return NewState(header, false).CheckProofOfWork()
 }
 
 // ToBig converts a externalapi.DomainHash into a big.Int treated as a little endian string.
@@ -103,7 +132,7 @@ func BlockLevel(header externalapi.BlockHeader, maxBlockLevel int) int {
 		return maxBlockLevel
 	}
 
-	proofOfWorkValue := NewState(header.ToMutable()).CalculateProofOfWorkValue()
+	proofOfWorkValue := NewState(header.ToMutable(), false).CalculateProofOfWorkValue()
 	level := maxBlockLevel - proofOfWorkValue.BitLen()
 	// If the block has a level lower than genesis make it zero.
 	if level < 0 {
