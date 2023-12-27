@@ -8,7 +8,6 @@ import (
 	"github.com/karlsen-network/karlsend/util/difficulty"
 	"github.com/pkg/errors"
 
-	"fmt"
 	"math/big"
 )
 
@@ -39,7 +38,7 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 	header.SetNonce(nonce)
 
 	if sharedContext != nil {
-		fmt.Printf("NewState object 12345 : %x\n", sharedContext.FullDataset[12345])
+		log.Debugf("NewState object 12345 : %x\n", sharedContext.FullDataset[12345])
 	}
 
 	return &State{
@@ -69,12 +68,12 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	if err != nil {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
-	fmt.Printf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
+	log.Debugf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
 	powHash := writer.Finalize()
 	//middleHash := state.mat.HeavyHash(powHash)
-	fmt.Printf("Hash b3-1: %x\n", powHash.ByteSlice())
+	log.Debugf("Hash b3-1: %x\n", powHash.ByteSlice())
 	middleHash := fishHash(&state.context, powHash)
-	fmt.Printf("Hash fish: %x\n", middleHash.ByteSlice())
+	log.Debugf("Hash fish: %x\n", middleHash.ByteSlice())
 
 	/*
 		writer2 := hashes.NewHeavyHashWriter()
@@ -86,7 +85,7 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	writer2.InfallibleWrite(middleHash.ByteSlice())
 	finalHash := writer2.Finalize()
 
-	fmt.Printf("Hash b3-2: %x\n", finalHash.ByteSlice())
+	log.Debugf("Hash b3-2: %x\n", finalHash.ByteSlice())
 	return toBig(finalHash)
 	//return toBig(heavyHash)
 }

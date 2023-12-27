@@ -5,7 +5,6 @@ import (
 	"golang.org/x/crypto/sha3"
 
 	//"crypto/sha3"
-	"fmt"
 	"sync"
 )
 
@@ -109,7 +108,7 @@ func calculateDatasetItem1024(ctx *fishhashContext, index uint32) hash1024 {
 func lookup(ctx *fishhashContext, index uint32) hash1024 {
 	if ctx.FullDataset != nil {
 		item := &ctx.FullDataset[index]
-		fmt.Printf(" %d - ", index)
+		log.Debugf(" %d - ", index)
 
 		if item[0] == 0 {
 			*item = calculateDatasetItem1024(ctx, index)
@@ -133,7 +132,7 @@ func fishhashKernel(ctx *fishhashContext, seed hash512) hash256 {
 	//mix := hash1024{seed, seed}
 	mix := mergeHashes(seed, seed)
 
-	fmt.Printf("lookup matrix : ")
+	log.Debugf("lookup matrix : ")
 	for i := uint32(0); i < numDatasetAccesses; i++ {
 		p0 := uint32(mix[0]) % indexLimit
 		p1 := uint32(mix[4]) % indexLimit
@@ -151,7 +150,7 @@ func fishhashKernel(ctx *fishhashContext, seed hash512) hash256 {
 		for j := 0; j < 16; j++ {
 			mix[j] = fetch0[j]*fetch1[j] + fetch2[j]
 		}
-		fmt.Printf("\n")
+		log.Debugf("\n")
 	}
 
 	mixHash := hash256{}
@@ -193,7 +192,7 @@ func bitwiseXOR(x, y hash512) hash512 {
 
 func buildLightCache(cache []*hash512, numItems int, seed hash256) {
 
-	fmt.Printf("GENERATING LIGHT CACHE ===============================================\n")
+	println("GENERATING LIGHT CACHE ===============================================\n")
 	item := hash512{}
 	hash := sha3.New512()
 	hash.Write(seed[:])
@@ -234,20 +233,20 @@ func getContext(full bool) *fishhashContext {
 
 	if sharedContext != nil {
 		if !full || sharedContext.FullDataset != nil {
-			fmt.Printf("log0 getContext ====\n")
+			log.Debugf("log0 getContext ====\n")
 			return sharedContext
 		}
-		fmt.Printf("log1 getContext ==== going to build dataset\n")
+		log.Debugf("log1 getContext ==== going to build dataset\n")
 	}
 
 	// DIABLE LIGHT CACHE FOR THE MOMENT
 
 	lightCache := make([]*hash512, lightCacheNumItems)
-	fmt.Printf("getContext ==== building light cache\n")
+	log.Debugf("getContext ==== building light cache\n")
 	buildLightCache(lightCache, lightCacheNumItems, seed)
-	fmt.Printf("getContext ==== light cache done\n")
+	log.Debugf("getContext ==== light cache done\n")
 
-	fmt.Printf("getContext fullDatasetNumItems - 2.0 : %d\n", fullDatasetNumItems)
+	log.Debugf("getContext fullDatasetNumItems - 2.0 : %d\n", fullDatasetNumItems)
 	fullDataset := make([]hash1024, fullDatasetNumItems)
 
 	sharedContext = &fishhashContext{
@@ -258,33 +257,33 @@ func getContext(full bool) *fishhashContext {
 		FullDataset:         fullDataset,
 	}
 
-	fmt.Printf("getContext object 12345 : %x\n", fullDataset[12345])
+	log.Debugf("getContext object 12345 : %x\n", fullDataset[12345])
 
 	//test
 	if full {
-		fmt.Printf("getContext ==== building full dataset\n")
+		log.Debugf("getContext ==== building full dataset\n")
 		prebuildDataset(sharedContext, 8)
-		fmt.Printf("getContext ==== full dataset built\n")
+		log.Debugf("getContext ==== full dataset built\n")
 	}
 
 	return sharedContext
 }
 
 func prebuildDataset(ctx *fishhashContext, numThreads uint32) {
-	fmt.Printf("prebuildDataset ==================================================\n")
+	log.Debugf("prebuildDataset ==================================================\n")
 
 	if ctx.FullDataset == nil {
 		return
 	}
 
 	if ctx.ready == true {
-		fmt.Printf("dataset already generated\n")
+		log.Debugf("dataset already generated\n")
 		return
 	}
-	fmt.Printf("GENERATING DATASET ===============================================\n")
+	println("GENERATING DATASET ===============================================\n")
 
 	if numThreads > 1 {
-		fmt.Printf("prebuildDataset multi thread")
+		log.Debugf("prebuildDataset multi thread")
 		batchSize := ctx.FullDatasetNumItems / numThreads
 		var wg sync.WaitGroup
 
@@ -304,11 +303,11 @@ func prebuildDataset(ctx *fishhashContext, numThreads uint32) {
 
 		wg.Wait()
 	} else {
-		fmt.Printf("prebuildDataset solo thread\n")
+		log.Debugf("prebuildDataset solo thread\n")
 		buildDatasetSegment(ctx, 0, ctx.FullDatasetNumItems)
 	}
 
-	fmt.Printf("DATASET GENERATED ===============================================\n")
+	log.Debugf("DATASET GENERATED ===============================================\n")
 	ctx.ready = true
 }
 
