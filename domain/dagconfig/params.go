@@ -284,7 +284,7 @@ var TestnetParams = Params{
 	RPCPort:     "42210",
 	DefaultPort: "42211",
 	DNSSeeds: []string{
-		"testnet-1.karlsencoin.com",
+		"testnet-1-dnsseed.karlsencoin.com",
 	},
 
 	// DAG parameters
