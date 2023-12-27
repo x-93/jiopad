@@ -27,5 +27,5 @@ RUN apk add --no-cache ca-certificates tini
 COPY --from=build /go/src/github.com/karlsen-network/karlsend/karlsend /app/
 COPY --from=build /go/src/github.com/karlsen-network/karlsend/infrastructure/config/sample-karlsend.conf /app/
 
-USER nobody
+USER root
 ENTRYPOINT [ "/sbin/tini", "--" ]
