@@ -29,6 +29,7 @@ func main() {
 
 	// Show version at startup.
 	log.Infof("Version %s", version.Version())
+	log.Infof("Using KarlsenHash V2")
 
 	// Enable http profiling server if requested.
 	if cfg.Profile != "" {
