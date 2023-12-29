@@ -5,6 +5,7 @@ import (
 	"golang.org/x/crypto/sha3"
 
 	//"crypto/sha3"
+	"encoding/binary"
 	"sync"
 )
 
@@ -82,7 +83,8 @@ func newItemState(ctx *fishhashContext, index int64) *itemState {
 
 func (state *itemState) update(round uint32) {
 	numWords := len(state.mix) / 4
-	t := fnv1(state.seed^round, uint32(state.mix[round%uint32(numWords)]))
+	//t := fnv1(state.seed^round, uint32(state.mix[round%uint32(numWords)]))
+	t := fnv1(state.seed^round, binary.BigEndian.Uint32(state.mix[round%uint32(numWords):]))
 	parentIndex := t % uint32(state.numCacheItems)
 	state.mix = fnv1Hash512(state.mix, *state.cache[parentIndex])
 }
@@ -132,33 +134,73 @@ func fishhashKernel(ctx *fishhashContext, seed hash512) hash256 {
 	//mix := hash1024{seed, seed}
 	mix := mergeHashes(seed, seed)
 
+	//fmt.Printf("The index_limit is : %d \n", indexLimit)
+	//fmt.Printf("The seed is : %x \n", seed)
+	//fmt.Printf("The mix is : %x \n", mix)
+
 	log.Debugf("lookup matrix : ")
 	for i := uint32(0); i < numDatasetAccesses; i++ {
-		p0 := uint32(mix[0]) % indexLimit
-		p1 := uint32(mix[4]) % indexLimit
-		p2 := uint32(mix[8]) % indexLimit
+		/*
+			p0 := uint32(mix[0]) % indexLimit
+			p1 := uint32(mix[4]) % indexLimit
+			p2 := uint32(mix[8]) % indexLimit
+		*/
+
+		p0 := binary.BigEndian.Uint32(mix[0:4]) % indexLimit
+		p1 := binary.BigEndian.Uint32(mix[4:8]) % indexLimit
+		p2 := binary.BigEndian.Uint32(mix[8:12]) % indexLimit
+
+		//fmt.Printf("The words is : %d - %d - %d\n", mix[0], mix[4], mix[8])
+		//fmt.Printf("The words lg is : %d - %d - %d\n", mix[0:4], mix[4:8], mix[8:12])
+		//fmt.Printf("The words32 is : %d - %d - %d\n", uint32(mix[0]), uint32(mix[4]), uint32(mix[8]))
+		//fmt.Printf("The words32 lg is : %d - %d - %d\n", binary.BigEndian.Uint32(mix[0:4]), binary.BigEndian.Uint32(mix[4:8]), binary.BigEndian.Uint32(mix[8:12]))
+		//fmt.Printf("The indexes is : %d - %d - %d\n", p0, p1, p2)
 
 		fetch0 := lookup(ctx, p0)
 		fetch1 := lookup(ctx, p1)
 		fetch2 := lookup(ctx, p2)
 
+		//fmt.Printf("The fetch0 is : %x \n", fetch0)
+		//fmt.Printf("The fetch1 is : %x \n", fetch1)
+		//fmt.Printf("The fetch2 is : %x \n", fetch2)
+
 		for j := 0; j < 32; j++ {
-			fetch1[j] = byte(fnv1(uint32(mix[j]), uint32(fetch1[j])))
-			fetch2[j] = mix[j] ^ fetch2[j]
+			//fetch1[j] = byte(fnv1(uint32(mix[j]), uint32(fetch1[j])))
+			//fetch2[j] = mix[j] ^ fetch2[j]
+			binary.BigEndian.PutUint32(
+				fetch1[4*j:],
+				fnv1(binary.BigEndian.Uint32(mix[4*j:4*j+4]), binary.BigEndian.Uint32(fetch1[4*j:4*j+4])))
+			binary.BigEndian.PutUint32(
+				fetch2[4*j:],
+				binary.BigEndian.Uint32(mix[4*j:4*j+4])^binary.BigEndian.Uint32(fetch2[4*j:4*j+4]))
 		}
 
+		//fmt.Printf("The NEW fetch1 is : %x \n", fetch1)
+		//fmt.Printf("The NEW fetch2 is : %x \n", fetch2)
+
 		for j := 0; j < 16; j++ {
-			mix[j] = fetch0[j]*fetch1[j] + fetch2[j]
+			//mix[j] = fetch0[j]*fetch1[j] + fetch2[j]
+			binary.BigEndian.PutUint64(
+				mix[8*j:],
+				binary.BigEndian.Uint64(fetch0[8*j:8*j+8])*binary.BigEndian.Uint64(fetch1[8*j:8*j+8])+binary.BigEndian.Uint64(fetch2[8*j:8*j+8]))
 		}
 		log.Debugf("\n")
 	}
 
+	//fmt.Printf("The FINAL mix is : %x \n", mix)
+
 	mixHash := hash256{}
-	for i := 0; i < len(mix); i += 4 {
-		h1 := fnv1(uint32(mix[i]), uint32(mix[i+1]))
-		h2 := fnv1(h1, uint32(mix[i+2]))
-		h3 := fnv1(h2, uint32(mix[i+3]))
-		mixHash[i/4] = byte(h3)
+	for i := 0; i < (len(mix) / 4); i += 4 {
+		//h1 := fnv1(uint32(mix[i]), uint32(mix[i+1]))
+		//h2 := fnv1(h1, uint32(mix[i+2]))
+		//h3 := fnv1(h2, uint32(mix[i+3]))
+		//mixHash[i/4] = byte(h3)
+		j := 4 * i
+		h1 := fnv1(binary.BigEndian.Uint32(mix[j:j+4]), binary.BigEndian.Uint32(mix[(j+1):(j+1)+4]))
+		h2 := fnv1(h1, binary.BigEndian.Uint32(mix[(j+2):(j+2)+4]))
+		h3 := fnv1(h2, binary.BigEndian.Uint32(mix[(j+3):(j+3)+4]))
+		binary.BigEndian.PutUint32(mixHash[i:], h3)
+
 	}
 
 	return mixHash
