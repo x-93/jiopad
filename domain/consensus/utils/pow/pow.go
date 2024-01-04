@@ -8,6 +8,7 @@ import (
 	"github.com/karlsen-network/karlsend/util/difficulty"
 	"github.com/pkg/errors"
 
+	"fmt"
 	"math/big"
 )
 
@@ -52,6 +53,17 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 	}
 }
 
+func (state *State) IsContextReady() bool {
+	fmt.Printf("IsContextReady -- log0 %+v \n", state)
+	fmt.Printf("IsContextReady -- log1 %+v \n", &state)
+	fmt.Printf("IsContextReady -- log2 %+v \n", &state.context)
+	if state != nil && &state.context != nil {
+		return state.context.ready
+	} else {
+		return false
+	}
+}
+
 // CalculateProofOfWorkValue hashes the internal header and returns its big.Int value
 func (state *State) CalculateProofOfWorkValue() *big.Int {
 	// PRE_POW_HASH || TIME || 32 zero byte padding || NONCE
@@ -68,12 +80,15 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	if err != nil {
 		panic(errors.Wrap(err, "this should never happen. Hash digest should never return an error"))
 	}
-	log.Debugf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
+	//log.Debugf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
+	//fmt.Printf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
 	powHash := writer.Finalize()
 	//middleHash := state.mat.HeavyHash(powHash)
-	log.Debugf("Hash b3-1: %x\n", powHash.ByteSlice())
+	//log.Debugf("Hash b3-1: %x\n", powHash.ByteSlice())
+	//fmt.Printf("Hash b3-1: %x\n", powHash.ByteSlice())
 	middleHash := fishHash(&state.context, powHash)
-	log.Debugf("Hash fish: %x\n", middleHash.ByteSlice())
+	//log.Debugf("Hash fish: %x\n", middleHash.ByteSlice())
+	//fmt.Printf("Hash fish: %x\n", middleHash.ByteSlice())
 
 	/*
 		writer2 := hashes.NewHeavyHashWriter()
@@ -85,7 +100,8 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	writer2.InfallibleWrite(middleHash.ByteSlice())
 	finalHash := writer2.Finalize()
 
-	log.Debugf("Hash b3-2: %x\n", finalHash.ByteSlice())
+	//log.Debugf("Hash b3-2: %x\n", finalHash.ByteSlice())
+	//fmt.Printf("Hash b3-2: %x\n", finalHash.ByteSlice())
 	return toBig(finalHash)
 	//return toBig(heavyHash)
 }
