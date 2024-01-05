@@ -206,7 +206,7 @@ func getBlockForMining(mineWhenNotSynced bool) (*externalapi.DomainBlock, *pow.S
 func templatesLoop(client *minerClient, miningAddr util.Address, errChan chan error) {
 	getBlockTemplate := func() {
 		template, err := client.GetBlockTemplate(miningAddr.String(), "karlsenminer-"+version.Version())
-		fmt.Printf("Getting Block template\n")
+		//fmt.Printf("Getting Block template\n")
 		if nativeerrors.Is(err, router.ErrTimeout) {
 			log.Warnf("Got timeout while requesting block template from %s: %s", client.Address(), err)
 			reconnectErr := client.Reconnect()
@@ -224,7 +224,7 @@ func templatesLoop(client *minerClient, miningAddr util.Address, errChan chan er
 			errChan <- errors.Wrapf(err, "Error getting block template from %s", client.Address())
 			return
 		}
-		fmt.Printf("Template SET\n")
+		//fmt.Printf("Template SET\n")
 		err = templatemanager.Set(template)
 		if err != nil {
 			errChan <- errors.Wrapf(err, "Error setting block template from %s", client.Address())

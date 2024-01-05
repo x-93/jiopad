@@ -102,6 +102,10 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 
 	//log.Debugf("Hash b3-2: %x\n", finalHash.ByteSlice())
 	//fmt.Printf("Hash b3-2: %x\n", finalHash.ByteSlice())
+
+	//kill debug
+	//os.Exit(42)
+
 	return toBig(finalHash)
 	//return toBig(heavyHash)
 }

@@ -1,12 +1,14 @@
 package pow
 
 import (
+	"github.com/edsrzf/mmap-go"
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"golang.org/x/crypto/sha3"
 
 	//"crypto/sha3"
 	"encoding/binary"
 	"fmt"
+	"os"
 	"sync"
 )
 
@@ -124,6 +126,7 @@ func (state *itemState) update(round uint32) {
 	state.mix = fnv1Hash512(state.mix, *state.cache[parentIndex])
 }
 
+/*
 func (state *itemState) updateD(round uint32) {
 	numWords := len(state.mix) / 4
 	//t := fnv1(state.seed^round, uint32(state.mix[round%uint32(numWords)]))
@@ -153,6 +156,7 @@ func (state *itemState) updateD(round uint32) {
 	//fmt.Printf("updateD round is : %d", round)
 	//fmt.Printf("mix : %x\n", state.mix)
 }
+*/
 
 func (state *itemState) final() hash512 {
 	//hash := sha3.New512()
@@ -247,12 +251,12 @@ func fishhashKernel(ctx *fishhashContext, seed hash512) hash256 {
 			p2 := uint32(mix[8]) % indexLimit
 		*/
 
-		p0 := binary.LittleEndian.Uint32(mix[0:4]) % indexLimit
-		p1 := binary.LittleEndian.Uint32(mix[4:8]) % indexLimit
-		p2 := binary.LittleEndian.Uint32(mix[8:12]) % indexLimit
+		p0 := binary.LittleEndian.Uint32(mix[0:]) % indexLimit
+		p1 := binary.LittleEndian.Uint32(mix[4*4:]) % indexLimit
+		p2 := binary.LittleEndian.Uint32(mix[8*4:]) % indexLimit
 
 		//fmt.Printf("The words is : %d - %d - %d\n", mix[0], mix[4], mix[8])
-		//fmt.Printf("The words lg is : %d - %d - %d\n", mix[0:4], mix[4:8], mix[8:12])
+		//fmt.Printf("The words lg is : %x - %x - %x\n", mix[0:4], mix[4:8], mix[8:12])
 		//fmt.Printf("The words32 is : %d - %d - %d\n", uint32(mix[0]), uint32(mix[4]), uint32(mix[8]))
 		//fmt.Printf("The words32 lg is : %d - %d - %d\n", binary.BigEndian.Uint32(mix[0:4]), binary.BigEndian.Uint32(mix[4:8]), binary.BigEndian.Uint32(mix[8:12]))
 		//fmt.Printf("The indexes is : %d - %d - %d\n", p0, p1, p2)
@@ -297,33 +301,84 @@ func fishhashKernel(ctx *fishhashContext, seed hash512) hash256 {
 		//h3 := fnv1(h2, uint32(mix[i+3]))
 		//mixHash[i/4] = byte(h3)
 		j := 4 * i
-		h1 := fnv1(binary.LittleEndian.Uint32(mix[j:j+4]), binary.LittleEndian.Uint32(mix[(j+1):(j+1)+4]))
-		h2 := fnv1(h1, binary.LittleEndian.Uint32(mix[(j+2):(j+2)+4]))
-		h3 := fnv1(h2, binary.LittleEndian.Uint32(mix[(j+3):(j+3)+4]))
+		/*
+			h1 := fnv1(binary.LittleEndian.Uint32(mix[j:j+4]), binary.LittleEndian.Uint32(mix[(j+1):(j+1)+4]))
+			h2 := fnv1(h1, binary.LittleEndian.Uint32(mix[(j+2):(j+2)+4]))
+			h3 := fnv1(h2, binary.LittleEndian.Uint32(mix[(j+3):(j+3)+4]))
+			binary.LittleEndian.PutUint32(mixHash[i:], h3)
+		*/
+		h1 := fnv1(binary.LittleEndian.Uint32(mix[j:]), binary.LittleEndian.Uint32(mix[j+4:]))
+		h2 := fnv1(h1, binary.LittleEndian.Uint32(mix[j+8:]))
+		h3 := fnv1(h2, binary.LittleEndian.Uint32(mix[j+12:]))
 		binary.LittleEndian.PutUint32(mixHash[i:], h3)
-
 	}
+
+	//fmt.Printf("The COLLAPSED mix is : %x \n", mixHash)
 
 	return mixHash
 }
 
-func hash(output, header []byte, ctx *fishhashContext) {
+/*
+	func hash(output, header []byte, ctx *fishhashContext) {
+		seed := hash512{}
+
+		//hasher := sha3.New512()
+		hasher := sha3.NewLegacyKeccak512()
+		hasher.Write(header)
+		copy(seed[:], hasher.Sum(nil))
+
+		//we by pass for testing
+		seed = hash512{0x95, 0x32, 0xc2, 0x3a, 0x1f, 0x0e, 0x71, 0x22,
+			0xd9, 0x53, 0xf5, 0xe4, 0x17, 0xe3, 0x0e, 0x95,
+			0xec, 0x4f, 0x8f, 0x49, 0x56, 0x8c, 0x56, 0x9f,
+			0xd8, 0x62, 0xe3, 0x05, 0xa5, 0x18, 0x39, 0xd9}
+
+		fmt.Printf("The B3-1 hash is : %x \n", seed)
+
+		mixHash := fishhashKernel(ctx, seed)
+
+		fmt.Printf("The kernel hash is : %x \n", mixHash)
+
+		finalData := make([]byte, len(seed)+len(mixHash))
+		copy(finalData[:len(seed)], seed[:])
+		copy(finalData[len(seed):], mixHash[:])
+
+		fmt.Printf("The finalData hash is : %x \n", finalData)
+
+		hasher.Reset()
+		hasher.Write(finalData)
+		copy(output, hasher.Sum(nil))
+
+		fmt.Printf("The B3-2 fishhash is : %x \n", output)
+
+		os.Exit(42)
+	}
+*/
+func fishHash(ctx *fishhashContext, hashin *externalapi.DomainHash) *externalapi.DomainHash {
+	/*
+		output := make([]byte, 32)
+		hash(output, hashin.ByteSlice(), ctx)
+		outputArray := [32]byte{}
+		copy(outputArray[:], output)
+	*/
 	seed := hash512{}
+	//output := hash256{}
+	//output := make([]byte, 32)
+	copy(seed[:], hashin.ByteSlice())
 
-	//hasher := sha3.New512()
-	hasher := sha3.NewLegacyKeccak512()
-	hasher.Write(header)
-	copy(seed[:], hasher.Sum(nil))
+	//we by pass for testing
+	/*
+		seed = hash512{0x95, 0x32, 0xc2, 0x3a, 0x1f, 0x0e, 0x71, 0x22,
+			0xd9, 0x53, 0xf5, 0xe4, 0x17, 0xe3, 0x0e, 0x95,
+			0xec, 0x4f, 0x8f, 0x49, 0x56, 0x8c, 0x56, 0x9f,
+			0xd8, 0x62, 0xe3, 0x05, 0xa5, 0x18, 0x39, 0xd9}
+		fmt.Printf("The B3-1 FORCED hash is : %x \n", seed)
+	*/
 
-	mixHash := fishhashKernel(ctx, seed)
-
-	finalData := make([]byte, len(seed)+len(mixHash))
-	copy(finalData[:len(seed)], seed[:])
-	copy(finalData[len(seed):], mixHash[:])
-
-	hasher.Reset()
-	hasher.Write(finalData)
-	copy(output, hasher.Sum(nil))
+	output := fishhashKernel(ctx, seed)
+	outputArray := [32]byte{}
+	copy(outputArray[:], output[:])
+	return externalapi.NewDomainHashFromByteArray(&outputArray)
 }
 
 func bitwiseXOR(x, y hash512) hash512 {
@@ -470,6 +525,71 @@ func getContext(full bool) *fishhashContext {
 	return sharedContext
 }
 
+func mapHashesToFile(hashes []hash1024, filename string) error {
+	// Create or open fila
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// hash1024 table size (128 per object)
+	size := len(hashes) * 128
+
+	// file size setup
+	err = file.Truncate(int64(size))
+	if err != nil {
+		return err
+	}
+
+	// Mapping the file in memory
+	mmap, err := mmap.Map(file, mmap.RDWR, 0)
+	if err != nil {
+		return err
+	}
+	defer mmap.Unmap()
+
+	// Copy data from memory to file
+	for i, hash := range hashes {
+		copy(mmap[i*128:(i+1)*128], hash[:])
+	}
+
+	// Sync data
+	err = mmap.Flush()
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func loadmappedHashesFromFile(filename string) ([]hash1024, error) {
+	// Open the file
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	// Mapping file in memory
+	mmap, err := mmap.Map(file, mmap.RDONLY, 0)
+	if err != nil {
+		return nil, err
+	}
+	defer mmap.Unmap()
+
+	// Get the nb of hash1028 (128bytes)
+	numHashes := len(mmap) / 128
+	hashes := make([]hash1024, numHashes)
+
+	// Read data and convert in hash1024
+	for i := 0; i < numHashes; i++ {
+		copy(hashes[i][:], mmap[i*128:(i+1)*128])
+	}
+
+	return hashes, nil
+}
+
 func prebuildDataset(ctx *fishhashContext, numThreads uint32) {
 	log.Debugf("prebuildDataset ==================================================\n")
 
@@ -481,6 +601,25 @@ func prebuildDataset(ctx *fishhashContext, numThreads uint32) {
 		log.Debugf("dataset already generated\n")
 		return
 	}
+
+	// dag file name (hardcoded for debug)
+	filename := "hashes.dat"
+
+	fmt.Printf("Verifying DAG local storage file \n")
+	hashes, err := loadmappedHashesFromFile(filename)
+	if err == nil {
+		fmt.Printf("DAG loaded succesfully from local storage \n")
+		ctx.FullDataset = hashes
+
+		fmt.Printf("debug DAG hash[10] : %x\n", ctx.FullDataset[10])
+		fmt.Printf("debug DAG hash[42] : %x\n", ctx.FullDataset[42])
+		fmt.Printf("debug DAG hash[12345] : %x\n", ctx.FullDataset[12345])
+
+		fmt.Printf("DAG context ready \n")
+		ctx.ready = true
+		return
+	}
+
 	println("GENERATING DATASET ===============================================\n")
 
 	if numThreads > 1 {
@@ -512,16 +651,14 @@ func prebuildDataset(ctx *fishhashContext, numThreads uint32) {
 	fmt.Printf("getContext object 42 : %x\n", ctx.FullDataset[42])
 	fmt.Printf("getContext object 12345 : %x\n", ctx.FullDataset[12345])
 
-	//os.Exit(42)
+	fmt.Printf("Saving dataset to file \n")
+	//err = saveHashesToFile(ctx.FullDataset, filename)
+	err = mapHashesToFile(ctx.FullDataset, filename)
+
+	if err != nil {
+		panic(err)
+	}
 
 	log.Debugf("DATASET GENERATED ===============================================\n")
 	ctx.ready = true
-}
-
-func fishHash(ctx *fishhashContext, hashin *externalapi.DomainHash) *externalapi.DomainHash {
-	output := make([]byte, 32)
-	hash(output, hashin.ByteSlice(), ctx)
-	outputArray := [32]byte{}
-	copy(outputArray[:], output)
-	return externalapi.NewDomainHashFromByteArray(&outputArray)
 }
