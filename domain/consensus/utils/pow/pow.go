@@ -13,6 +13,8 @@ import (
 	"math/big"
 )
 
+const hashingAlgoVersion = "fishhash-kls-0.0.1"
+
 // State is an intermediate data structure with pre-computed values to speed up mining.
 type State struct {
 	mat        matrix
@@ -98,6 +100,10 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 		Nonce:     nonce,
 		context:   *getContext(generatedag, log),
 	}
+}
+
+func GetHashingAlgoVersion() string {
+	return hashingAlgoVersion
 }
 
 func (state *State) IsContextReady() bool {
