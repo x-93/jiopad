@@ -4,7 +4,6 @@ import (
 	"math"
 
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashes"
 )
 
 const eps float64 = 1e-9
@@ -86,7 +85,10 @@ func (mat *matrix) HeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHa
 		res[i] = hashBytes[i] ^ (byte(product[2*i]<<4) | byte(product[2*i+1]))
 	}
 	// Hash again
-	writer := hashes.NewHeavyHashWriter()
-	writer.InfallibleWrite(res[:])
-	return writer.Finalize()
+	/*
+		writer := hashes.NewHeavyHashWriter()
+		writer.InfallibleWrite(res[:])
+		return writer.Finalize()
+	*/
+	return externalapi.NewDomainHashFromByteArray(&res)
 }

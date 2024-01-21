@@ -150,7 +150,7 @@ func (v *blockValidator) validateDifficulty(stagingArea *model.StagingArea,
 //     difficulty is not performed.
 func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader) error {
 	// The target difficulty must be larger than zero.
-	state := pow.NewState(header.ToMutable())
+	state := pow.NewState(header.ToMutable(), false)
 	target := &state.Target
 	if target.Sign() <= 0 {
 		return errors.Wrapf(ruleerrors.ErrNegativeTarget, "block target difficulty of %064x is too low",

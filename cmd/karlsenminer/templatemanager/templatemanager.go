@@ -6,6 +6,7 @@ import (
 	"github.com/karlsen-network/karlsend/app/appmessage"
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/pow"
+	"github.com/karlsen-network/karlsend/infrastructure/logger"
 )
 
 var currentTemplate *externalapi.DomainBlock
@@ -27,7 +28,7 @@ func Get() (*externalapi.DomainBlock, *pow.State, bool) {
 }
 
 // Set sets the current template to work on
-func Set(template *appmessage.GetBlockTemplateResponseMessage) error {
+func Set(template *appmessage.GetBlockTemplateResponseMessage, backendLog *logger.Backend) error {
 	block, err := appmessage.RPCBlockToDomainBlock(template.Block)
 	if err != nil {
 		return err
@@ -35,7 +36,8 @@ func Set(template *appmessage.GetBlockTemplateResponseMessage) error {
 	lock.Lock()
 	defer lock.Unlock()
 	currentTemplate = block
-	currentState = pow.NewState(block.Header.ToMutable())
+	pow.SetLogger(backendLog, logger.LevelTrace)
+	currentState = pow.NewState(block.Header.ToMutable(), true)
 	isSynced = template.IsSynced
 	return nil
 }
