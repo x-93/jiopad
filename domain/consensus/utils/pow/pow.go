@@ -5,10 +5,11 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashes"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/serialization"
+	"github.com/karlsen-network/karlsend/infrastructure/logger"
 	"github.com/karlsen-network/karlsend/util/difficulty"
+	"github.com/karlsen-network/karlsend/util/panics"
 	"github.com/pkg/errors"
 
-	"fmt"
 	"math/big"
 )
 
@@ -26,6 +27,56 @@ type State struct {
 // var context *fishhashContext
 var sharedContext *fishhashContext
 
+func getContext(full bool, log *logger.Logger) *fishhashContext {
+	sharedContextLock.Lock()
+	defer sharedContextLock.Unlock()
+
+	if sharedContext != nil {
+		if !full || sharedContext.FullDataset != nil {
+			log.Debugf("log0 getContext ====")
+			return sharedContext
+		}
+		log.Debugf("log1 getContext ==== going to build dataset")
+	}
+
+	// DISABLE LIGHT CACHE FOR THE MOMENT
+
+	lightCache := make([]*hash512, lightCacheNumItems)
+	log.Infof("Building light cache")
+	buildLightCache(lightCache, lightCacheNumItems, seed)
+
+	log.Debugf("getContext object 0 : %x", lightCache[0])
+	log.Debugf("getContext object 42 : %x", lightCache[42])
+	log.Debugf("getContext object 100 : %x", lightCache[100])
+
+	fullDataset := make([]hash1024, fullDatasetNumItems)
+
+	sharedContext = &fishhashContext{
+		ready:               false,
+		LightCacheNumItems:  lightCacheNumItems,
+		LightCache:          lightCache,
+		FullDatasetNumItems: fullDatasetNumItems,
+		FullDataset:         fullDataset,
+	}
+
+	if full {
+		//TODO : we forced the threads to 8 - must be calculated and parameterized
+		prebuildDataset(sharedContext, 8)
+	} else {
+		log.Infof("Dataset building SKIPPED - we must be on node")
+	}
+
+	return sharedContext
+}
+
+// SetLogger uses a specified Logger to output package logging info
+func SetLogger(backend *logger.Backend, level logger.Level) {
+	const logSubsystem = "POW"
+	log = backend.Logger(logSubsystem)
+	log.SetLevel(level)
+	spawn = panics.GoroutineWrapperFunc(log)
+}
+
 // NewState creates a new state with pre-computed values to speed up mining
 // It takes the target from the Bits field
 func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
@@ -38,10 +89,6 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 	header.SetTimeInMilliseconds(timestamp)
 	header.SetNonce(nonce)
 
-	if sharedContext != nil {
-		log.Debugf("NewState object 12345 : %x\n", sharedContext.FullDataset[12345])
-	}
-
 	return &State{
 		Target:     *target,
 		prePowHash: *prePowHash,
@@ -49,14 +96,11 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 		//mat:       *generateMatrix(prePowHash),
 		Timestamp: timestamp,
 		Nonce:     nonce,
-		context:   *getContext(generatedag),
+		context:   *getContext(generatedag, log),
 	}
 }
 
 func (state *State) IsContextReady() bool {
-	fmt.Printf("IsContextReady -- log0 %+v \n", state)
-	fmt.Printf("IsContextReady -- log1 %+v \n", &state)
-	fmt.Printf("IsContextReady -- log2 %+v \n", &state.context)
 	if state != nil && &state.context != nil {
 		return state.context.ready
 	} else {
@@ -90,24 +134,13 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	//log.Debugf("Hash fish: %x\n", middleHash.ByteSlice())
 	//fmt.Printf("Hash fish: %x\n", middleHash.ByteSlice())
 
-	/*
-		writer2 := hashes.NewHeavyHashWriter()
-		writer2.InfallibleWrite(heavyHash.ByteSlice())
-		finalHash := writer2.Finalize()
-	*/
-
 	writer2 := hashes.NewPoWHashWriter()
 	writer2.InfallibleWrite(middleHash.ByteSlice())
 	finalHash := writer2.Finalize()
 
 	//log.Debugf("Hash b3-2: %x\n", finalHash.ByteSlice())
-	//fmt.Printf("Hash b3-2: %x\n", finalHash.ByteSlice())
-
-	//kill debug
-	//os.Exit(42)
 
 	return toBig(finalHash)
-	//return toBig(heavyHash)
 }
 
 // IncrementNonce the nonce in State by 1

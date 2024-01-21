@@ -20,6 +20,7 @@ const (
 	defaultLogFilename          = "karlsenminer.log"
 	defaultErrLogFilename       = "karlsenminer_err.log"
 	defaultTargetBlockRateRatio = 2.0
+	hashingAlgoVersion          = "fishhash-kls-0.0.1"
 )
 
 var (

@@ -2,7 +2,6 @@ package main
 
 import (
 	nativeerrors "errors"
-	"fmt"
 	"math/rand"
 	"sync/atomic"
 	"time"
@@ -20,6 +19,7 @@ import (
 )
 
 var hashesTried uint64
+var dagReady = false
 
 const logHashRateInterval = 10 * time.Second
 
@@ -41,7 +41,6 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 	})
 
 	spawn("blocksLoop", func() {
-		fmt.Printf("blocksLoop -- log0\n")
 		const windowSize = 10
 		hasBlockRateTarget := targetBlocksPerSecond != 0
 		var windowTicker, blockTicker *time.Ticker
@@ -74,7 +73,6 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 	})
 
 	spawn("handleFoundBlock", func() {
-		fmt.Printf("handleFoundBlock -- log0\n")
 		for i := uint64(0); numberOfBlocks == 0 || i < numberOfBlocks; i++ {
 			block := <-foundBlockChan
 			err := handleFoundBlock(client, block)
@@ -98,15 +96,13 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 
 func logHashRate() {
 	spawn("logHashRate", func() {
-		fmt.Printf("logHashRate -- log0\n")
-		//_, state, _ := templatemanager.Get()
-		//fmt.Printf("logHashRate -- log1\n")
 		lastCheck := time.Now()
 		for range time.Tick(logHashRateInterval) {
 
-			//fmt.Printf("logHashRate -- log2\n")
-			//fmt.Printf("logHashRate -- IsContextReady : %t\n", state.IsContextReady())
-			//fmt.Printf("logHashRate -- IsContextReady : %t\n", state.IsContextReady())
+			if !dagReady {
+				log.Infof("Generating DAG, please wait ...")
+				continue
+			}
 
 			currentHashesTried := atomic.LoadUint64(&hashesTried)
 			currentTime := time.Now()
@@ -148,8 +144,10 @@ func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock) error
 
 func mineNextBlock(mineWhenNotSynced bool) *externalapi.DomainBlock {
 	nonce := rand.Uint64() // Use the global concurrent-safe random source.
-	//fmt.Printf("mineNextBlock -- log0\n")
 	for {
+		if !dagReady {
+			continue
+		}
 		nonce++
 		//fmt.Printf("mineNextBlock -- log1\n")
 		// For each nonce we try to build a block from the most up to date
@@ -176,12 +174,8 @@ func getBlockForMining(mineWhenNotSynced bool) (*externalapi.DomainBlock, *pow.S
 	const sleepTime = 500 * time.Millisecond
 	const sleepTimeWhenNotSynced = 5 * time.Second
 
-	//fmt.Printf("getBlockForMining -- log0\n")
-
 	for {
 		tryCount++
-		//fmt.Printf("getBlockForMining -- log1\n")
-
 		shouldLog := (tryCount-1)%10 == 0
 		template, state, isSynced := templatemanager.Get()
 		if template == nil {
@@ -206,7 +200,6 @@ func getBlockForMining(mineWhenNotSynced bool) (*externalapi.DomainBlock, *pow.S
 func templatesLoop(client *minerClient, miningAddr util.Address, errChan chan error) {
 	getBlockTemplate := func() {
 		template, err := client.GetBlockTemplate(miningAddr.String(), "karlsenminer-"+version.Version())
-		//fmt.Printf("Getting Block template\n")
 		if nativeerrors.Is(err, router.ErrTimeout) {
 			log.Warnf("Got timeout while requesting block template from %s: %s", client.Address(), err)
 			reconnectErr := client.Reconnect()
@@ -224,8 +217,10 @@ func templatesLoop(client *minerClient, miningAddr util.Address, errChan chan er
 			errChan <- errors.Wrapf(err, "Error getting block template from %s", client.Address())
 			return
 		}
-		//fmt.Printf("Template SET\n")
-		err = templatemanager.Set(template)
+		err = templatemanager.Set(template, backendLog)
+		// after first template DAG is supposed to be ready
+		// TODO: refresh dag status in real time
+		dagReady = true
 		if err != nil {
 			errChan <- errors.Wrapf(err, "Error setting block template from %s", client.Address())
 			return
