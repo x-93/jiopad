@@ -48,6 +48,11 @@ func parseConfig() (*configFlags, error) {
 	parser := flags.NewParser(cfg, flags.PrintErrors|flags.HelpFlag)
 	_, err := parser.Parse()
 
+	// If special error ErrHelp catched by -h or --help
+	if ourErr, ok := err.(*flags.Error); ok && ourErr.Type == flags.ErrHelp {
+		os.Exit(0)
+	}
+
 	// Show the version and exit if the version flag was specified.
 	if cfg.ShowVersion {
 		appName := filepath.Base(os.Args[0])
