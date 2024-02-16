@@ -1828,11 +1828,14 @@ func (*KarlsendMessage_GetVirtualSelectedParentBlueScoreRequest) isKarlsendMessa
 
 func (*KarlsendMessage_GetVirtualSelectedParentBlueScoreResponse) isKarlsendMessage_Payload() {}
 
-func (*KarlsendMessage_NotifyVirtualSelectedParentBlueScoreChangedRequest) isKarlsendMessage_Payload() {}
+func (*KarlsendMessage_NotifyVirtualSelectedParentBlueScoreChangedRequest) isKarlsendMessage_Payload() {
+}
 
-func (*KarlsendMessage_NotifyVirtualSelectedParentBlueScoreChangedResponse) isKarlsendMessage_Payload() {}
+func (*KarlsendMessage_NotifyVirtualSelectedParentBlueScoreChangedResponse) isKarlsendMessage_Payload() {
+}
 
-func (*KarlsendMessage_VirtualSelectedParentBlueScoreChangedNotification) isKarlsendMessage_Payload() {}
+func (*KarlsendMessage_VirtualSelectedParentBlueScoreChangedNotification) isKarlsendMessage_Payload() {
+}
 
 func (*KarlsendMessage_BanRequest) isKarlsendMessage_Payload() {}
 
@@ -1858,7 +1861,8 @@ func (*KarlsendMessage_PruningPointUTXOSetOverrideNotification) isKarlsendMessag
 
 func (*KarlsendMessage_StopNotifyingPruningPointUTXOSetOverrideRequest) isKarlsendMessage_Payload() {}
 
-func (*KarlsendMessage_StopNotifyingPruningPointUTXOSetOverrideResponse) isKarlsendMessage_Payload() {}
+func (*KarlsendMessage_StopNotifyingPruningPointUTXOSetOverrideResponse) isKarlsendMessage_Payload() {
+}
 
 func (*KarlsendMessage_EstimateNetworkHashesPerSecondRequest) isKarlsendMessage_Payload() {}
 
@@ -2804,7 +2808,7 @@ func file_messages_proto_rawDescGZIP() []byte {
 
 var file_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_messages_proto_goTypes = []interface{}{
-	(*KarlsendMessage)(nil),                                              // 0: protowire.KarlsendMessage
+	(*KarlsendMessage)(nil),                                            // 0: protowire.KarlsendMessage
 	(*AddressesMessage)(nil),                                           // 1: protowire.AddressesMessage
 	(*BlockMessage)(nil),                                               // 2: protowire.BlockMessage
 	(*TransactionMessage)(nil),                                         // 3: protowire.TransactionMessage
