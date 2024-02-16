@@ -49,32 +49,32 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 		},
 		{
 			name:                 "after 2 years",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving * 2,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*2,
 			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 2))),
 		},
 		{
 			name:                 "after 5 years",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving * 5,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*5,
 			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 5))),
 		},
 		{
 			name:                 "after 32 years",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving * 32,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*32,
 			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 32))),
 		},
 		{
 			name:                 "after 64 years",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving * 64,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*64,
 			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 64))),
 		},
 		{
 			name:                 "just before subsidy depleted",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving * 65,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*65,
 			expectedBlockSubsidy: 1,
 		},
 		{
 			name:                 "after subsidy depleted",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving * 66,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*66,
 			expectedBlockSubsidy: 0,
 		},
 	}
