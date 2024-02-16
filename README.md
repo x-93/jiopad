@@ -40,7 +40,7 @@ miners. We will ensure long-term GPU-friendly mining.
 We initially started with `kHeavyHash` and `blake3` modifications
 on-top. This algorithm is called `KarlsenHashv1`. However `kHeavyHash`
 and `blake3` are not future proof in ASIC resistence. Therefore we've
-launched already our `testnet-1` with [FishHash](https://github.com/iron-fish/fish-hash/blob/main/FishHash.pdf)
+launched already our `testnet-1` with [FishHash](https://github.com/iron-fish/fish-hash/blob/main/FishHash.pdf).
 It is the worlds first implementation of FishHash with Golang in a
 1bps blockchain.
 

@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest, macos-latest ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
     name: Tests, ${{ matrix.os }}
     steps:
       - name: Fix CRLF on Windows
@@ -44,11 +44,11 @@ jobs:
 
       - name: Test
         shell: bash
-        run: ./build_and_test.sh -v
+        run: ./build_and_test.sh
 
   stability-test-fast:
     runs-on: ubuntu-latest
-    name: Fast stability tests, ${{ github.head_ref }}
+    name: Fast stability tests
     steps:
       - name: Setup Go
         uses: actions/setup-go@v2
