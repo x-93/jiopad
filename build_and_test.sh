@@ -1,4 +1,4 @@
-#!/usr/bin/bash -ex
+#!/bin/bash -ex
 
 # add go binary path.
 export PATH="${PATH}:$(go env GOPATH)/bin"

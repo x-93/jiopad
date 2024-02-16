@@ -1,4 +1,4 @@
-#!/usr/bin/bash -ex
+#!/bin/bash -ex
 
 # add go binary path.
 export PATH="${PATH}:$(go env GOPATH)/bin"
@@ -20,7 +20,7 @@ staticcheck -checks SA4006,SA4008,SA4009,SA4010,SA5003,SA1004,SA1014,SA1021,SA10
 go vet -composites=false -v ./...
 
 # look for style mistakes.
-golint -set_exit_status -v ./...
+golint -set_exit_status ./...
 
 # install.
 go install -v ../...
