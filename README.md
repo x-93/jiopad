@@ -120,7 +120,7 @@ developers, users, and investors within the Cosmos ecosystem.
 
 ## Installation
 
-### Install from binaries
+### Install from Binaries
 
 Pre-compiled binaries for Linux `x86_64` and `aarch64`, Windows `x64`
 and macOS `x64` as universal binary can be downloaded at: [https://github.com/karlsen-network/karlsend/releases](https://github.com/karlsen-network/karlsend/releases)
