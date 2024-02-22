@@ -3,6 +3,8 @@ package grpcclient
 import (
 	"context"
 	"io"
+	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/karlsen-network/karlsend/app/appmessage"
@@ -26,6 +28,8 @@ type GRPCClient struct {
 	connection            *grpc.ClientConn
 	onErrorHandler        OnErrorHandler
 	onDisconnectedHandler OnDisconnectedHandler
+	isError               uint32
+	streamLock            sync.RWMutex
 }
 
 // Connect connects to the RPC server with the given address
@@ -55,6 +59,12 @@ func (c *GRPCClient) Close() error {
 
 // Disconnect disconnects from the RPC server
 func (c *GRPCClient) Disconnect() error {
+
+	// Workaround for the current gRPC bi-directional router loop and error handler
+	if atomic.LoadUint32(&c.isError) == 1 {
+		c.streamLock.Lock()
+		defer c.streamLock.Unlock()
+	}
 	return c.stream.CloseSend()
 }
 
@@ -101,20 +111,44 @@ func (c *GRPCClient) AttachRouter(router *router.Router) {
 	})
 }
 
+func (c *GRPCClient) mutexSend(request *protowire.KarlsendMessage) error {
+	c.streamLock.RLock()
+	defer c.streamLock.RUnlock()
+
+	return c.stream.Send(request)
+}
+
 func (c *GRPCClient) send(requestAppMessage appmessage.Message) error {
 	request, err := protowire.FromAppMessage(requestAppMessage)
 	if err != nil {
 		return errors.Wrapf(err, "error converting the request")
 	}
-	return c.stream.Send(request)
+	return c.mutexSend(request)
+}
+
+func (c *GRPCClient) mutexReceive() (*protowire.KarlsendMessage, error) {
+	c.streamLock.RLock()
+	defer c.streamLock.RUnlock()
+
+	return c.stream.Recv()
 }
 
 func (c *GRPCClient) receive() (appmessage.Message, error) {
-	response, err := c.stream.Recv()
+	response, err := c.mutexReceive()
 	if err != nil {
 		return nil, err
 	}
 	return response.ToAppMessage()
+}
+
+func (c *GRPCClient) mutexHandleError(err error) {
+
+	// lock error handler
+	c.streamLock.RLock()
+	defer c.streamLock.RUnlock()
+
+	atomic.StoreUint32(&c.isError, 1)
+	c.onErrorHandler(err)
 }
 
 func (c *GRPCClient) handleError(err error) {
@@ -132,7 +166,7 @@ func (c *GRPCClient) handleError(err error) {
 		return
 	}
 	if c.onErrorHandler != nil {
-		c.onErrorHandler(err)
+		c.mutexHandleError(err)
 		return
 	}
 	panic(err)
