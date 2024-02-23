@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
 	"github.com/karlsen-network/karlsend/domain/consensusreference"
 	"github.com/karlsen-network/karlsend/domain/miningmanager/model"
 	"github.com/karlsen-network/karlsend/util"
@@ -886,7 +886,7 @@ func generateNewCoinbase(addressPrefix util.Bech32Prefix, op opType) (*externala
 			ExtraData:       nil,
 		}, nil
 	}
-	_, publicKey, err := libkaspawallet.CreateKeyPair(op == opECDSA)
+	_, publicKey, err := libkarlsenwallet.CreateKeyPair(op == opECDSA)
 	if err != nil {
 		return nil, err
 	}
@@ -930,7 +930,7 @@ func createTransactionWithUTXOEntry(t *testing.T, i int, daaScore uint64) *exter
 		SignatureScript:  signatureScript,
 		Sequence:         constants.MaxTxInSequenceNum,
 		UTXOEntry: utxo.NewUTXOEntry(
-			100000000, // 1 KAS
+			100000000, // 1 KLS
 			scriptPublicKey,
 			true,
 			daaScore),

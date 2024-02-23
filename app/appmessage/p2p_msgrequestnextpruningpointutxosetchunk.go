@@ -1,6 +1,6 @@
 package appmessage
 
-// MsgRequestNextPruningPointUTXOSetChunk represents a kaspa RequestNextPruningPointUTXOSetChunk message
+// MsgRequestNextPruningPointUTXOSetChunk represents a karlsen RequestNextPruningPointUTXOSetChunk message
 type MsgRequestNextPruningPointUTXOSetChunk struct {
 	baseMessage
 }

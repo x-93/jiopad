@@ -1,12 +1,11 @@
-dagconfig
-========
+# DAG Configuration
 
 [![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://choosealicense.com/licenses/isc/)
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/karlsen-network/karlsend/dagconfig)
 
-Package dagconfig defines DAG configuration parameters for the standard
-Karlsend networks and provides the ability for callers to define their own custom
-Karlsend networks.
+Package dagconfig defines DAG configuration parameters for the
+standard Karlsend networks and provides the ability for callers to
+define their own custom Karlsend networks.
 
 ## Sample Use
 
@@ -22,7 +21,7 @@ import (
 	"github.com/karlsen-network/karlsend/domain/dagconfig"
 )
 
-var testnet = flag.Bool("testnet", false, "operate on the testnet Kaspa network")
+var testnet = flag.Bool("testnet", false, "operate on the testnet Karlsen network")
 
 // By default (without --testnet), use mainnet.
 var dagParams = &dagconfig.MainnetParams

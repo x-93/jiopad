@@ -1,7 +1,7 @@
 syntax = "proto3";
 package protoserialization;
 
-option go_package = "github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/serialization/protoserialization";
+option go_package = "github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization/protoserialization";
 
 message PartiallySignedTransaction{
   TransactionMessage tx = 1;

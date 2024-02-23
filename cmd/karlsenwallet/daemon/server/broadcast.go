@@ -6,8 +6,8 @@ import (
 
 	"github.com/karlsen-network/karlsend/app/appmessage"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/serialization"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization"
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/infrastructure/network/rpcclient"
 	"github.com/pkg/errors"
@@ -39,7 +39,7 @@ func (s *server) broadcast(transactions [][]byte, isDomain bool) ([]string, erro
 				return nil, err
 			}
 		} else if !isDomain { //default in proto3 is false
-			tx, err = libkaspawallet.ExtractTransaction(transaction, s.keysFile.ECDSA)
+			tx, err = libkarlsenwallet.ExtractTransaction(transaction, s.keysFile.ECDSA)
 			if err != nil {
 				return nil, err
 			}

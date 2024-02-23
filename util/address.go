@@ -40,24 +40,24 @@ const (
 	Bech32PrefixUnknown Bech32Prefix = iota
 
 	// Prefix for the main network.
-	Bech32PrefixKaspa
+	Bech32PrefixKarlsen
 
 	// Prefix for the dev network.
-	Bech32PrefixKaspaDev
+	Bech32PrefixKarlsenDev
 
 	// Prefix for the test network.
-	Bech32PrefixKaspaTest
+	Bech32PrefixKarlsenTest
 
 	// Prefix for the simulation network.
-	Bech32PrefixKaspaSim
+	Bech32PrefixKarlsenSim
 )
 
 // Map from strings to Bech32 address prefix constants for parsing purposes.
 var stringsToBech32Prefixes = map[string]Bech32Prefix{
-	"karlsen":     Bech32PrefixKaspa,
-	"karlsendev":  Bech32PrefixKaspaDev,
-	"karlsentest": Bech32PrefixKaspaTest,
-	"karlsensim":  Bech32PrefixKaspaSim,
+	"karlsen":     Bech32PrefixKarlsen,
+	"karlsendev":  Bech32PrefixKarlsenDev,
+	"karlsentest": Bech32PrefixKarlsenTest,
+	"karlsensim":  Bech32PrefixKarlsenSim,
 }
 
 // ParsePrefix attempts to parse a Bech32 address prefix.
@@ -82,7 +82,7 @@ func (prefix Bech32Prefix) String() string {
 }
 
 // encodeAddress returns a human-readable payment address given a network prefix
-// and a payload which encodes the kaspa network and address type. It is used
+// and a payload which encodes the karlsen network and address type. It is used
 // in both pay-to-pubkey (P2PK) and pay-to-script-hash (P2SH) address
 // encoding.
 func encodeAddress(prefix Bech32Prefix, payload []byte, version byte) string {
@@ -118,7 +118,7 @@ type Address interface {
 	Prefix() Bech32Prefix
 
 	// IsForPrefix returns whether or not the address is associated with the
-	// passed kaspa network.
+	// passed karlsen network.
 	IsForPrefix(prefix Bech32Prefix) bool
 }
 
@@ -199,7 +199,7 @@ func (a *AddressPublicKey) ScriptAddress() []byte {
 }
 
 // IsForPrefix returns whether or not the pay-to-pubkey address is associated
-// with the passed kaspa network.
+// with the passed karlsen network.
 func (a *AddressPublicKey) IsForPrefix(prefix Bech32Prefix) bool {
 	return a.prefix == prefix
 }
@@ -261,7 +261,7 @@ func (a *AddressPublicKeyECDSA) ScriptAddress() []byte {
 }
 
 // IsForPrefix returns whether or not the pay-to-pubkey address is associated
-// with the passed kaspa network.
+// with the passed karlsen network.
 func (a *AddressPublicKeyECDSA) IsForPrefix(prefix Bech32Prefix) bool {
 	return a.prefix == prefix
 }
@@ -326,7 +326,7 @@ func (a *AddressScriptHash) ScriptAddress() []byte {
 }
 
 // IsForPrefix returns whether or not the pay-to-script-hash address is associated
-// with the passed kaspa network.
+// with the passed karlsen network.
 func (a *AddressScriptHash) IsForPrefix(prefix Bech32Prefix) bool {
 	return a.prefix == prefix
 }

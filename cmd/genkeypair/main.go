@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
 	"github.com/karlsen-network/karlsend/util"
 )
 
@@ -13,7 +13,7 @@ func main() {
 		panic(err)
 	}
 
-	privateKey, publicKey, err := libkaspawallet.CreateKeyPair(false)
+	privateKey, publicKey, err := libkarlsenwallet.CreateKeyPair(false)
 	if err != nil {
 		panic(err)
 	}

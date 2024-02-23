@@ -5,7 +5,7 @@ import (
 
 	"github.com/karlsen-network/karlsend/app/appmessage"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
 	"github.com/karlsen-network/karlsend/util"
 )
 
@@ -46,7 +46,7 @@ func (s *server) selectExternalSpendableUTXOs(externalUTXOs *appmessage.GetUTXOs
 		if !isExternalUTXOSpendable(entry, daaScore, maturity) {
 			continue
 		}
-		selectedExternalUtxos = append(selectedExternalUtxos, libkaspawallet.AppMessageUTXOToKaspawalletdUTXO(entry))
+		selectedExternalUtxos = append(selectedExternalUtxos, libkarlsenwallet.AppMessageUTXOToKarlsenwalletdUTXO(entry))
 	}
 
 	return selectedExternalUtxos, nil

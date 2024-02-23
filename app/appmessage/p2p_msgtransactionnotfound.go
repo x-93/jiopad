@@ -8,7 +8,7 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 )
 
-// MsgTransactionNotFound defines a kaspa TransactionNotFound message which is sent in response to
+// MsgTransactionNotFound defines a karlsen TransactionNotFound message which is sent in response to
 // a RequestTransactions message if any of the requested data in not available on the peer.
 type MsgTransactionNotFound struct {
 	baseMessage
@@ -21,7 +21,7 @@ func (msg *MsgTransactionNotFound) Command() MessageCommand {
 	return CmdTransactionNotFound
 }
 
-// NewMsgTransactionNotFound returns a new kaspa transactionsnotfound message that conforms to the
+// NewMsgTransactionNotFound returns a new karlsen transactionsnotfound message that conforms to the
 // Message interface. See MsgTransactionNotFound for details.
 func NewMsgTransactionNotFound(id *externalapi.DomainTransactionID) *MsgTransactionNotFound {
 	return &MsgTransactionNotFound{

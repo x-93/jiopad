@@ -5,13 +5,13 @@ import (
 	"sort"
 	"time"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
 
 	"github.com/karlsen-network/karlsend/app/appmessage"
 	"github.com/pkg/errors"
 )
 
-var keyChains = []uint8{libkaspawallet.ExternalKeychain, libkaspawallet.InternalKeychain}
+var keyChains = []uint8{libkarlsenwallet.ExternalKeychain, libkarlsenwallet.InternalKeychain}
 
 type walletAddressSet map[string]*walletAddress
 
@@ -188,7 +188,7 @@ func (s *server) updateAddressesAndLastUsedIndexes(requestedAddressSet walletAdd
 
 		s.addressSet[entry.Address] = walletAddress
 
-		if walletAddress.keyChain == libkaspawallet.ExternalKeychain {
+		if walletAddress.keyChain == libkarlsenwallet.ExternalKeychain {
 			if walletAddress.index > lastUsedExternalIndex {
 				lastUsedExternalIndex = walletAddress.index
 			}

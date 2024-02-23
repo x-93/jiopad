@@ -109,7 +109,7 @@ func startNode() (teardown func(), err error) {
 	}
 	log.Infof("karlsend datadir: %s", dataDir)
 
-	karlsendCmd, err := common.StartCmd("KASPAD",
+	karlsendCmd, err := common.StartCmd("KARLSEND",
 		"karlsend",
 		common.NetworkCliArgumentFromNetParams(activeConfig().NetParams()),
 		"--appdir", dataDir,
@@ -241,7 +241,7 @@ func mineLoopUntilHavingOnlyOneTipInDAG(rpcClient *rpc.Client, miningAddress uti
 	startMiningTime := time.Now()
 	shutdown := uint64(0)
 
-	spawn("kaspa-miner-Cmd.Wait", func() {
+	spawn("karlsen-miner-Cmd.Wait", func() {
 		err := karlsenminerCmd.Wait()
 		if err != nil {
 			if atomic.LoadUint64(&shutdown) == 0 {

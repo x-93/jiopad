@@ -1,11 +1,11 @@
-package libkaspawallet
+package libkarlsenwallet
 
 import (
 	"math"
 	"sort"
 	"strings"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/bip32"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
 	"github.com/karlsen-network/karlsend/domain/dagconfig"
 	"github.com/karlsen-network/karlsend/util"
 	"github.com/kaspanet/go-secp256k1"

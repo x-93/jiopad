@@ -1,9 +1,9 @@
-package libkaspawallet
+package libkarlsenwallet
 
 import (
 	"fmt"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/bip32"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
 	"github.com/karlsen-network/karlsend/domain/dagconfig"
 	"github.com/pkg/errors"
 	"github.com/tyler-smith/go-bip39"
@@ -23,7 +23,7 @@ const (
 	// BIP 45 doesn't have a coin type in its derivation path.
 	MultiSigPurpose = 45
 	// TODO: Register the coin type in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-	CoinType = 111111
+	CoinType = 121337
 )
 
 func defaultPath(isMultisig bool) string {
@@ -69,13 +69,13 @@ func extendedKeyFromMnemonicAndPath(mnemonic string, path string, params *dagcon
 func versionFromParams(params *dagconfig.Params) ([4]byte, error) {
 	switch params.Name {
 	case dagconfig.MainnetParams.Name:
-		return bip32.KaspaMainnetPrivate, nil
+		return bip32.KarlsenMainnetPrivate, nil
 	case dagconfig.TestnetParams.Name:
-		return bip32.KaspaTestnetPrivate, nil
+		return bip32.KarlsenTestnetPrivate, nil
 	case dagconfig.DevnetParams.Name:
-		return bip32.KaspaDevnetPrivate, nil
+		return bip32.KarlsenDevnetPrivate, nil
 	case dagconfig.SimnetParams.Name:
-		return bip32.KaspaSimnetPrivate, nil
+		return bip32.KarlsenSimnetPrivate, nil
 	}
 
 	return [4]byte{}, errors.Errorf("unknown network %s", params.Name)

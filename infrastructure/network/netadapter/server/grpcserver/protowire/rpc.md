@@ -1,4 +1,5 @@
 # Protocol Documentation
+
 <a name="top"></a>
 
 ## Table of Contents
@@ -112,49 +113,43 @@
     - [GetMempoolEntriesByAddressesResponseMessage](#protowire.GetMempoolEntriesByAddressesResponseMessage)
     - [GetCoinSupplyRequestMessage](#protowire.GetCoinSupplyRequestMessage)
     - [GetCoinSupplyResponseMessage](#protowire.GetCoinSupplyResponseMessage)
-  
     - [SubmitBlockResponseMessage.RejectReason](#protowire.SubmitBlockResponseMessage.RejectReason)
-  
 - [Scalar Value Types](#scalar-value-types)
-
-
 
 <a name="rpc.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## rpc.proto
-RPC-related types. Request messages, response messages, and dependant types.
 
-Clients are expected to build RequestMessages and wrap them in KarlsendMessage. (see messages.proto)
+RPC-related types. Request messages, response messages, and dependant
+types.
 
-Having received a RequestMessage, (wrapped in a KarlsendMessage) the RPC server will respond with a
-ResponseMessage (likewise wrapped in a KarlsendMessage) respective to the original RequestMessage.
+Clients are expected to build RequestMessages and wrap them in
+KarlsendMessage. (see messages.proto)
 
-**IMPORTANT:** This API is a work in progress and is subject to break between versions.
+Having received a RequestMessage, (wrapped in a KarlsendMessage) the
+RPC server will respond with a ResponseMessage (likewise wrapped in a
+KarlsendMessage) respective to the original RequestMessage.
 
+**IMPORTANT:** This API is a work in progress and is subject to break
+between versions.
 
 <a name="protowire.RPCError"></a>
 
 ### RPCError
+
 RPCError represents a generic non-internal error.
 
-Receivers of any ResponseMessage are expected to check whether its error field is not null.
-
+Receivers of any ResponseMessage are expected to check whether its
+error field is not null.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | message | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcBlock"></a>
 
 ### RpcBlock
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -162,16 +157,9 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | transactions | [RpcTransaction](#protowire.RpcTransaction) | repeated |  |
 | verboseData | [RpcBlockVerboseData](#protowire.RpcBlockVerboseData) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcBlockHeader"></a>
 
 ### RpcBlockHeader
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -188,31 +176,17 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | pruningPoint | [string](#string) |  |  |
 | blueScore | [uint64](#uint64) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcBlockLevelParents"></a>
 
 ### RpcBlockLevelParents
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | parentHashes | [string](#string) | repeated |  |
 
-
-
-
-
-
 <a name="protowire.RpcBlockVerboseData"></a>
 
 ### RpcBlockVerboseData
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -227,16 +201,9 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | mergeSetRedsHashes | [string](#string) | repeated |  |
 | isChainBlock | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcTransaction"></a>
 
 ### RpcTransaction
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -249,16 +216,9 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | payload | [string](#string) |  |  |
 | verboseData | [RpcTransactionVerboseData](#protowire.RpcTransactionVerboseData) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcTransactionInput"></a>
 
 ### RpcTransactionInput
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -268,32 +228,18 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | sigOpCount | [uint32](#uint32) |  |  |
 | verboseData | [RpcTransactionInputVerboseData](#protowire.RpcTransactionInputVerboseData) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcScriptPublicKey"></a>
 
 ### RpcScriptPublicKey
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | version | [uint32](#uint32) |  |  |
 | scriptPublicKey | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcTransactionOutput"></a>
 
 ### RpcTransactionOutput
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -301,32 +247,18 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | scriptPublicKey | [RpcScriptPublicKey](#protowire.RpcScriptPublicKey) |  |  |
 | verboseData | [RpcTransactionOutputVerboseData](#protowire.RpcTransactionOutputVerboseData) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcOutpoint"></a>
 
 ### RpcOutpoint
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | transactionId | [string](#string) |  |  |
 | index | [uint32](#uint32) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcUtxoEntry"></a>
 
 ### RpcUtxoEntry
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -335,16 +267,9 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | blockDaaScore | [uint64](#uint64) |  |  |
 | isCoinbase | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcTransactionVerboseData"></a>
 
 ### RpcTransactionVerboseData
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -354,124 +279,79 @@ Receivers of any ResponseMessage are expected to check whether its error field i
 | blockHash | [string](#string) |  |  |
 | blockTime | [uint64](#uint64) |  |  |
 
-
-
-
-
-
 <a name="protowire.RpcTransactionInputVerboseData"></a>
 
 ### RpcTransactionInputVerboseData
 
-
-
-
-
-
-
 <a name="protowire.RpcTransactionOutputVerboseData"></a>
 
 ### RpcTransactionOutputVerboseData
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | scriptPublicKeyType | [string](#string) |  |  |
 | scriptPublicKeyAddress | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetCurrentNetworkRequestMessage"></a>
 
 ### GetCurrentNetworkRequestMessage
-GetCurrentNetworkRequestMessage requests the network karlsend is currently running against.
+
+GetCurrentNetworkRequestMessage requests the network karlsend is
+currently running against.
 
 Possible networks are: Mainnet, Testnet, Simnet, Devnet
-
-
-
-
-
 
 <a name="protowire.GetCurrentNetworkResponseMessage"></a>
 
 ### GetCurrentNetworkResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | currentNetwork | [string](#string) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.SubmitBlockRequestMessage"></a>
 
 ### SubmitBlockRequestMessage
+
 SubmitBlockRequestMessage requests to submit a block into the DAG.
-Blocks are generally expected to have been generated using the getBlockTemplate call.
+Blocks are generally expected to have been generated using the
+getBlockTemplate call.
 
 See: GetBlockTemplateRequestMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | block | [RpcBlock](#protowire.RpcBlock) |  |  |
 | allowNonDAABlocks | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.SubmitBlockResponseMessage"></a>
 
 ### SubmitBlockResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | rejectReason | [SubmitBlockResponseMessage.RejectReason](#protowire.SubmitBlockResponseMessage.RejectReason) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBlockTemplateRequestMessage"></a>
 
 ### GetBlockTemplateRequestMessage
+
 GetBlockTemplateRequestMessage requests a current block template.
-Callers are expected to solve the block template and submit it using the submitBlock call
+Callers are expected to solve the block template and submit it using
+the submitBlock call.
 
 See: SubmitBlockRequestMessage
 
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| payAddress | [string](#string) |  | Which kaspa address should the coinbase block reward transaction pay into |
+| payAddress | [string](#string) |  | Which karlsen address should the coinbase block reward transaction pay into |
 | extraData | [string](#string) |  |  |
-
-
-
-
-
 
 <a name="protowire.GetBlockTemplateResponseMessage"></a>
 
 ### GetBlockTemplateResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -479,72 +359,46 @@ See: SubmitBlockRequestMessage
 | isSynced | [bool](#bool) |  | Whether karlsend thinks that it&#39;s synced. Callers are discouraged (but not forbidden) from solving blocks when karlsend is not synced. That is because when karlsend isn&#39;t in sync with the rest of the network there&#39;s a high chance the block will never be accepted, thus the solving effort would have been wasted. |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyBlockAddedRequestMessage"></a>
 
 ### NotifyBlockAddedRequestMessage
-NotifyBlockAddedRequestMessage registers this connection for blockAdded notifications.
+
+NotifyBlockAddedRequestMessage registers this connection for
+blockAdded notifications.
 
 See: BlockAddedNotificationMessage
-
-
-
-
-
 
 <a name="protowire.NotifyBlockAddedResponseMessage"></a>
 
 ### NotifyBlockAddedResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.BlockAddedNotificationMessage"></a>
 
 ### BlockAddedNotificationMessage
-BlockAddedNotificationMessage is sent whenever a blocks has been added (NOT accepted)
-into the DAG.
+
+BlockAddedNotificationMessage is sent whenever a blocks has been
+added (NOT accepted) into the DAG.
 
 See: NotifyBlockAddedRequestMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | block | [RpcBlock](#protowire.RpcBlock) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetPeerAddressesRequestMessage"></a>
 
 ### GetPeerAddressesRequestMessage
-GetPeerAddressesRequestMessage requests the list of known karlsend addresses in the
-current network. (mainnet, testnet, etc.)
 
-
-
-
-
+GetPeerAddressesRequestMessage requests the list of known karlsend
+addresses in the current network. (mainnet, testnet, etc.)
 
 <a name="protowire.GetPeerAddressesResponseMessage"></a>
 
 ### GetPeerAddressesResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -552,59 +406,36 @@ current network. (mainnet, testnet, etc.)
 | bannedAddresses | [GetPeerAddressesKnownAddressMessage](#protowire.GetPeerAddressesKnownAddressMessage) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetPeerAddressesKnownAddressMessage"></a>
 
 ### GetPeerAddressesKnownAddressMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | Addr | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetSelectedTipHashRequestMessage"></a>
 
 ### GetSelectedTipHashRequestMessage
-GetSelectedTipHashRequestMessage requests the hash of the current virtual&#39;s
-selected parent.
 
-
-
-
-
+GetSelectedTipHashRequestMessage requests the hash of the current
+virtual&#39;s selected parent.
 
 <a name="protowire.GetSelectedTipHashResponseMessage"></a>
 
 ### GetSelectedTipHashResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | selectedTipHash | [string](#string) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetMempoolEntryRequestMessage"></a>
 
 ### GetMempoolEntryRequestMessage
-GetMempoolEntryRequestMessage requests information about a specific transaction
-in the mempool.
 
+GetMempoolEntryRequestMessage requests information about a specific
+transaction in the mempool.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -612,65 +443,39 @@ in the mempool.
 | includeOrphanPool | [bool](#bool) |  |  |
 | filterTransactionPool | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetMempoolEntryResponseMessage"></a>
 
 ### GetMempoolEntryResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | entry | [MempoolEntry](#protowire.MempoolEntry) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetMempoolEntriesRequestMessage"></a>
 
 ### GetMempoolEntriesRequestMessage
-GetMempoolEntriesRequestMessage requests information about all the transactions
-currently in the mempool.
 
+GetMempoolEntriesRequestMessage requests information about all the
+transactions currently in the mempool.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | includeOrphanPool | [bool](#bool) |  |  |
 | filterTransactionPool | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetMempoolEntriesResponseMessage"></a>
 
 ### GetMempoolEntriesResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | entries | [MempoolEntry](#protowire.MempoolEntry) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.MempoolEntry"></a>
 
 ### MempoolEntry
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -678,43 +483,25 @@ currently in the mempool.
 | transaction | [RpcTransaction](#protowire.RpcTransaction) |  |  |
 | isOrphan | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetConnectedPeerInfoRequestMessage"></a>
 
 ### GetConnectedPeerInfoRequestMessage
-GetConnectedPeerInfoRequestMessage requests information about all the p2p peers
-currently connected to this karlsend.
 
-
-
-
-
+GetConnectedPeerInfoRequestMessage requests information about all the
+p2p peers currently connected to this karlsend.
 
 <a name="protowire.GetConnectedPeerInfoResponseMessage"></a>
 
 ### GetConnectedPeerInfoResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | infos | [GetConnectedPeerInfoMessage](#protowire.GetConnectedPeerInfoMessage) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetConnectedPeerInfoMessage"></a>
 
 ### GetConnectedPeerInfoMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -728,115 +515,76 @@ currently connected to this karlsend.
 | timeConnected | [int64](#int64) |  | The timestamp of when this peer connected to this karlsend |
 | isIbdPeer | [bool](#bool) |  | Whether this peer is the IBD peer (if IBD is running) |
 
-
-
-
-
-
 <a name="protowire.AddPeerRequestMessage"></a>
 
 ### AddPeerRequestMessage
-AddPeerRequestMessage adds a peer to karlsend&#39;s outgoing connection list.
-This will, in most cases, result in karlsend connecting to said peer.
 
+AddPeerRequestMessage adds a peer to karlsend&#39;s outgoing
+connection list. This will, in most cases, result in karlsend
+connecting to said peer.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | address | [string](#string) |  |  |
 | isPermanent | [bool](#bool) |  | Whether to keep attempting to connect to this peer after disconnection |
 
-
-
-
-
-
 <a name="protowire.AddPeerResponseMessage"></a>
 
 ### AddPeerResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.SubmitTransactionRequestMessage"></a>
 
 ### SubmitTransactionRequestMessage
-SubmitTransactionRequestMessage submits a transaction to the mempool
 
+SubmitTransactionRequestMessage submits a transaction to the mempool.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | transaction | [RpcTransaction](#protowire.RpcTransaction) |  |  |
 | allowOrphan | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.SubmitTransactionResponseMessage"></a>
 
 ### SubmitTransactionResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | transactionId | [string](#string) |  | The transaction ID of the submitted transaction |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyVirtualSelectedParentChainChangedRequestMessage"></a>
 
 ### NotifyVirtualSelectedParentChainChangedRequestMessage
-NotifyVirtualSelectedParentChainChangedRequestMessage registers this connection for virtualSelectedParentChainChanged notifications.
+
+NotifyVirtualSelectedParentChainChangedRequestMessage registers this
+connection for virtualSelectedParentChainChanged notifications.
 
 See: VirtualSelectedParentChainChangedNotificationMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | includeAcceptedTransactionIds | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyVirtualSelectedParentChainChangedResponseMessage"></a>
 
 ### NotifyVirtualSelectedParentChainChangedResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.VirtualSelectedParentChainChangedNotificationMessage"></a>
 
 ### VirtualSelectedParentChainChangedNotificationMessage
-VirtualSelectedParentChainChangedNotificationMessage is sent whenever the DAG&#39;s selected parent
-chain had changed.
+
+VirtualSelectedParentChainChangedNotificationMessage is sent whenever
+the DAG&#39;s selected parent chain had changed.
 
 See: NotifyVirtualSelectedParentChainChangedRequestMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -844,114 +592,73 @@ See: NotifyVirtualSelectedParentChainChangedRequestMessage
 | addedChainBlockHashes | [string](#string) | repeated | The chain blocks that were added, in low-to-high order |
 | acceptedTransactionIds | [AcceptedTransactionIds](#protowire.AcceptedTransactionIds) | repeated | Will be filled only if `includeAcceptedTransactionIds = true` in the notify request. |
 
-
-
-
-
-
 <a name="protowire.GetBlockRequestMessage"></a>
 
 ### GetBlockRequestMessage
-GetBlockRequestMessage requests information about a specific block
 
+GetBlockRequestMessage requests information about a specific block.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | hash | [string](#string) |  | The hash of the requested block |
 | includeTransactions | [bool](#bool) |  | Whether to include transaction data in the response |
 
-
-
-
-
-
 <a name="protowire.GetBlockResponseMessage"></a>
 
 ### GetBlockResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | block | [RpcBlock](#protowire.RpcBlock) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetSubnetworkRequestMessage"></a>
 
 ### GetSubnetworkRequestMessage
-GetSubnetworkRequestMessage requests information about a specific subnetwork
+
+GetSubnetworkRequestMessage requests information about a specific
+subnetwork.
 
 Currently unimplemented
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | subnetworkId | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetSubnetworkResponseMessage"></a>
 
 ### GetSubnetworkResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | gasLimit | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetVirtualSelectedParentChainFromBlockRequestMessage"></a>
 
 ### GetVirtualSelectedParentChainFromBlockRequestMessage
-GetVirtualSelectedParentChainFromBlockRequestMessage requests the virtual selected
-parent chain from some startHash to this karlsend&#39;s current virtual
 
+GetVirtualSelectedParentChainFromBlockRequestMessage requests the
+virtual selected parent chain from some startHash to this
+karlsend&#39;s current virtual.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | startHash | [string](#string) |  |  |
 | includeAcceptedTransactionIds | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.AcceptedTransactionIds"></a>
 
 ### AcceptedTransactionIds
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | acceptingBlockHash | [string](#string) |  |  |
 | acceptedTransactionIds | [string](#string) | repeated |  |
 
-
-
-
-
-
 <a name="protowire.GetVirtualSelectedParentChainFromBlockResponseMessage"></a>
 
 ### GetVirtualSelectedParentChainFromBlockResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -960,17 +667,12 @@ parent chain from some startHash to this karlsend&#39;s current virtual
 | acceptedTransactionIds | [AcceptedTransactionIds](#protowire.AcceptedTransactionIds) | repeated | The transactions accepted by each block in addedChainBlockHashes. Will be filled only if `includeAcceptedTransactionIds = true` in the request. |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBlocksRequestMessage"></a>
 
 ### GetBlocksRequestMessage
-GetBlocksRequestMessage requests blocks between a certain block lowHash up to this
-karlsend&#39;s current virtual.
 
+GetBlocksRequestMessage requests blocks between a certain block
+lowHash up to this karlsend&#39;s current virtual.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -978,16 +680,9 @@ karlsend&#39;s current virtual.
 | includeBlocks | [bool](#bool) |  |  |
 | includeTransactions | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBlocksResponseMessage"></a>
 
 ### GetBlocksResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -995,27 +690,16 @@ karlsend&#39;s current virtual.
 | blocks | [RpcBlock](#protowire.RpcBlock) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBlockCountRequestMessage"></a>
 
 ### GetBlockCountRequestMessage
-GetBlockCountRequestMessage requests the current number of blocks in this karlsend.
-Note that this number may decrease as pruning occurs.
 
-
-
-
-
+GetBlockCountRequestMessage requests the current number of blocks in
+this karlsend. Note that this number may decrease as pruning occurs.
 
 <a name="protowire.GetBlockCountResponseMessage"></a>
 
 ### GetBlockCountResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1023,27 +707,16 @@ Note that this number may decrease as pruning occurs.
 | headerCount | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBlockDagInfoRequestMessage"></a>
 
 ### GetBlockDagInfoRequestMessage
-GetBlockDagInfoRequestMessage requests general information about the current state
-of this karlsend&#39;s DAG.
 
-
-
-
-
+GetBlockDagInfoRequestMessage requests general information about the
+current state of this karlsend&#39;s DAG.
 
 <a name="protowire.GetBlockDagInfoResponseMessage"></a>
 
 ### GetBlockDagInfoResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1058,127 +731,70 @@ of this karlsend&#39;s DAG.
 | virtualDaaScore | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.ResolveFinalityConflictRequestMessage"></a>
 
 ### ResolveFinalityConflictRequestMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | finalityBlockHash | [string](#string) |  |  |
-
-
-
-
-
 
 <a name="protowire.ResolveFinalityConflictResponseMessage"></a>
 
 ### ResolveFinalityConflictResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
-
-
-
-
-
 
 <a name="protowire.NotifyFinalityConflictsRequestMessage"></a>
 
 ### NotifyFinalityConflictsRequestMessage
 
-
-
-
-
-
-
 <a name="protowire.NotifyFinalityConflictsResponseMessage"></a>
 
 ### NotifyFinalityConflictsResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
-
-
-
-
-
 
 <a name="protowire.FinalityConflictNotificationMessage"></a>
 
 ### FinalityConflictNotificationMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | violatingBlockHash | [string](#string) |  |  |
-
-
-
-
-
 
 <a name="protowire.FinalityConflictResolvedNotificationMessage"></a>
 
 ### FinalityConflictResolvedNotificationMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | finalityBlockHash | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.ShutDownRequestMessage"></a>
 
 ### ShutDownRequestMessage
+
 ShutDownRequestMessage shuts down this karlsend.
-
-
-
-
-
 
 <a name="protowire.ShutDownResponseMessage"></a>
 
 ### ShutDownResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetHeadersRequestMessage"></a>
 
 ### GetHeadersRequestMessage
-GetHeadersRequestMessage requests headers between the given startHash and the
-current virtual, up to the given limit.
 
+GetHeadersRequestMessage requests headers between the given startHash
+and the current virtual, up to the given limit.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1186,85 +802,56 @@ current virtual, up to the given limit.
 | limit | [uint64](#uint64) |  |  |
 | isAscending | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetHeadersResponseMessage"></a>
 
 ### GetHeadersResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | headers | [string](#string) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyUtxosChangedRequestMessage"></a>
 
 ### NotifyUtxosChangedRequestMessage
-NotifyUtxosChangedRequestMessage registers this connection for utxoChanged notifications
-for the given addresses.
 
-This call is only available when this karlsend was started with `--utxoindex`
+NotifyUtxosChangedRequestMessage registers this connection for
+utxoChanged notifications for the given addresses.
+
+This call is only available when this karlsend was started with
+`--utxoindex`.
 
 See: UtxosChangedNotificationMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | addresses | [string](#string) | repeated | Leave empty to get all updates |
 
-
-
-
-
-
 <a name="protowire.NotifyUtxosChangedResponseMessage"></a>
 
 ### NotifyUtxosChangedResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.UtxosChangedNotificationMessage"></a>
 
 ### UtxosChangedNotificationMessage
-UtxosChangedNotificationMessage is sent whenever the UTXO index had been updated.
+
+UtxosChangedNotificationMessage is sent whenever the UTXO index had
+been updated.
 
 See: NotifyUtxosChangedRequestMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | added | [UtxosByAddressesEntry](#protowire.UtxosByAddressesEntry) | repeated |  |
 | removed | [UtxosByAddressesEntry](#protowire.UtxosByAddressesEntry) | repeated |  |
 
-
-
-
-
-
 <a name="protowire.UtxosByAddressesEntry"></a>
 
 ### UtxosByAddressesEntry
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1272,132 +859,87 @@ See: NotifyUtxosChangedRequestMessage
 | outpoint | [RpcOutpoint](#protowire.RpcOutpoint) |  |  |
 | utxoEntry | [RpcUtxoEntry](#protowire.RpcUtxoEntry) |  |  |
 
-
-
-
-
-
 <a name="protowire.StopNotifyingUtxosChangedRequestMessage"></a>
 
 ### StopNotifyingUtxosChangedRequestMessage
-StopNotifyingUtxosChangedRequestMessage unregisters this connection for utxoChanged notifications
-for the given addresses.
 
-This call is only available when this karlsend was started with `--utxoindex`
+StopNotifyingUtxosChangedRequestMessage unregisters this connection
+for utxoChanged notifications for the given addresses.
+
+This call is only available when this karlsend was started with
+`--utxoindex`.
 
 See: UtxosChangedNotificationMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | addresses | [string](#string) | repeated |  |
-
-
-
-
-
 
 <a name="protowire.StopNotifyingUtxosChangedResponseMessage"></a>
 
 ### StopNotifyingUtxosChangedResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetUtxosByAddressesRequestMessage"></a>
 
 ### GetUtxosByAddressesRequestMessage
-GetUtxosByAddressesRequestMessage requests all current UTXOs for the given karlsend addresses
 
-This call is only available when this karlsend was started with `--utxoindex`
+GetUtxosByAddressesRequestMessage requests all current UTXOs for the
+given karlsend addresses.
 
+This call is only available when this karlsend was started with
+`--utxoindex`.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | addresses | [string](#string) | repeated |  |
 
-
-
-
-
-
 <a name="protowire.GetUtxosByAddressesResponseMessage"></a>
 
 ### GetUtxosByAddressesResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | entries | [UtxosByAddressesEntry](#protowire.UtxosByAddressesEntry) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBalanceByAddressRequestMessage"></a>
 
 ### GetBalanceByAddressRequestMessage
-GetBalanceByAddressRequest returns the total balance in unspent transactions towards a given address
 
-This call is only available when this karlsend was started with `--utxoindex`
+GetBalanceByAddressRequest returns the total balance in unspent
+transactions towards a given address.
 
+This call is only available when this karlsend was started with
+`--utxoindex`.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | address | [string](#string) |  |  |
-
-
-
-
-
 
 <a name="protowire.GetBalanceByAddressResponseMessage"></a>
 
 ### GetBalanceByAddressResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | balance | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBalancesByAddressesRequestMessage"></a>
 
 ### GetBalancesByAddressesRequestMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | addresses | [string](#string) | repeated |  |
 
-
-
-
-
-
 <a name="protowire.BalancesByAddressEntry"></a>
 
 ### BalancesByAddressEntry
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1405,294 +947,184 @@ This call is only available when this karlsend was started with `--utxoindex`
 | balance | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetBalancesByAddressesResponseMessage"></a>
 
 ### GetBalancesByAddressesResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | entries | [BalancesByAddressEntry](#protowire.BalancesByAddressEntry) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetVirtualSelectedParentBlueScoreRequestMessage"></a>
 
 ### GetVirtualSelectedParentBlueScoreRequestMessage
-GetVirtualSelectedParentBlueScoreRequestMessage requests the blue score of the current selected parent
-of the virtual block.
 
-
-
-
-
+GetVirtualSelectedParentBlueScoreRequestMessage requests the blue
+score of the current selected parent of the virtual block.
 
 <a name="protowire.GetVirtualSelectedParentBlueScoreResponseMessage"></a>
 
 ### GetVirtualSelectedParentBlueScoreResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | blueScore | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyVirtualSelectedParentBlueScoreChangedRequestMessage"></a>
 
 ### NotifyVirtualSelectedParentBlueScoreChangedRequestMessage
-NotifyVirtualSelectedParentBlueScoreChangedRequestMessage registers this connection for
-virtualSelectedParentBlueScoreChanged notifications.
+
+NotifyVirtualSelectedParentBlueScoreChangedRequestMessage registers
+this connection for virtualSelectedParentBlueScoreChanged
+notifications.
 
 See: VirtualSelectedParentBlueScoreChangedNotificationMessage
-
-
-
-
-
 
 <a name="protowire.NotifyVirtualSelectedParentBlueScoreChangedResponseMessage"></a>
 
 ### NotifyVirtualSelectedParentBlueScoreChangedResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.VirtualSelectedParentBlueScoreChangedNotificationMessage"></a>
 
 ### VirtualSelectedParentBlueScoreChangedNotificationMessage
-VirtualSelectedParentBlueScoreChangedNotificationMessage is sent whenever the blue score
-of the virtual&#39;s selected parent changes.
+
+VirtualSelectedParentBlueScoreChangedNotificationMessage is sent
+whenever the blue score of the virtual&#39;s selected parent changes.
 
 See NotifyVirtualSelectedParentBlueScoreChangedRequestMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | virtualSelectedParentBlueScore | [uint64](#uint64) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyVirtualDaaScoreChangedRequestMessage"></a>
 
 ### NotifyVirtualDaaScoreChangedRequestMessage
-NotifyVirtualDaaScoreChangedRequestMessage registers this connection for
-virtualDaaScoreChanged notifications.
+
+NotifyVirtualDaaScoreChangedRequestMessage registers this connection
+for virtualDaaScoreChanged notifications.
 
 See: VirtualDaaScoreChangedNotificationMessage
-
-
-
-
-
 
 <a name="protowire.NotifyVirtualDaaScoreChangedResponseMessage"></a>
 
 ### NotifyVirtualDaaScoreChangedResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.VirtualDaaScoreChangedNotificationMessage"></a>
 
 ### VirtualDaaScoreChangedNotificationMessage
-VirtualDaaScoreChangedNotificationMessage is sent whenever the DAA score
-of the virtual changes.
+
+VirtualDaaScoreChangedNotificationMessage is sent whenever the DAA
+score of the virtual changes.
 
 See NotifyVirtualDaaScoreChangedRequestMessage
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | virtualDaaScore | [uint64](#uint64) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyPruningPointUTXOSetOverrideRequestMessage"></a>
 
 ### NotifyPruningPointUTXOSetOverrideRequestMessage
-NotifyPruningPointUTXOSetOverrideRequestMessage registers this connection for
-pruning point UTXO set override notifications.
+NotifyPruningPointUTXOSetOverrideRequestMessage registers this
+connection for pruning point UTXO set override notifications.
 
-This call is only available when this karlsend was started with `--utxoindex`
+This call is only available when this karlsend was started with
+`--utxoindex`.
 
 See: NotifyPruningPointUTXOSetOverrideResponseMessage
-
-
-
-
-
 
 <a name="protowire.NotifyPruningPointUTXOSetOverrideResponseMessage"></a>
 
 ### NotifyPruningPointUTXOSetOverrideResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.PruningPointUTXOSetOverrideNotificationMessage"></a>
 
 ### PruningPointUTXOSetOverrideNotificationMessage
-PruningPointUTXOSetOverrideNotificationMessage is sent whenever the UTXO index
-resets due to pruning point change via IBD.
+PruningPointUTXOSetOverrideNotificationMessage is sent whenever the
+UTXO index resets due to pruning point change via IBD.
 
 See NotifyPruningPointUTXOSetOverrideRequestMessage
-
-
-
-
-
 
 <a name="protowire.StopNotifyingPruningPointUTXOSetOverrideRequestMessage"></a>
 
 ### StopNotifyingPruningPointUTXOSetOverrideRequestMessage
-StopNotifyingPruningPointUTXOSetOverrideRequestMessage unregisters this connection for
-pruning point UTXO set override notifications.
 
-This call is only available when this karlsend was started with `--utxoindex`
+StopNotifyingPruningPointUTXOSetOverrideRequestMessage unregisters
+this connection for pruning point UTXO set override notifications.
+
+This call is only available when this karlsend was started with
+`--utxoindex`.
 
 See: PruningPointUTXOSetOverrideNotificationMessage
-
-
-
-
-
 
 <a name="protowire.StopNotifyingPruningPointUTXOSetOverrideResponseMessage"></a>
 
 ### StopNotifyingPruningPointUTXOSetOverrideResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.BanRequestMessage"></a>
 
 ### BanRequestMessage
-BanRequestMessage bans the given ip.
 
+BanRequestMessage bans the given ip.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | ip | [string](#string) |  |  |
-
-
-
-
-
 
 <a name="protowire.BanResponseMessage"></a>
 
 ### BanResponseMessage
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.UnbanRequestMessage"></a>
 
 ### UnbanRequestMessage
-UnbanRequestMessage unbans the given ip.
 
+UnbanRequestMessage unbans the given ip.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | ip | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.UnbanResponseMessage"></a>
 
 ### UnbanResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetInfoRequestMessage"></a>
 
 ### GetInfoRequestMessage
+
 GetInfoRequestMessage returns info about the node.
-
-
-
-
-
 
 <a name="protowire.GetInfoResponseMessage"></a>
 
 ### GetInfoResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1703,89 +1135,53 @@ GetInfoRequestMessage returns info about the node.
 | isSynced | [bool](#bool) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.EstimateNetworkHashesPerSecondRequestMessage"></a>
 
 ### EstimateNetworkHashesPerSecondRequestMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | windowSize | [uint32](#uint32) |  |  |
 | startHash | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="protowire.EstimateNetworkHashesPerSecondResponseMessage"></a>
 
 ### EstimateNetworkHashesPerSecondResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | networkHashesPerSecond | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.NotifyNewBlockTemplateRequestMessage"></a>
 
 ### NotifyNewBlockTemplateRequestMessage
+
 NotifyNewBlockTemplateRequestMessage registers this connection for
 NewBlockTemplate notifications.
 
 See: NewBlockTemplateNotificationMessage
 
-
-
-
-
-
 <a name="protowire.NotifyNewBlockTemplateResponseMessage"></a>
 
 ### NotifyNewBlockTemplateResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.NewBlockTemplateNotificationMessage"></a>
 
 ### NewBlockTemplateNotificationMessage
-NewBlockTemplateNotificationMessage is sent whenever a new updated block template is
-available for miners.
+
+NewBlockTemplateNotificationMessage is sent whenever a new updated
+block template is available for miners.
 
 See NotifyNewBlockTemplateRequestMessage
-
-
-
-
-
 
 <a name="protowire.MempoolEntryByAddress"></a>
 
 ### MempoolEntryByAddress
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1793,16 +1189,9 @@ See NotifyNewBlockTemplateRequestMessage
 | sending | [MempoolEntry](#protowire.MempoolEntry) | repeated |  |
 | receiving | [MempoolEntry](#protowire.MempoolEntry) | repeated |  |
 
-
-
-
-
-
 <a name="protowire.GetMempoolEntriesByAddressesRequestMessage"></a>
 
 ### GetMempoolEntriesByAddressesRequestMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1810,42 +1199,22 @@ See NotifyNewBlockTemplateRequestMessage
 | includeOrphanPool | [bool](#bool) |  |  |
 | filterTransactionPool | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetMempoolEntriesByAddressesResponseMessage"></a>
 
 ### GetMempoolEntriesByAddressesResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | entries | [MempoolEntryByAddress](#protowire.MempoolEntryByAddress) | repeated |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
-
 <a name="protowire.GetCoinSupplyRequestMessage"></a>
 
 ### GetCoinSupplyRequestMessage
 
-
-
-
-
-
-
 <a name="protowire.GetCoinSupplyResponseMessage"></a>
 
 ### GetCoinSupplyResponseMessage
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -1853,32 +1222,15 @@ See NotifyNewBlockTemplateRequestMessage
 | circulatingSompi | [uint64](#uint64) |  |  |
 | error | [RPCError](#protowire.RPCError) |  |  |
 
-
-
-
-
- 
-
-
 <a name="protowire.SubmitBlockResponseMessage.RejectReason"></a>
 
 ### SubmitBlockResponseMessage.RejectReason
-
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
 | NONE | 0 |  |
 | BLOCK_INVALID | 1 |  |
 | IS_IN_IBD | 2 |  |
-
-
- 
-
- 
-
- 
-
-
 
 ## Scalar Value Types
 
@@ -1899,4 +1251,3 @@ See NotifyNewBlockTemplateRequestMessage
 | <a name="bool" /> bool |  | bool | boolean | boolean | bool | bool | boolean | TrueClass/FalseClass |
 | <a name="string" /> string | A string must always contain UTF-8 encoded or 7-bit ASCII text. | string | String | str/unicode | string | string | string | String (UTF-8) |
 | <a name="bytes" /> bytes | May contain any arbitrary sequence of bytes. | string | ByteString | str | []byte | ByteString | string | String (ASCII-8BIT) |
-
