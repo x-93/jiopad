@@ -4,8 +4,8 @@ import (
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/serialization"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization"
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
@@ -59,10 +59,10 @@ func (s *server) mergeTransaction(
 
 	totalValue := uint64(0)
 	sentValue := originalTransaction.Tx.Outputs[0].Value
-	utxos := make([]*libkaspawallet.UTXO, len(splitTransactions))
+	utxos := make([]*libkarlsenwallet.UTXO, len(splitTransactions))
 	for i, splitTransaction := range splitTransactions {
 		output := splitTransaction.Tx.Outputs[0]
-		utxos[i] = &libkaspawallet.UTXO{
+		utxos[i] = &libkarlsenwallet.UTXO{
 			Outpoint: &externalapi.DomainOutpoint{
 				TransactionID: *consensushashing.TransactionID(splitTransaction.Tx),
 				Index:         0,
@@ -85,18 +85,18 @@ func (s *server) mergeTransaction(
 		totalValue += totalValueAdded
 	}
 
-	payments := []*libkaspawallet.Payment{{
+	payments := []*libkarlsenwallet.Payment{{
 		Address: toAddress,
 		Amount:  sentValue,
 	}}
 	if totalValue > sentValue {
-		payments = append(payments, &libkaspawallet.Payment{
+		payments = append(payments, &libkarlsenwallet.Payment{
 			Address: changeAddress,
 			Amount:  totalValue - sentValue,
 		})
 	}
 
-	mergeTransactionBytes, err := libkaspawallet.CreateUnsignedTransaction(s.keysFile.ExtendedPublicKeys,
+	mergeTransactionBytes, err := libkarlsenwallet.CreateUnsignedTransaction(s.keysFile.ExtendedPublicKeys,
 		s.keysFile.MinimumSignatures, payments, utxos)
 	if err != nil {
 		return nil, err
@@ -192,12 +192,12 @@ func (s *server) splitAndInputPerSplitCounts(transaction *serialization.Partiall
 func (s *server) createSplitTransaction(transaction *serialization.PartiallySignedTransaction,
 	changeAddress util.Address, startIndex int, endIndex int) (*serialization.PartiallySignedTransaction, error) {
 
-	selectedUTXOs := make([]*libkaspawallet.UTXO, 0, endIndex-startIndex)
+	selectedUTXOs := make([]*libkarlsenwallet.UTXO, 0, endIndex-startIndex)
 	totalSompi := uint64(0)
 
 	for i := startIndex; i < endIndex && i < len(transaction.PartiallySignedInputs); i++ {
 		partiallySignedInput := transaction.PartiallySignedInputs[i]
-		selectedUTXOs = append(selectedUTXOs, &libkaspawallet.UTXO{
+		selectedUTXOs = append(selectedUTXOs, &libkarlsenwallet.UTXO{
 			Outpoint: &transaction.Tx.Inputs[i].PreviousOutpoint,
 			UTXOEntry: utxo.NewUTXOEntry(
 				partiallySignedInput.PrevOutput.Value, partiallySignedInput.PrevOutput.ScriptPublicKey,
@@ -208,9 +208,9 @@ func (s *server) createSplitTransaction(transaction *serialization.PartiallySign
 		totalSompi += selectedUTXOs[i-startIndex].UTXOEntry.Amount()
 		totalSompi -= feePerInput
 	}
-	unsignedTransactionBytes, err := libkaspawallet.CreateUnsignedTransaction(s.keysFile.ExtendedPublicKeys,
+	unsignedTransactionBytes, err := libkarlsenwallet.CreateUnsignedTransaction(s.keysFile.ExtendedPublicKeys,
 		s.keysFile.MinimumSignatures,
-		[]*libkaspawallet.Payment{{
+		[]*libkarlsenwallet.Payment{{
 			Address: changeAddress,
 			Amount:  totalSompi,
 		}}, selectedUTXOs)
@@ -240,7 +240,7 @@ func (s *server) estimateMassAfterSignatures(transaction *serialization.Partiall
 		transaction.Tx.Inputs[i].SigOpCount = byte(len(input.PubKeySignaturePairs))
 	}
 
-	transactionWithSignatures, err := libkaspawallet.ExtractTransactionDeserialized(transaction, s.keysFile.ECDSA)
+	transactionWithSignatures, err := libkarlsenwallet.ExtractTransactionDeserialized(transaction, s.keysFile.ECDSA)
 	if err != nil {
 		return 0, err
 	}
@@ -248,8 +248,8 @@ func (s *server) estimateMassAfterSignatures(transaction *serialization.Partiall
 	return s.txMassCalculator.CalculateTransactionMass(transactionWithSignatures), nil
 }
 
-func (s *server) moreUTXOsForMergeTransaction(alreadySelectedUTXOs []*libkaspawallet.UTXO, requiredAmount uint64) (
-	additionalUTXOs []*libkaspawallet.UTXO, totalValueAdded uint64, err error) {
+func (s *server) moreUTXOsForMergeTransaction(alreadySelectedUTXOs []*libkarlsenwallet.UTXO, requiredAmount uint64) (
+	additionalUTXOs []*libkarlsenwallet.UTXO, totalValueAdded uint64, err error) {
 
 	dagInfo, err := s.rpcClient.GetBlockDAGInfo()
 	if err != nil {
@@ -267,7 +267,7 @@ func (s *server) moreUTXOsForMergeTransaction(alreadySelectedUTXOs []*libkaspawa
 		if !isUTXOSpendable(utxo, dagInfo.VirtualDAAScore, s.params.BlockCoinbaseMaturity) {
 			continue
 		}
-		additionalUTXOs = append(additionalUTXOs, &libkaspawallet.UTXO{
+		additionalUTXOs = append(additionalUTXOs, &libkarlsenwallet.UTXO{
 			Outpoint:       utxo.Outpoint,
 			UTXOEntry:      utxo.UTXOEntry,
 			DerivationPath: s.walletAddressPath(utxo.address)})

@@ -1,6 +1,6 @@
 package appmessage
 
-// MsgUnexpectedPruningPoint represents a kaspa UnexpectedPruningPoint message
+// MsgUnexpectedPruningPoint represents a karlsen UnexpectedPruningPoint message
 type MsgUnexpectedPruningPoint struct {
 	baseMessage
 }
@@ -10,7 +10,7 @@ func (msg *MsgUnexpectedPruningPoint) Command() MessageCommand {
 	return CmdUnexpectedPruningPoint
 }
 
-// NewMsgUnexpectedPruningPoint returns a new kaspa UnexpectedPruningPoint message
+// NewMsgUnexpectedPruningPoint returns a new karlsen UnexpectedPruningPoint message
 func NewMsgUnexpectedPruningPoint() *MsgUnexpectedPruningPoint {
 	return &MsgUnexpectedPruningPoint{}
 }

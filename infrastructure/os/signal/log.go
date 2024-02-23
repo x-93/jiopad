@@ -8,4 +8,4 @@ import (
 	"github.com/karlsen-network/karlsend/infrastructure/logger"
 )
 
-var kasdLog = logger.RegisterSubSystem("KASD")
+var klsdLog = logger.RegisterSubSystem("KLSD")

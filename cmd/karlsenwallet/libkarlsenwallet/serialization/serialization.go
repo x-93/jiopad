@@ -3,7 +3,7 @@ package serialization
 import (
 	"math"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/serialization/protoserialization"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization/protoserialization"
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/subnetworks"
 	"github.com/pkg/errors"

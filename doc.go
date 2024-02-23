@@ -6,7 +6,7 @@ Copyright (c) 2013-2014 Conformal Systems LLC.
 Use of this source code is governed by an ISC
 license that can be found in the LICENSE file.
 
-Karlsend is a full-node kaspa implementation written in Go.
+Karlsend is a full-node karlsen implementation written in Go.
 
 The default options are sane for most users. This means karlsend will work 'out of
 the box' for most users. However, there are also a wide variety of flags that

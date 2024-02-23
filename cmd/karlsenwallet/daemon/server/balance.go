@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
 )
 
 type balancesType struct{ available, pending uint64 }
@@ -41,7 +41,7 @@ func (s *server) GetBalance(_ context.Context, _ *pb.GetBalanceRequest) (*pb.Get
 	i := 0
 	var available, pending uint64
 	for walletAddress, balances := range balancesMap {
-		address, err := libkaspawallet.Address(s.params, s.keysFile.ExtendedPublicKeys, s.keysFile.MinimumSignatures, s.walletAddressPath(walletAddress), s.keysFile.ECDSA)
+		address, err := libkarlsenwallet.Address(s.params, s.keysFile.ExtendedPublicKeys, s.keysFile.MinimumSignatures, s.walletAddressPath(walletAddress), s.keysFile.ECDSA)
 		if err != nil {
 			return nil, err
 		}

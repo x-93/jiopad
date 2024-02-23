@@ -1,6 +1,6 @@
 package appmessage
 
-// MsgPruningPoints represents a kaspa PruningPoints message
+// MsgPruningPoints represents a karlsen PruningPoints message
 type MsgPruningPoints struct {
 	baseMessage
 

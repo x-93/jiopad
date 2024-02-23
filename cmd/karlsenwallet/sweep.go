@@ -7,8 +7,8 @@ import (
 
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/client"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/serialization"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/utils"
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
@@ -33,7 +33,7 @@ func sweep(conf *sweepConfig) error {
 		return err
 	}
 
-	publicKeybytes, err := libkaspawallet.PublicKeyFromPrivateKey(privateKeyBytes)
+	publicKeybytes, err := libkarlsenwallet.PublicKeyFromPrivateKey(privateKeyBytes)
 	if err != nil {
 		return err
 	}
@@ -64,7 +64,7 @@ func sweep(conf *sweepConfig) error {
 		return err
 	}
 
-	UTXOs, err := libkaspawallet.KaspawalletdUTXOsTolibkaspawalletUTXOs(getExternalSpendableUTXOsResponse.Entries)
+	UTXOs, err := libkarlsenwallet.KarlsenwalletdUTXOsTolibkarlsenwalletUTXOs(getExternalSpendableUTXOsResponse.Entries)
 	if err != nil {
 		return err
 	}
@@ -116,12 +116,12 @@ func sweep(conf *sweepConfig) error {
 	fmt.Println("\nTransaction ID(s):")
 	for i, txID := range response.TxIDs {
 		fmt.Printf("\t%s\n", txID)
-		fmt.Println("\tSwept:\t", utils.FormatKas(splitTransactions[i].Outputs[0].Value), " KAS")
+		fmt.Println("\tSwept:\t", utils.FormatKls(splitTransactions[i].Outputs[0].Value), " KLS")
 		totalExtracted = totalExtracted + splitTransactions[i].Outputs[0].Value
 	}
 
 	fmt.Println("\nTotal Funds swept (including transaction fees):")
-	fmt.Println("\t", utils.FormatKas(totalExtracted), " KAS")
+	fmt.Println("\t", utils.FormatKls(totalExtracted), " KLS")
 
 	return nil
 }
@@ -140,7 +140,7 @@ func newDummyTransaction() *externalapi.DomainTransaction {
 
 func createSplitTransactionsWithSchnorrPrivteKey(
 	params *dagconfig.Params,
-	selectedUTXOs []*libkaspawallet.UTXO,
+	selectedUTXOs []*libkarlsenwallet.UTXO,
 	toAddress util.Address,
 	feePerInput int) ([]*externalapi.DomainTransaction, error) {
 

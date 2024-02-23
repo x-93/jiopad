@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/bip32"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/utils"
 	"github.com/pkg/errors"
 
@@ -58,7 +58,7 @@ func create(conf *createConfig) error {
 	// For a read only wallet the cosigner index is 0
 	cosignerIndex := uint32(0)
 	if len(signerExtendedPublicKeys) > 0 {
-		cosignerIndex, err = libkaspawallet.MinimumCosignerIndex(signerExtendedPublicKeys, extendedPublicKeys)
+		cosignerIndex, err = libkarlsenwallet.MinimumCosignerIndex(signerExtendedPublicKeys, extendedPublicKeys)
 		if err != nil {
 			return err
 		}

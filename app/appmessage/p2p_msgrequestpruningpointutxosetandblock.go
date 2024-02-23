@@ -4,7 +4,7 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 )
 
-// MsgRequestPruningPointUTXOSet represents a kaspa RequestPruningPointUTXOSet message
+// MsgRequestPruningPointUTXOSet represents a karlsen RequestPruningPointUTXOSet message
 type MsgRequestPruningPointUTXOSet struct {
 	baseMessage
 	PruningPointHash *externalapi.DomainHash

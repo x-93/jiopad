@@ -1,4 +1,4 @@
-package libkaspawallet
+package libkarlsenwallet
 
 import (
 	"encoding/hex"
@@ -10,8 +10,8 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/utxo"
 )
 
-// KaspawalletdUTXOsTolibkaspawalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libkaspawallet.UTXO
-func KaspawalletdUTXOsTolibkaspawalletUTXOs(karlsenwalletdUtxoEntires []*pb.UtxosByAddressesEntry) ([]*UTXO, error) {
+// KarlsenwalletdUTXOsTolibkarlsenwalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libkarlsenwallet.UTXO
+func KarlsenwalletdUTXOsTolibkarlsenwalletUTXOs(karlsenwalletdUtxoEntires []*pb.UtxosByAddressesEntry) ([]*UTXO, error) {
 	UTXOs := make([]*UTXO, len(karlsenwalletdUtxoEntires))
 	for i, entry := range karlsenwalletdUtxoEntires {
 		script, err := hex.DecodeString(entry.UtxoEntry.ScriptPublicKey.ScriptPublicKey)
@@ -41,8 +41,8 @@ func KaspawalletdUTXOsTolibkaspawalletUTXOs(karlsenwalletdUtxoEntires []*pb.Utxo
 	return UTXOs, nil
 }
 
-// AppMessageUTXOToKaspawalletdUTXO converts an appmessage.UTXOsByAddressesEntry to a  pb.UtxosByAddressesEntry
-func AppMessageUTXOToKaspawalletdUTXO(appUTXOsByAddressesEntry *appmessage.UTXOsByAddressesEntry) *pb.UtxosByAddressesEntry {
+// AppMessageUTXOToKarlsenwalletdUTXO converts an appmessage.UTXOsByAddressesEntry to a  pb.UtxosByAddressesEntry
+func AppMessageUTXOToKarlsenwalletdUTXO(appUTXOsByAddressesEntry *appmessage.UTXOsByAddressesEntry) *pb.UtxosByAddressesEntry {
 	return &pb.UtxosByAddressesEntry{
 		Outpoint: &pb.Outpoint{
 			TransactionId: appUTXOsByAddressesEntry.Outpoint.TransactionID,

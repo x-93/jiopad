@@ -6,9 +6,9 @@
 Package txscript implements the karlsen transaction script language.
 There is a comprehensive test suite.
 
-## Kaspa Scripts
+## Karlsen Scripts
 
-Kaspa provides a stack-based, FORTH-like language for the scripts in
+Karlsen provides a stack-based, FORTH-like language for the scripts in
 the karlsen transactions. This language is not turing complete although
 it is still fairly powerful.
 

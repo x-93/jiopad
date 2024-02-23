@@ -33,7 +33,7 @@ var desiredLimits = &limits.DesiredLimits{
 var serviceDescription = &winservice.ServiceDescription{
 	Name:        "karlsendsvc",
 	DisplayName: "Karlsend Service",
-	Description: "Downloads and stays synchronized with the Kaspa blockDAG and " +
+	Description: "Downloads and stays synchronized with the Karlsen blockDAG and " +
 		"provides DAG services to applications.",
 }
 

@@ -21,7 +21,7 @@ import (
 	"github.com/karlsen-network/karlsend/domain/dagconfig"
 )
 
-var testnet = flag.Bool("testnet", false, "operate on the testnet Kaspa network")
+var testnet = flag.Bool("testnet", false, "operate on the testnet Karlsen network")
 
 // By default (without --testnet), use mainnet.
 var dagParams = &dagconfig.MainnetParams
