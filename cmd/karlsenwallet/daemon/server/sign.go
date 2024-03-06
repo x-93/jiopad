@@ -26,7 +26,7 @@ func (s *server) signTransactions(unsignedTransactions [][]byte, password string
 	}
 	signedTransactions := make([][]byte, len(unsignedTransactions))
 	for i, unsignedTransaction := range unsignedTransactions {
-		signedTransaction, err := libkarlsenwallet.Sign(s.params, mnemonics, unsignedTransaction, s.keysFile.ECDSA)
+		signedTransaction, err := libkarlsenwallet.Sign(s.params, mnemonics, unsignedTransaction, s.keysFile.ECDSA, s.keysFile.Version)
 		if err != nil {
 			return nil, err
 		}

@@ -22,22 +22,30 @@ const (
 	// Note: this is not entirely compatible to BIP 45 since
 	// BIP 45 doesn't have a coin type in its derivation path.
 	MultiSigPurpose = 45
-	// TODO: Register the coin type in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+	// Registered in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
 	CoinType = 121337
+	// Wallet version 1 coin type
+	CoinTypeV1 = 111111
 )
 
-func defaultPath(isMultisig bool) string {
+func defaultPath(isMultisig bool, version uint32) string {
 	purpose := SingleSignerPurpose
 	if isMultisig {
 		purpose = MultiSigPurpose
+	}
+
+	// Note: this is needed because initial fork was created
+        // without changing the coin type in derivation path.
+	if version == 1 {
+		return fmt.Sprintf("m/%d'/%d'/0'", purpose, CoinTypeV1)
 	}
 
 	return fmt.Sprintf("m/%d'/%d'/0'", purpose, CoinType)
 }
 
 // MasterPublicKeyFromMnemonic returns the master public key with the correct derivation for the given mnemonic.
-func MasterPublicKeyFromMnemonic(params *dagconfig.Params, mnemonic string, isMultisig bool) (string, error) {
-	path := defaultPath(isMultisig)
+func MasterPublicKeyFromMnemonic(params *dagconfig.Params, mnemonic string, isMultisig bool, version uint32) (string, error) {
+	path := defaultPath(isMultisig, version)
 	extendedKey, err := extendedKeyFromMnemonicAndPath(mnemonic, path, params)
 	if err != nil {
 		return "", err

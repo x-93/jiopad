@@ -42,6 +42,7 @@ type createConfig struct {
 	NumPublicKeys     uint32 `long:"num-public-keys" short:"n" description:"Total number of keys" default:"1"`
 	ECDSA             bool   `long:"ecdsa" description:"Create an ECDSA wallet"`
 	Import            bool   `long:"import" short:"i" description:"Import private keys (as opposed to generating them)"`
+	Legacy            bool   `long:"legacy" short:"l" description:"Use legacy wallet and derivation path"`
 	config.NetworkFlags
 }
 
