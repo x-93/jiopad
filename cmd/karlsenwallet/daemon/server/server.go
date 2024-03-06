@@ -87,11 +87,11 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 
 	// Show warning if old wallet version is used.
 	if keysFile.Version == 1 {
-		log.Infof("---");
+		log.Infof("---")
 		log.Infof("For future compatibility it is...")
 		log.Infof("highly recommended to create a...")
 		log.Infof("new one and transfer KLS to it.")
-		log.Infof("---");
+		log.Infof("---")
 	}
 
 	serverInstance := &server{

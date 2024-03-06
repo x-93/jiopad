@@ -35,7 +35,7 @@ func defaultPath(isMultisig bool, version uint32) string {
 	}
 
 	// Note: this is needed because initial fork was created
-        // without changing the coin type in derivation path.
+	// without changing the coin type in derivation path.
 	if version == 1 {
 		return fmt.Sprintf("m/%d'/%d'/0'", purpose, CoinTypeV1)
 	}
