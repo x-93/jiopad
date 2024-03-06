@@ -7,9 +7,9 @@ import (
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/keys"
 )
 
-// ForAllPaths runs the passwd testFunc with all available derivation paths
+// ForAllPaths runs the passed testFunc with all available derivation paths
 func ForAllPaths(t *testing.T, testFunc func(*testing.T, uint32)) {
-	for i := uint32(1) ; i <= keys.LastVersion ; i++ {
+	for i := uint32(1); i <= keys.LastVersion; i++ {
 		version := fmt.Sprintf("v%d", i)
 		t.Run(version, func(t *testing.T) {
 			t.Logf("Running test for wallet version %d", i)
