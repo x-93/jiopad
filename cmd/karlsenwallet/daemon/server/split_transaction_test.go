@@ -21,53 +21,55 @@ import (
 )
 
 func TestEstimateMassAfterSignatures(t *testing.T) {
-	testutils.ForAllNets(t, true, func(t *testing.T, consensusConfig *consensus.Config) {
-		unsignedTransactionBytes, mnemonics, params, teardown := testEstimateMassIncreaseForSignaturesSetUp(t, consensusConfig)
-		defer teardown(false)
+	testutils.ForAllPaths(t, func(t *testing.T, version uint32) {
+		testutils.ForAllNets(t, true, func(t *testing.T, consensusConfig *consensus.Config) {
+			unsignedTransactionBytes, mnemonics, params, teardown := testEstimateMassIncreaseForSignaturesSetUp(t, consensusConfig, version)
+			defer teardown(false)
 
-		serverInstance := &server{
-			params:           params,
-			keysFile:         &keys.File{MinimumSignatures: 2},
-			shutdown:         make(chan struct{}),
-			addressSet:       make(walletAddressSet),
-			txMassCalculator: txmass.NewCalculator(params.MassPerTxByte, params.MassPerScriptPubKeyByte, params.MassPerSigOp),
-		}
+			serverInstance := &server{
+				params:           params,
+				keysFile:         &keys.File{MinimumSignatures: 2},
+				shutdown:         make(chan struct{}),
+				addressSet:       make(walletAddressSet),
+				txMassCalculator: txmass.NewCalculator(params.MassPerTxByte, params.MassPerScriptPubKeyByte, params.MassPerSigOp),
+			}
 
-		unsignedTransaction, err := serialization.DeserializePartiallySignedTransaction(unsignedTransactionBytes)
-		if err != nil {
-			t.Fatalf("Error deserializing unsignedTransaction: %s", err)
-		}
+			unsignedTransaction, err := serialization.DeserializePartiallySignedTransaction(unsignedTransactionBytes)
+			if err != nil {
+				t.Fatalf("Error deserializing unsignedTransaction: %s", err)
+			}
 
-		estimatedMassAfterSignatures, err := serverInstance.estimateMassAfterSignatures(unsignedTransaction)
-		if err != nil {
-			t.Fatalf("Error from estimateMassAfterSignatures: %s", err)
-		}
+			estimatedMassAfterSignatures, err := serverInstance.estimateMassAfterSignatures(unsignedTransaction)
+			if err != nil {
+				t.Fatalf("Error from estimateMassAfterSignatures: %s", err)
+			}
 
-		signedTxStep1Bytes, err := libkarlsenwallet.Sign(params, mnemonics[:1], unsignedTransactionBytes, false)
-		if err != nil {
-			t.Fatalf("Sign: %+v", err)
-		}
+			signedTxStep1Bytes, err := libkarlsenwallet.Sign(params, mnemonics[:1], unsignedTransactionBytes, false, version)
+			if err != nil {
+				t.Fatalf("Sign: %+v", err)
+			}
 
-		signedTxStep2Bytes, err := libkarlsenwallet.Sign(params, mnemonics[1:2], signedTxStep1Bytes, false)
-		if err != nil {
-			t.Fatalf("Sign: %+v", err)
-		}
+			signedTxStep2Bytes, err := libkarlsenwallet.Sign(params, mnemonics[1:2], signedTxStep1Bytes, false, version)
+			if err != nil {
+				t.Fatalf("Sign: %+v", err)
+			}
 
-		extractedSignedTx, err := libkarlsenwallet.ExtractTransaction(signedTxStep2Bytes, false)
-		if err != nil {
-			t.Fatalf("ExtractTransaction: %+v", err)
-		}
+			extractedSignedTx, err := libkarlsenwallet.ExtractTransaction(signedTxStep2Bytes, false)
+			if err != nil {
+				t.Fatalf("ExtractTransaction: %+v", err)
+			}
 
-		actualMassAfterSignatures := serverInstance.txMassCalculator.CalculateTransactionMass(extractedSignedTx)
+			actualMassAfterSignatures := serverInstance.txMassCalculator.CalculateTransactionMass(extractedSignedTx)
 
-		if estimatedMassAfterSignatures != actualMassAfterSignatures {
-			t.Errorf("Estimated mass after signatures: %d but actually got %d",
-				estimatedMassAfterSignatures, actualMassAfterSignatures)
-		}
+			if estimatedMassAfterSignatures != actualMassAfterSignatures {
+				t.Errorf("Estimated mass after signatures: %d but actually got %d",
+					estimatedMassAfterSignatures, actualMassAfterSignatures)
+			}
+		})
 	})
 }
 
-func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *consensus.Config) (
+func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *consensus.Config, version uint32) (
 	[]byte, []string, *dagconfig.Params, func(keepDataDir bool)) {
 
 	consensusConfig.BlockCoinbaseMaturity = 0
@@ -88,7 +90,7 @@ func testEstimateMassIncreaseForSignaturesSetUp(t *testing.T, consensusConfig *c
 			t.Fatalf("CreateMnemonic: %+v", err)
 		}
 
-		publicKeys[i], err = libkarlsenwallet.MasterPublicKeyFromMnemonic(&consensusConfig.Params, mnemonics[i], true)
+		publicKeys[i], err = libkarlsenwallet.MasterPublicKeyFromMnemonic(&consensusConfig.Params, mnemonics[i], true, version)
 		if err != nil {
 			t.Fatalf("MasterPublicKeyFromMnemonic: %+v", err)
 		}

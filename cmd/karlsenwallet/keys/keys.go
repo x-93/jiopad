@@ -27,7 +27,7 @@ var (
 )
 
 // LastVersion is the most up to date file format version
-const LastVersion = 1
+const LastVersion = 2
 
 func defaultKeysFile(netParams *dagconfig.Params) string {
 	return filepath.Join(defaultAppDir, netParams.Name, "keys.json")
@@ -95,7 +95,7 @@ func (d *File) toJSON() *keysFileJSON {
 // NewFileFromMnemonic generates a new File from the given mnemonic string
 func NewFileFromMnemonic(params *dagconfig.Params, mnemonic string, password string) (*File, error) {
 	encryptedMnemonics, extendedPublicKeys, err :=
-		encryptedMnemonicExtendedPublicKeyPairs(params, []string{mnemonic}, password, false)
+		encryptedMnemonicExtendedPublicKeyPairs(params, []string{mnemonic}, password, false, LastVersion)
 	if err != nil {
 		return nil, err
 	}

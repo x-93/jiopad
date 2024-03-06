@@ -48,7 +48,7 @@ func sign(conf *signConfig) error {
 	updatedPartiallySignedTransactions := make([][]byte, len(partiallySignedTransactions))
 	for i, partiallySignedTransaction := range partiallySignedTransactions {
 		updatedPartiallySignedTransactions[i], err =
-			libkarlsenwallet.Sign(conf.NetParams(), privateKeys, partiallySignedTransaction, keysFile.ECDSA)
+			libkarlsenwallet.Sign(conf.NetParams(), privateKeys, partiallySignedTransaction, keysFile.ECDSA, keysFile.Version)
 		if err != nil {
 			return err
 		}

@@ -1,3 +1,16 @@
+Karlsend v1.2.0 - 2024-03-07
+============================
+
+* Fixed karlsend and karlsenminer Go traces
+* Fixed all stability and integration tests
+* Fixed crash in karlsenminer
+* Fixed race in gRPC client send/recv/close handler
+* Switched cointype in bip39 derivation to 121337
+* Added support for derivation path from Kaspa (wallet v1) and Karlsen (wallet v2)
+* Added code of conduct
+* Changed karlsenwallet listen port from 8082 to 9182
+* Updated Go modules and dependencies
+
 Karlsend v1.1.0 - 2023-12-25
 ============================
 

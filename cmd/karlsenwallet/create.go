@@ -17,11 +17,23 @@ func create(conf *createConfig) error {
 	var encryptedMnemonics []*keys.EncryptedMnemonic
 	var signerExtendedPublicKeys []string
 	var err error
+	var version uint32
 	isMultisig := conf.NumPublicKeys > 1
-	if !conf.Import {
-		encryptedMnemonics, signerExtendedPublicKeys, err = keys.CreateMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig)
+
+	if !conf.Legacy {
+
+		// Version 2 uses new derivation path.
+		version = keys.LastVersion
 	} else {
-		encryptedMnemonics, signerExtendedPublicKeys, err = keys.ImportMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig)
+
+		// Version 1 uses old derivation path.
+		version = 1
+	}
+
+	if !conf.Import {
+		encryptedMnemonics, signerExtendedPublicKeys, err = keys.CreateMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig, version)
+	} else {
+		encryptedMnemonics, signerExtendedPublicKeys, err = keys.ImportMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig, version)
 	}
 	if err != nil {
 		return err
@@ -65,7 +77,7 @@ func create(conf *createConfig) error {
 	}
 
 	file := keys.File{
-		Version:            keys.LastVersion,
+		Version:            version,
 		EncryptedMnemonics: encryptedMnemonics,
 		ExtendedPublicKeys: extendedPublicKeys,
 		MinimumSignatures:  conf.MinimumSignatures,

@@ -68,7 +68,7 @@ func send(conf *sendConfig) error {
 
 	signedTransactions := make([][]byte, len(createUnsignedTransactionsResponse.UnsignedTransactions))
 	for i, unsignedTransaction := range createUnsignedTransactionsResponse.UnsignedTransactions {
-		signedTransaction, err := libkarlsenwallet.Sign(conf.NetParams(), mnemonics, unsignedTransaction, keysFile.ECDSA)
+		signedTransaction, err := libkarlsenwallet.Sign(conf.NetParams(), mnemonics, unsignedTransaction, keysFile.ECDSA, keysFile.Version)
 		if err != nil {
 			return err
 		}
