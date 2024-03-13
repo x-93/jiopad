@@ -25,7 +25,7 @@ const (
 )
 
 const (
-	defaultListen    = "localhost:8082"
+	defaultListen    = "localhost:9182"
 	defaultRPCServer = "localhost"
 )
 
@@ -42,6 +42,7 @@ type createConfig struct {
 	NumPublicKeys     uint32 `long:"num-public-keys" short:"n" description:"Total number of keys" default:"1"`
 	ECDSA             bool   `long:"ecdsa" description:"Create an ECDSA wallet"`
 	Import            bool   `long:"import" short:"i" description:"Import private keys (as opposed to generating them)"`
+	Legacy            bool   `long:"legacy" short:"l" description:"Use legacy wallet and derivation path"`
 	config.NetworkFlags
 }
 
@@ -57,7 +58,7 @@ type sendConfig struct {
 	DaemonAddress            string   `long:"daemonaddress" short:"d" description:"Wallet daemon server to connect to"`
 	ToAddress                string   `long:"to-address" short:"t" description:"The public address to send Karlsen to" required:"true"`
 	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Karlsen from. Use multiple times to accept several addresses" required:"false"`
-	SendAmount               float64  `long:"send-amount" short:"v" description:"An amount to send in Karlsen (e.g. 1234.12345678)"`
+	SendAmount               string   `long:"send-amount" short:"v" description:"An amount to send in Karlsen (e.g. 1234.12345678)"`
 	IsSendAll                bool     `long:"send-all" description:"Send all the Karlsen in the wallet (mutually exclusive with --send-amount)"`
 	UseExistingChangeAddress bool     `long:"use-existing-change-address" short:"u" description:"Will use an existing change address (in case no change address was ever used, it will use a new one)"`
 	Verbose                  bool     `long:"show-serialized" short:"s" description:"Show a list of hex encoded sent transactions"`
@@ -74,7 +75,7 @@ type createUnsignedTransactionConfig struct {
 	DaemonAddress            string   `long:"daemonaddress" short:"d" description:"Wallet daemon server to connect to"`
 	ToAddress                string   `long:"to-address" short:"t" description:"The public address to send Karlsen to" required:"true"`
 	FromAddresses            []string `long:"from-address" short:"a" description:"Specific public address to send Karlsen from. Use multiple times to accept several addresses" required:"false"`
-	SendAmount               float64  `long:"send-amount" short:"v" description:"An amount to send in Karlsen (e.g. 1234.12345678)"`
+	SendAmount               string   `long:"send-amount" short:"v" description:"An amount to send in Karlsen (e.g. 1234.12345678)"`
 	IsSendAll                bool     `long:"send-all" description:"Send all the Karlsen in the wallet (mutually exclusive with --send-amount)"`
 	UseExistingChangeAddress bool     `long:"use-existing-change-address" short:"u" description:"Will use an existing change address (in case no change address was ever used, it will use a new one)"`
 	config.NetworkFlags
@@ -116,7 +117,7 @@ type startDaemonConfig struct {
 	KeysFile  string `long:"keys-file" short:"f" description:"Keys file location (default: ~/.karlsenwallet/keys.json (*nix), %USERPROFILE%\\AppData\\Local\\karlsenwallet\\key.json (Windows))"`
 	Password  string `long:"password" short:"p" description:"Wallet password"`
 	RPCServer string `long:"rpcserver" short:"s" description:"RPC server to connect to"`
-	Listen    string `long:"listen" short:"l" description:"Address to listen on (default: 0.0.0.0:8082)"`
+	Listen    string `long:"listen" short:"l" description:"Address to listen on (default: 0.0.0.0:9182)"`
 	Timeout   uint32 `long:"wait-timeout" short:"w" description:"Waiting timeout for RPC calls, seconds (default: 30 s)"`
 	Profile   string `long:"profile" description:"Enable HTTP profiling on given port -- NOTE port must be between 1024 and 65536"`
 	config.NetworkFlags
@@ -296,8 +297,8 @@ func parseCommandLine() (subCommand string, config interface{}) {
 }
 
 func validateCreateUnsignedTransactionConf(conf *createUnsignedTransactionConfig) error {
-	if (!conf.IsSendAll && conf.SendAmount == 0) ||
-		(conf.IsSendAll && conf.SendAmount > 0) {
+	if (!conf.IsSendAll && conf.SendAmount == "") ||
+		(conf.IsSendAll && conf.SendAmount != "") {
 
 		return errors.New("exactly one of '--send-amount' or '--all' must be specified")
 	}
@@ -305,8 +306,8 @@ func validateCreateUnsignedTransactionConf(conf *createUnsignedTransactionConfig
 }
 
 func validateSendConfig(conf *sendConfig) error {
-	if (!conf.IsSendAll && conf.SendAmount == 0) ||
-		(conf.IsSendAll && conf.SendAmount > 0) {
+	if (!conf.IsSendAll && conf.SendAmount == "") ||
+		(conf.IsSendAll && conf.SendAmount != "") {
 
 		return errors.New("exactly one of '--send-amount' or '--all' must be specified")
 	}

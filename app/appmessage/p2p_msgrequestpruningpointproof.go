@@ -1,6 +1,6 @@
 package appmessage
 
-// MsgRequestPruningPointProof represents a kaspa RequestPruningPointProof message
+// MsgRequestPruningPointProof represents a karlsen RequestPruningPointProof message
 type MsgRequestPruningPointProof struct {
 	baseMessage
 }

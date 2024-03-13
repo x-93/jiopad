@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/bip32"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/utils"
 	"github.com/pkg/errors"
 
@@ -17,11 +17,23 @@ func create(conf *createConfig) error {
 	var encryptedMnemonics []*keys.EncryptedMnemonic
 	var signerExtendedPublicKeys []string
 	var err error
+	var version uint32
 	isMultisig := conf.NumPublicKeys > 1
-	if !conf.Import {
-		encryptedMnemonics, signerExtendedPublicKeys, err = keys.CreateMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig)
+
+	if !conf.Legacy {
+
+		// Version 2 uses new derivation path.
+		version = keys.LastVersion
 	} else {
-		encryptedMnemonics, signerExtendedPublicKeys, err = keys.ImportMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig)
+
+		// Version 1 uses old derivation path.
+		version = 1
+	}
+
+	if !conf.Import {
+		encryptedMnemonics, signerExtendedPublicKeys, err = keys.CreateMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig, version)
+	} else {
+		encryptedMnemonics, signerExtendedPublicKeys, err = keys.ImportMnemonics(conf.NetParams(), conf.NumPrivateKeys, conf.Password, isMultisig, version)
 	}
 	if err != nil {
 		return err
@@ -58,14 +70,14 @@ func create(conf *createConfig) error {
 	// For a read only wallet the cosigner index is 0
 	cosignerIndex := uint32(0)
 	if len(signerExtendedPublicKeys) > 0 {
-		cosignerIndex, err = libkaspawallet.MinimumCosignerIndex(signerExtendedPublicKeys, extendedPublicKeys)
+		cosignerIndex, err = libkarlsenwallet.MinimumCosignerIndex(signerExtendedPublicKeys, extendedPublicKeys)
 		if err != nil {
 			return err
 		}
 	}
 
 	file := keys.File{
-		Version:            keys.LastVersion,
+		Version:            version,
 		EncryptedMnemonics: encryptedMnemonics,
 		ExtendedPublicKeys: extendedPublicKeys,
 		MinimumSignatures:  conf.MinimumSignatures,

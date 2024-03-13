@@ -1,9 +1,9 @@
-package libkaspawallet
+package libkarlsenwallet
 
 import (
 	"fmt"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/bip32"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
 	"github.com/karlsen-network/karlsend/domain/dagconfig"
 	"github.com/pkg/errors"
 	"github.com/tyler-smith/go-bip39"
@@ -22,22 +22,30 @@ const (
 	// Note: this is not entirely compatible to BIP 45 since
 	// BIP 45 doesn't have a coin type in its derivation path.
 	MultiSigPurpose = 45
-	// TODO: Register the coin type in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
-	CoinType = 111111
+	// Registered in https://github.com/satoshilabs/slips/blob/master/slip-0044.md
+	CoinType = 121337
+	// Wallet version 1 coin type
+	CoinTypeV1 = 111111
 )
 
-func defaultPath(isMultisig bool) string {
+func defaultPath(isMultisig bool, version uint32) string {
 	purpose := SingleSignerPurpose
 	if isMultisig {
 		purpose = MultiSigPurpose
+	}
+
+	// Note: this is needed because initial fork was created
+	// without changing the coin type in derivation path.
+	if version == 1 {
+		return fmt.Sprintf("m/%d'/%d'/0'", purpose, CoinTypeV1)
 	}
 
 	return fmt.Sprintf("m/%d'/%d'/0'", purpose, CoinType)
 }
 
 // MasterPublicKeyFromMnemonic returns the master public key with the correct derivation for the given mnemonic.
-func MasterPublicKeyFromMnemonic(params *dagconfig.Params, mnemonic string, isMultisig bool) (string, error) {
-	path := defaultPath(isMultisig)
+func MasterPublicKeyFromMnemonic(params *dagconfig.Params, mnemonic string, isMultisig bool, version uint32) (string, error) {
+	path := defaultPath(isMultisig, version)
 	extendedKey, err := extendedKeyFromMnemonicAndPath(mnemonic, path, params)
 	if err != nil {
 		return "", err
@@ -69,13 +77,13 @@ func extendedKeyFromMnemonicAndPath(mnemonic string, path string, params *dagcon
 func versionFromParams(params *dagconfig.Params) ([4]byte, error) {
 	switch params.Name {
 	case dagconfig.MainnetParams.Name:
-		return bip32.KaspaMainnetPrivate, nil
+		return bip32.KarlsenMainnetPrivate, nil
 	case dagconfig.TestnetParams.Name:
-		return bip32.KaspaTestnetPrivate, nil
+		return bip32.KarlsenTestnetPrivate, nil
 	case dagconfig.DevnetParams.Name:
-		return bip32.KaspaDevnetPrivate, nil
+		return bip32.KarlsenDevnetPrivate, nil
 	case dagconfig.SimnetParams.Name:
-		return bip32.KaspaSimnetPrivate, nil
+		return bip32.KarlsenSimnetPrivate, nil
 	}
 
 	return [4]byte{}, errors.Errorf("unknown network %s", params.Name)

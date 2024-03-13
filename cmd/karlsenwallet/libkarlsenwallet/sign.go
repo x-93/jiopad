@@ -1,8 +1,8 @@
-package libkaspawallet
+package libkarlsenwallet
 
 import (
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/bip32"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet/serialization"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization"
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/txscript"
@@ -28,14 +28,14 @@ func rawTxInSignature(extendedKey *bip32.ExtendedKey, tx *externalapi.DomainTran
 }
 
 // Sign signs the transaction with the given private keys
-func Sign(params *dagconfig.Params, mnemonics []string, serializedPSTx []byte, ecdsa bool) ([]byte, error) {
+func Sign(params *dagconfig.Params, mnemonics []string, serializedPSTx []byte, ecdsa bool, version uint32) ([]byte, error) {
 	partiallySignedTransaction, err := serialization.DeserializePartiallySignedTransaction(serializedPSTx)
 	if err != nil {
 		return nil, err
 	}
 
 	for _, mnemonic := range mnemonics {
-		err = sign(params, mnemonic, partiallySignedTransaction, ecdsa)
+		err = sign(params, mnemonic, partiallySignedTransaction, ecdsa, version)
 		if err != nil {
 			return nil, err
 		}
@@ -43,7 +43,7 @@ func Sign(params *dagconfig.Params, mnemonics []string, serializedPSTx []byte, e
 	return serialization.SerializePartiallySignedTransaction(partiallySignedTransaction)
 }
 
-func sign(params *dagconfig.Params, mnemonic string, partiallySignedTransaction *serialization.PartiallySignedTransaction, ecdsa bool) error {
+func sign(params *dagconfig.Params, mnemonic string, partiallySignedTransaction *serialization.PartiallySignedTransaction, ecdsa bool, version uint32) error {
 	if isTransactionFullySigned(partiallySignedTransaction) {
 		return nil
 	}
@@ -63,7 +63,7 @@ func sign(params *dagconfig.Params, mnemonic string, partiallySignedTransaction 
 	signed := false
 	for i, partiallySignedInput := range partiallySignedTransaction.PartiallySignedInputs {
 		isMultisig := len(partiallySignedInput.PubKeySignaturePairs) > 1
-		path := defaultPath(isMultisig)
+		path := defaultPath(isMultisig, version)
 		extendedKey, err := extendedKeyFromMnemonicAndPath(mnemonic, path, params)
 		if err != nil {
 			return err

@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/keys"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
 	"github.com/pkg/errors"
 )
 
@@ -48,7 +48,7 @@ func sign(conf *signConfig) error {
 	updatedPartiallySignedTransactions := make([][]byte, len(partiallySignedTransactions))
 	for i, partiallySignedTransaction := range partiallySignedTransactions {
 		updatedPartiallySignedTransactions[i], err =
-			libkaspawallet.Sign(conf.NetParams(), privateKeys, partiallySignedTransaction, keysFile.ECDSA)
+			libkarlsenwallet.Sign(conf.NetParams(), privateKeys, partiallySignedTransaction, keysFile.ECDSA, keysFile.Version)
 		if err != nil {
 			return err
 		}
@@ -57,7 +57,7 @@ func sign(conf *signConfig) error {
 	areAllTransactionsFullySigned := true
 	for _, updatedPartiallySignedTransaction := range updatedPartiallySignedTransactions {
 		// This is somewhat redundant to check all transactions, but we do that just-in-case
-		isFullySigned, err := libkaspawallet.IsTransactionFullySigned(updatedPartiallySignedTransaction)
+		isFullySigned, err := libkarlsenwallet.IsTransactionFullySigned(updatedPartiallySignedTransaction)
 		if err != nil {
 			return err
 		}

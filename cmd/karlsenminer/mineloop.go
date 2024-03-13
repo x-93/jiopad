@@ -57,7 +57,7 @@ func mineLoop(client *minerClient, numberOfBlocks uint64, targetBlocksPerSecond 
 			defer blockTicker.Stop()
 		}
 		windowStart := time.Now()
-		for blockIndex := 1; ; blockIndex++ {
+		for blockIndex := uint64(0); numberOfBlocks == 0 || blockIndex < numberOfBlocks; blockIndex++ {
 			foundBlockChan <- mineNextBlock(mineWhenNotSynced)
 			if hasBlockRateTarget {
 				<-blockTicker.C

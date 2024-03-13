@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkaspawallet"
+	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
 	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
 	"github.com/karlsen-network/karlsend/util"
 	"github.com/pkg/errors"
@@ -71,17 +71,17 @@ func (s *server) createUnsignedTransactions(address string, amount uint64, isSen
 		return nil, err
 	}
 
-	payments := []*libkaspawallet.Payment{{
+	payments := []*libkarlsenwallet.Payment{{
 		Address: toAddress,
 		Amount:  spendValue,
 	}}
 	if changeSompi > 0 {
-		payments = append(payments, &libkaspawallet.Payment{
+		payments = append(payments, &libkarlsenwallet.Payment{
 			Address: changeAddress,
 			Amount:  changeSompi,
 		})
 	}
-	unsignedTransaction, err := libkaspawallet.CreateUnsignedTransaction(s.keysFile.ExtendedPublicKeys,
+	unsignedTransaction, err := libkarlsenwallet.CreateUnsignedTransaction(s.keysFile.ExtendedPublicKeys,
 		s.keysFile.MinimumSignatures,
 		payments, selectedUTXOs)
 	if err != nil {
@@ -96,9 +96,9 @@ func (s *server) createUnsignedTransactions(address string, amount uint64, isSen
 }
 
 func (s *server) selectUTXOs(spendAmount uint64, isSendAll bool, feePerInput uint64, fromAddresses []*walletAddress) (
-	selectedUTXOs []*libkaspawallet.UTXO, totalReceived uint64, changeSompi uint64, err error) {
+	selectedUTXOs []*libkarlsenwallet.UTXO, totalReceived uint64, changeSompi uint64, err error) {
 
-	selectedUTXOs = []*libkaspawallet.UTXO{}
+	selectedUTXOs = []*libkarlsenwallet.UTXO{}
 	totalValue := uint64(0)
 
 	dagInfo, err := s.rpcClient.GetBlockDAGInfo()
@@ -106,9 +106,14 @@ func (s *server) selectUTXOs(spendAmount uint64, isSendAll bool, feePerInput uin
 		return nil, 0, 0, err
 	}
 
+	coinbaseMaturity := s.params.BlockCoinbaseMaturity
+	if dagInfo.NetworkName == "karlsen-testnet-1" {
+		coinbaseMaturity = 1000
+	}
+
 	for _, utxo := range s.utxosSortedByAmount {
 		if (fromAddresses != nil && !slices.Contains(fromAddresses, utxo.address)) ||
-			!isUTXOSpendable(utxo, dagInfo.VirtualDAAScore, s.params.BlockCoinbaseMaturity) {
+			!isUTXOSpendable(utxo, dagInfo.VirtualDAAScore, coinbaseMaturity) {
 			continue
 		}
 
@@ -120,7 +125,7 @@ func (s *server) selectUTXOs(spendAmount uint64, isSendAll bool, feePerInput uin
 			}
 		}
 
-		selectedUTXOs = append(selectedUTXOs, &libkaspawallet.UTXO{
+		selectedUTXOs = append(selectedUTXOs, &libkarlsenwallet.UTXO{
 			Outpoint:       utxo.Outpoint,
 			UTXOEntry:      utxo.UTXOEntry,
 			DerivationPath: s.walletAddressPath(utxo.address),
@@ -146,7 +151,7 @@ func (s *server) selectUTXOs(spendAmount uint64, isSendAll bool, feePerInput uin
 	}
 	if totalValue < totalSpend {
 		return nil, 0, 0, errors.Errorf("Insufficient funds for send: %f required, while only %f available",
-			float64(totalSpend)/constants.SompiPerKaspa, float64(totalValue)/constants.SompiPerKaspa)
+			float64(totalSpend)/constants.SompiPerKarlsen, float64(totalValue)/constants.SompiPerKarlsen)
 	}
 
 	return selectedUTXOs, totalReceived, totalValue - totalSpend, nil

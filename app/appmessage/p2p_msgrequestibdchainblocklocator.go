@@ -4,7 +4,7 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 )
 
-// MsgRequestIBDChainBlockLocator implements the Message interface and represents a kaspa
+// MsgRequestIBDChainBlockLocator implements the Message interface and represents a karlsen
 // IBDRequestChainBlockLocator message. It is used to request a block locator between low
 // and high hash.
 // The locator is returned via a locator message (MsgIBDChainBlockLocator).

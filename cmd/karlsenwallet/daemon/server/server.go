@@ -25,7 +25,7 @@ import (
 )
 
 type server struct {
-	pb.UnimplementedKaspawalletdServer
+	pb.UnimplementedKarlsenwalletdServer
 
 	rpcClient *rpcclient.RPCClient
 	params    *dagconfig.Params
@@ -82,6 +82,18 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 		return err
 	}
 
+	// Show wallet version
+	log.Infof("Wallet version %d found", keysFile.Version)
+
+	// Show warning if old wallet version is used.
+	if keysFile.Version == 1 {
+		log.Infof("---")
+		log.Infof("For future compatibility it is...")
+		log.Infof("highly recommended to create a...")
+		log.Infof("new one and transfer KLS to it.")
+		log.Infof("---")
+	}
+
 	serverInstance := &server{
 		rpcClient:                   rpcClient,
 		params:                      params,
@@ -106,7 +118,7 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 	})
 
 	grpcServer := grpc.NewServer(grpc.MaxSendMsgSize(MaxDaemonSendMsgSize))
-	pb.RegisterKaspawalletdServer(grpcServer, serverInstance)
+	pb.RegisterKarlsenwalletdServer(grpcServer, serverInstance)
 
 	spawn("grpcServer.Serve", func() {
 		err := grpcServer.Serve(listener)

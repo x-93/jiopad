@@ -1,6 +1,7 @@
 package coinbasemanager
 
 import (
+	"math"
 	"strconv"
 	"testing"
 
@@ -13,7 +14,7 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 	const secondsPerMonth = 2629800
 	const secondsPerHalving = secondsPerMonth * 12
 	const deflationaryPhaseDaaScore = secondsPerMonth * 6
-	const deflationaryPhaseBaseSubsidy = 440 * constants.SompiPerKaspa
+	const deflationaryPhaseBaseSubsidy = 44 * constants.SompiPerKarlsen
 	coinbaseManagerInterface := New(
 		nil,
 		0,
@@ -42,33 +43,38 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 			expectedBlockSubsidy: deflationaryPhaseBaseSubsidy,
 		},
 		{
-			name:                 "after one halving",
+			name:                 "after 1 year",
 			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving,
-			expectedBlockSubsidy: deflationaryPhaseBaseSubsidy / 2,
+			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / 1.4)),
 		},
 		{
-			name:                 "after two halvings",
+			name:                 "after 2 years",
 			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*2,
-			expectedBlockSubsidy: deflationaryPhaseBaseSubsidy / 4,
+			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 2))),
 		},
 		{
-			name:                 "after five halvings",
+			name:                 "after 5 years",
 			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*5,
-			expectedBlockSubsidy: deflationaryPhaseBaseSubsidy / 32,
+			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 5))),
 		},
 		{
-			name:                 "after 32 halvings",
+			name:                 "after 32 years",
 			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*32,
-			expectedBlockSubsidy: deflationaryPhaseBaseSubsidy / 4294967296,
+			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 32))),
+		},
+		{
+			name:                 "after 64 years",
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*64,
+			expectedBlockSubsidy: uint64(math.Trunc(deflationaryPhaseBaseSubsidy / math.Pow(1.4, 64))),
 		},
 		{
 			name:                 "just before subsidy depleted",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*35,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*65,
 			expectedBlockSubsidy: 1,
 		},
 		{
 			name:                 "after subsidy depleted",
-			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*36,
+			blockDaaScore:        deflationaryPhaseDaaScore + secondsPerHalving*66,
 			expectedBlockSubsidy: 0,
 		},
 	}
@@ -84,7 +90,7 @@ func TestCalcDeflationaryPeriodBlockSubsidy(t *testing.T) {
 
 func TestBuildSubsidyTable(t *testing.T) {
 	deflationaryPhaseBaseSubsidy := dagconfig.MainnetParams.DeflationaryPhaseBaseSubsidy
-	if deflationaryPhaseBaseSubsidy != 440*constants.SompiPerKaspa {
+	if deflationaryPhaseBaseSubsidy != 44*constants.SompiPerKarlsen {
 		t.Errorf("TestBuildSubsidyTable: table generation function was not updated to reflect "+
 			"the new base subsidy %d. Please fix the constant above and replace subsidyByDeflationaryMonthTable "+
 			"in coinbasemanager.go with the printed table", deflationaryPhaseBaseSubsidy)

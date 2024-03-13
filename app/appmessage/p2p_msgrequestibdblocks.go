@@ -4,7 +4,7 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 )
 
-// MsgRequestIBDBlocks implements the Message interface and represents a kaspa
+// MsgRequestIBDBlocks implements the Message interface and represents a karlsen
 // RequestIBDBlocks message. It is used to request blocks as part of the IBD
 // protocol.
 type MsgRequestIBDBlocks struct {

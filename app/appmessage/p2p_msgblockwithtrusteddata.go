@@ -6,7 +6,7 @@ import (
 	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 )
 
-// MsgBlockWithTrustedData represents a kaspa BlockWithTrustedData message
+// MsgBlockWithTrustedData represents a karlsen BlockWithTrustedData message
 type MsgBlockWithTrustedData struct {
 	baseMessage
 

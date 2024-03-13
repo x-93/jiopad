@@ -2,7 +2,7 @@ package appmessage
 
 import "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 
-// MsgPruningPointUTXOSetChunk represents a kaspa PruningPointUTXOSetChunk message
+// MsgPruningPointUTXOSetChunk represents a karlsen PruningPointUTXOSetChunk message
 type MsgPruningPointUTXOSetChunk struct {
 	baseMessage
 	OutpointAndUTXOEntryPairs []*OutpointAndUTXOEntryPair
