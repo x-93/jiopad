@@ -13,7 +13,7 @@ import (
 	"math/big"
 )
 
-const hashingAlgoVersion = "fishhash-kls-0.0.1"
+const hashingAlgoVersion = "fishhash-kls-0.0.2"
 
 // State is an intermediate data structure with pre-computed values to speed up mining.
 type State struct {
@@ -23,7 +23,8 @@ type State struct {
 	Target     big.Int
 	prePowHash externalapi.DomainHash
 	//cache 	   cache
-	context fishhashContext
+	context      fishhashContext
+	blockVersion uint16
 }
 
 // var context *fishhashContext
@@ -91,14 +92,17 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 	header.SetTimeInMilliseconds(timestamp)
 	header.SetNonce(nonce)
 
+	log.Debugf("BlueWork[%s] BlueScore[%d] DAAScore[%d] Version[%d]", header.BlueWork(), header.BlueScore(), header.DAAScore(), header.Version())
+
 	return &State{
 		Target:     *target,
 		prePowHash: *prePowHash,
 		//will remove matrix opow
 		//mat:       *generateMatrix(prePowHash),
-		Timestamp: timestamp,
-		Nonce:     nonce,
-		context:   *getContext(generatedag, log),
+		Timestamp:    timestamp,
+		Nonce:        nonce,
+		context:      *getContext(generatedag, log),
+		blockVersion: header.Version(),
 	}
 }
 
@@ -132,19 +136,25 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	}
 	//log.Debugf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
 	//fmt.Printf("Hash prePowHash %x\n", state.prePowHash.ByteSlice())
+
 	powHash := writer.Finalize()
+
 	//middleHash := state.mat.HeavyHash(powHash)
-	//log.Debugf("Hash b3-1: %x\n", powHash.ByteSlice())
-	//fmt.Printf("Hash b3-1: %x\n", powHash.ByteSlice())
-	middleHash := fishHash(&state.context, powHash)
-	//log.Debugf("Hash fish: %x\n", middleHash.ByteSlice())
-	//fmt.Printf("Hash fish: %x\n", middleHash.ByteSlice())
+	//log.Infof("Hash b3-1: %x", powHash.ByteSlice())
+	middleHash := powHash
+	if state.blockVersion == 1 {
+		middleHash = fishHash(&state.context, powHash)
+	} else {
+		middleHash = fishHashPlus(&state.context, powHash)
+	}
+
+	//log.Infof("Hash fish: %x", middleHash.ByteSlice())
 
 	writer2 := hashes.NewPoWHashWriter()
 	writer2.InfallibleWrite(middleHash.ByteSlice())
 	finalHash := writer2.Finalize()
 
-	//log.Debugf("Hash b3-2: %x\n", finalHash.ByteSlice())
+	//log.Infof("Hash b3-2: %x", finalHash.ByteSlice())
 
 	return toBig(finalHash)
 }

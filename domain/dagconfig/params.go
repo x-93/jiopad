@@ -188,6 +188,7 @@ type Params struct {
 	MaxBlockLevel int
 
 	MergeDepth uint64
+	HFDAAScore uint64
 }
 
 // NormalizeRPCServerAddress returns addr with the current network default
@@ -341,6 +342,8 @@ var TestnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
+	// todo: define the fork date DAAscore
+	HFDAAScore: 6000000,
 }
 
 // SimnetParams defines the network parameters for the simulation test Kaspa
