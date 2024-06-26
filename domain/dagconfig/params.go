@@ -188,6 +188,7 @@ type Params struct {
 	MaxBlockLevel int
 
 	MergeDepth uint64
+	HFDAAScore uint64
 }
 
 // NormalizeRPCServerAddress returns addr with the current network default
@@ -277,6 +278,8 @@ var MainnetParams = Params{
 	// This means that any block that has a level lower or equal to genesis will be level 0.
 	MaxBlockLevel: 225,
 	MergeDepth:    defaultMergeDepth,
+	// todo: define the fork date DAAscore
+	HFDAAScore: 22000042,
 }
 
 // TestnetParams defines the network parameters for the test Karlsen network.
@@ -287,7 +290,7 @@ var TestnetParams = Params{
 	RPCPort:     "42210",
 	DefaultPort: "42211",
 	DNSSeeds: []string{
-		"testnet-1.karlsencoin.com",
+		"testnet-1-dnsseed.karlsencoin.com",
 	},
 
 	// DAG parameters
@@ -341,6 +344,8 @@ var TestnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
+	// todo: define the fork date DAAscore
+	HFDAAScore: 6000000,
 }
 
 // SimnetParams defines the network parameters for the simulation test Karlsen

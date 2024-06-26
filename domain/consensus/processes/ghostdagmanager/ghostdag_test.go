@@ -111,7 +111,7 @@ func TestGHOSTDAG(t *testing.T) {
 					blockID := StringToDomainHash(testBlockData.ID)
 					dagTopology.parentsMap[*blockID] = StringToDomainHashSlice(testBlockData.Parents)
 					blockHeadersStore.dagMap[*blockID] = blockheader.NewImmutableBlockHeader(
-						constants.BlockVersion,
+						constants.BlockVersionBeforeHF,
 						[]externalapi.BlockLevelParents{StringToDomainHashSlice(testBlockData.Parents)},
 						nil,
 						nil,

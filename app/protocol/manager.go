@@ -70,6 +70,9 @@ func (m *Manager) AddTransaction(tx *externalapi.DomainTransaction, allowOrphan 
 
 // AddBlock adds the given block to the DAG and propagates it.
 func (m *Manager) AddBlock(block *externalapi.DomainBlock) error {
+	//TODO switch this to debug level
+	log.Infof("NEW BLOCK ADDED ***************************************")
+	log.Infof("BlueWork[%s] BlueScore[%d] DAAScore[%d] Bits[%d] Version[%d]", block.Header.BlueWork(), block.Header.BlueScore(), block.Header.DAAScore(), block.Header.Bits(), block.Header.Version())
 	return m.context.AddBlock(block)
 }
 

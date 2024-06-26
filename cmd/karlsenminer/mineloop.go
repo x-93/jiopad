@@ -19,6 +19,7 @@ import (
 )
 
 var hashesTried uint64
+var dagReady = false
 
 const logHashRateInterval = 10 * time.Second
 
@@ -97,6 +98,12 @@ func logHashRate() {
 	spawn("logHashRate", func() {
 		lastCheck := time.Now()
 		for range time.Tick(logHashRateInterval) {
+
+			if !dagReady {
+				log.Infof("Generating DAG, please wait ...")
+				continue
+			}
+
 			currentHashesTried := atomic.LoadUint64(&hashesTried)
 			currentTime := time.Now()
 			kiloHashesTried := float64(currentHashesTried) / 1000.0
@@ -138,7 +145,11 @@ func handleFoundBlock(client *minerClient, block *externalapi.DomainBlock) error
 func mineNextBlock(mineWhenNotSynced bool) *externalapi.DomainBlock {
 	nonce := rand.Uint64() // Use the global concurrent-safe random source.
 	for {
+		if !dagReady {
+			continue
+		}
 		nonce++
+		//fmt.Printf("mineNextBlock -- log1\n")
 		// For each nonce we try to build a block from the most up to date
 		// block template.
 		// In the rare case where the nonce space is exhausted for a specific
@@ -165,7 +176,6 @@ func getBlockForMining(mineWhenNotSynced bool) (*externalapi.DomainBlock, *pow.S
 
 	for {
 		tryCount++
-
 		shouldLog := (tryCount-1)%10 == 0
 		template, state, isSynced := templatemanager.Get()
 		if template == nil {
@@ -207,7 +217,10 @@ func templatesLoop(client *minerClient, miningAddr util.Address, errChan chan er
 			errChan <- errors.Wrapf(err, "Error getting block template from %s", client.Address())
 			return
 		}
-		err = templatemanager.Set(template)
+		err = templatemanager.Set(template, backendLog)
+		// after first template DAG is supposed to be ready
+		// TODO: refresh dag status in real time
+		dagReady = true
 		if err != nil {
 			errChan <- errors.Wrapf(err, "Error setting block template from %s", client.Address())
 			return
