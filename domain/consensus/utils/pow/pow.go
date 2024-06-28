@@ -107,12 +107,12 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 	}
 }
 
-// Return the hashing algo version
+// GetHashingAlgoVersion return the hashing algo version
 func GetHashingAlgoVersion() string {
 	return hashingAlgoVersion
 }
 
-// Check the readiness of the context
+// IsContextReady checks the readiness of the context
 func (state *State) IsContextReady() bool {
 	if state != nil {
 		return state.context.ready
