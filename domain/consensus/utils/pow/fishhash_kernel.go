@@ -1,7 +1,6 @@
 package pow
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
 	"golang.org/x/crypto/sha3"
 
 	//"crypto/sha3"
@@ -69,6 +68,7 @@ func lookup(ctx *fishhashContext, index uint32) hash1024 {
 	return calculateDatasetItem1024(ctx, index)
 }
 
+/*
 func fishhashKernel(ctx *fishhashContext, seed hash512) hash256 {
 	indexLimit := uint32(ctx.FullDatasetNumItems)
 	mix := mergeHashes(seed, seed)
@@ -126,3 +126,4 @@ func fishHash(ctx *fishhashContext, hashin *externalapi.DomainHash) *externalapi
 	copy(outputArray[:], output[:])
 	return externalapi.NewDomainHashFromByteArray(&outputArray)
 }
+*/

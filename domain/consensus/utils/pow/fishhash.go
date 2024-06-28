@@ -128,7 +128,7 @@ func prebuildDataset(ctx *fishhashContext, numThreads uint32) {
 		return
 	}
 
-	if ctx.ready == true {
+	if ctx.ready {
 		log.Infof("Dataset already generated")
 		return
 	}
