@@ -474,6 +474,7 @@ var DevnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
+	HFDAAScore:    50,
 }
 
 // ErrDuplicateNet describes an error where the parameters for a Karlsen

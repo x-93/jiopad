@@ -99,7 +99,7 @@ func NewState(header externalapi.MutableBlockHeader, generatedag bool) *State {
 		Target:     *target,
 		prePowHash: *prePowHash,
 		//will remove matrix opow
-		//mat:       *generateMatrix(prePowHash),
+		mat:          *generateMatrix(prePowHash),
 		Timestamp:    timestamp,
 		Nonce:        nonce,
 		context:      *getContext(generatedag, log),
@@ -144,8 +144,10 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	//log.Infof("Hash b3-1: %x", powHash.ByteSlice())
 	finalHash := powHash
 	if state.blockVersion == constants.BlockVersionBeforeHF {
+		log.Infof("Using khashv1 %d %d\n", state.blockVersion, constants.BlockVersionBeforeHF)
 		finalHash = state.mat.HeavyHash(powHash)
 	} else {
+		log.Infof("Using khashv2 %d %d\n", state.blockVersion, constants.BlockVersionBeforeHF)
 		middleHash := fishHashPlus(&state.context, powHash)
 		writer2 := hashes.NewPoWHashWriter()
 		writer2.InfallibleWrite(middleHash.ByteSlice())
