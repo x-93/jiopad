@@ -279,7 +279,7 @@ var MainnetParams = Params{
 	MaxBlockLevel: 225,
 	MergeDepth:    defaultMergeDepth,
 	// todo: define the fork date DAAscore
-	HFDAAScore: 22000042,
+	HFDAAScore: 42000042,
 }
 
 // TestnetParams defines the network parameters for the test Karlsen network.

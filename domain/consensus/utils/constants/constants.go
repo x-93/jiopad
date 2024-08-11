@@ -3,11 +3,11 @@ package constants
 import "math"
 
 const (
-	// BlockVersionBeforeHF represents the block version before the HF
-	BlockVersionBeforeHF uint16 = 1
+	// BlockVersionKHashV1 represents the block version before the HF
+	BlockVersionKHashV1 uint16 = 1
 
-	// BlockVersionAfterHF represents the block version after the HF
-	BlockVersionAfterHF uint16 = 2
+	// BlockVersionKHashV2 represents the block version after the HF
+	BlockVersionKHashV2 uint16 = 2
 
 	// MaxTransactionVersion is the current latest supported transaction version.
 	MaxTransactionVersion uint16 = 0

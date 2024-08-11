@@ -134,6 +134,11 @@ func (v *blockValidator) validateDifficulty(stagingArea *model.StagingArea,
 		return err
 	}
 
+	// bypass the difficulty check during HF
+	if header.DAAScore() <= (v.hfDAAScore+10) && header.DAAScore() >= v.hfDAAScore {
+		expectedBits = v.difficultyManager.GenesisDifficulty()
+	}
+
 	if header.Bits() != expectedBits {
 		return errors.Wrapf(ruleerrors.ErrUnexpectedDifficulty, "block difficulty of %d is not the expected value of %d", header.Bits(), expectedBits)
 	}

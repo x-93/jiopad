@@ -63,9 +63,9 @@ func CheckBlockVersion(t *testing.T, tc testapi.TestConsensus, consensusConfig *
 		t.Fatalf("BuildBlockWithParents: %+v", err)
 	}
 
-	expectedVersion := constants.BlockVersionBeforeHF
+	expectedVersion := constants.BlockVersionKHashV1
 	if consensusConfig.HFDAAScore == 0 {
-		expectedVersion = constants.BlockVersionAfterHF
+		expectedVersion = constants.BlockVersionKHashV2
 	}
 
 	block.Header = blockheader.NewImmutableBlockHeader(

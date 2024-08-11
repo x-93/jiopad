@@ -66,12 +66,12 @@ func (v *blockValidator) checkBlockVersion(header externalapi.BlockHeader) error
 		}
 	*/
 	if header.DAAScore() >= v.hfDAAScore {
-		if header.Version() != constants.BlockVersionAfterHF {
-			log.Warnf("After HF1 the block version should be %d - block[%d][v%d]", constants.BlockVersionAfterHF, header.DAAScore(), header.Version())
+		if header.Version() != constants.BlockVersionKHashV2 {
+			log.Warnf("After HF1 the block version should be %d - block[%d][v%d]", constants.BlockVersionKHashV2, header.DAAScore(), header.Version())
 		}
 	} else {
-		if header.Version() != constants.BlockVersionBeforeHF {
-			log.Warnf("Before HF1 the block version should be %d - block[%d][v%d]", constants.BlockVersionBeforeHF, header.DAAScore(), header.Version())
+		if header.Version() != constants.BlockVersionKHashV1 {
+			log.Warnf("Before HF1 the block version should be %d - block[%d][v%d]", constants.BlockVersionKHashV1, header.DAAScore(), header.Version())
 		}
 	}
 	return nil

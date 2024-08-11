@@ -299,7 +299,9 @@ func TestCheckPruningPointViolation(t *testing.T) {
 func TestValidateDifficulty(t *testing.T) {
 	testutils.ForAllNets(t, true, func(t *testing.T, consensusConfig *consensus.Config) {
 		factory := consensus.NewFactory()
-		mocDifficulty := &mocDifficultyManager{genesisDaaScore: consensusConfig.GenesisBlock.Header.DAAScore()}
+		mocDifficulty := &mocDifficultyManager{
+			genesisDaaScore: consensusConfig.GenesisBlock.Header.DAAScore(),
+			genesisBits:     consensusConfig.GenesisBlock.Header.Bits()}
 		factory.SetTestDifficultyManager(func(_ model.DBReader, _ model.GHOSTDAGManager, _ model.GHOSTDAGDataStore,
 			_ model.BlockHeaderStore, daaBlocksStore model.DAABlocksStore, _ model.DAGTopologyManager,
 			_ model.DAGTraversalManager, _ *big.Int, _ int, _ bool, _ time.Duration,
@@ -346,6 +348,12 @@ type mocDifficultyManager struct {
 	testGenesisBits uint32
 	daaBlocksStore  model.DAABlocksStore
 	genesisDaaScore uint64
+	genesisBits     uint32
+}
+
+// GenesisDifficulty implements model.DifficultyManager.
+func (dm *mocDifficultyManager) GenesisDifficulty() uint32 {
+	return dm.genesisBits
 }
 
 // RequiredDifficulty returns the difficulty required for the test

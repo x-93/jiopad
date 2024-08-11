@@ -95,9 +95,9 @@ func (bb *testBlockBuilder) buildUTXOInvalidHeader(stagingArea *model.StagingAre
 		})
 	}
 
-	version := constants.BlockVersionBeforeHF
+	version := constants.BlockVersionKHashV1
 	if daaScore >= bb.hfDAAScore {
-		version = constants.BlockVersionAfterHF
+		version = constants.BlockVersionKHashV2
 	}
 
 	bb.nonceCounter++

@@ -210,6 +210,12 @@ func (bb *blockBuilder) buildHeader(stagingArea *model.StagingArea, transactions
 	if err != nil {
 		return nil, err
 	}
+
+	// adjust the difficulty
+	/*if daaScore <= (bb.hfDAAScore+10) && daaScore >= bb.hfDAAScore {
+		bits = bb.difficultyManager.GenesisDifficulty()
+	}*/
+
 	hashMerkleRoot := bb.newBlockHashMerkleRoot(transactions)
 	acceptedIDMerkleRoot, err := bb.newBlockAcceptedIDMerkleRoot(stagingArea)
 	if err != nil {
@@ -228,9 +234,9 @@ func (bb *blockBuilder) buildHeader(stagingArea *model.StagingArea, transactions
 		return nil, err
 	}
 
-	version := constants.BlockVersionBeforeHF
+	version := constants.BlockVersionKHashV1
 	if daaScore >= bb.hfDAAScore {
-		version = constants.BlockVersionAfterHF
+		version = constants.BlockVersionKHashV2
 	}
 
 	return blockheader.NewImmutableBlockHeader(
