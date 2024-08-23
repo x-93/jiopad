@@ -279,7 +279,7 @@ var MainnetParams = Params{
 	MaxBlockLevel: 225,
 	MergeDepth:    defaultMergeDepth,
 	// todo: define the fork date DAAscore
-	HFDAAScore: 42000042,
+	HFDAAScore:    42000042,
 }
 
 // TestnetParams defines the network parameters for the test Karlsen network.
@@ -345,7 +345,7 @@ var TestnetParams = Params{
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
 	// todo: define the fork date DAAscore
-	HFDAAScore: 6000000,
+	HFDAAScore:    6000000,
 }
 
 // SimnetParams defines the network parameters for the simulation test Karlsen
@@ -412,6 +412,7 @@ var SimnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
+	HFDAAScore:    50,
 }
 
 // DevnetParams defines the network parameters for the development Karlsen network.
