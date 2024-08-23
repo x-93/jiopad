@@ -134,6 +134,11 @@ func (v *blockValidator) validateDifficulty(stagingArea *model.StagingArea,
 		return err
 	}
 
+	// bypass the difficulty check during HF
+	if header.DAAScore() <= (v.hfDAAScore+10) && header.DAAScore() >= v.hfDAAScore {
+		expectedBits = v.difficultyManager.GenesisDifficulty()
+	}
+
 	if header.Bits() != expectedBits {
 		return errors.Wrapf(ruleerrors.ErrUnexpectedDifficulty, "block difficulty of %d is not the expected value of %d", header.Bits(), expectedBits)
 	}
@@ -150,7 +155,7 @@ func (v *blockValidator) validateDifficulty(stagingArea *model.StagingArea,
 //     difficulty is not performed.
 func (v *blockValidator) checkProofOfWork(header externalapi.BlockHeader) error {
 	// The target difficulty must be larger than zero.
-	state := pow.NewState(header.ToMutable())
+	state := pow.NewState(header.ToMutable(), false)
 	target := &state.Target
 	if target.Sign() <= 0 {
 		return errors.Wrapf(ruleerrors.ErrNegativeTarget, "block target difficulty of %064x is too low",
