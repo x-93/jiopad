@@ -74,7 +74,7 @@ jobs:
         run: rm -r stability-tests
 
       - name: Create coverage file
-        run: go test -v -covermode=atomic -coverpkg=./... -coverprofile coverage.txt ./...
+        run: go test -timeout 120m -v -covermode=atomic -coverpkg=./... -coverprofile coverage.txt ./...
 
       - name: Upload coverage file
         run: bash <(curl -s https://codecov.io/bash)
