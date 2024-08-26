@@ -35,6 +35,8 @@ jobs:
 
       - name: Test
         shell: bash
+        env:
+          NO_PARALLEL: 1
         run: ./build_and_test.sh
 
   stability-test-fast:
@@ -74,7 +76,7 @@ jobs:
         run: rm -r stability-tests
 
       - name: Create coverage file
-        run: go test -timeout 120m -v -covermode=atomic -coverpkg=./... -coverprofile coverage.txt ./...
+        run: go test -timeout 120m -parallel=1 -v -covermode=atomic -coverpkg=./... -coverprofile coverage.txt ./...
 
       - name: Upload coverage file
         run: bash <(curl -s https://codecov.io/bash)
