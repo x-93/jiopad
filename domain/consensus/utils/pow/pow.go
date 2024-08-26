@@ -75,7 +75,7 @@ func getContext(full bool, log *logger.Logger) *fishhashContext {
 
 // SetLogger uses a specified Logger to output package logging info
 func SetLogger(backend *logger.Backend, level logger.Level) {
-	const logSubsystem = "POW"
+	const logSubsystem = "POWK"
 	log = backend.Logger(logSubsystem)
 	log.SetLevel(level)
 	spawn = panics.GoroutineWrapperFunc(log)
