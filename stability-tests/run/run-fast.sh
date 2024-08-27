@@ -30,6 +30,9 @@ echo "Running simple-sync"
 cd "${PROJECT_ROOT}/simple-sync/run" && ./run.sh || failedTests+=("simple-sync")
 echo "Done running simple-sync"
 
+echo "Moving khashv2 pre-computed dag file"
+mv "${PROJECT_ROOT}/simple-sync/run/hashes.dat" "${PROJECT_ROOT}/many-tips/run"
+
 echo "Running orphans"
 cd "${PROJECT_ROOT}/orphans/run" && ./run.sh || failedTests+=("orphans")
 echo "Done running orphans"
