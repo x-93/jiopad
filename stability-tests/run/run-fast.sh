@@ -45,6 +45,9 @@ echo "Running many-tips"
 cd "${PROJECT_ROOT}/many-tips/run" && ./run.sh || failedTests+=("many-tips")
 echo "Done running many-tips"
 
+echo "Removing khashv2 pre-computed dag file"
+rm "${PROJECT_ROOT}/many-tips/run/hashes.dat"
+
 echo "Running netsync - fast"
 cd "${PROJECT_ROOT}/netsync/run" && ./run-fast.sh || failedTests+=("netsync")
 echo "Done running netsync - fast"
