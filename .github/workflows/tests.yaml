@@ -28,6 +28,13 @@ jobs:
         if: runner.os == 'Windows'
         run: powershell -command .github\workflows\SetPageFileSize.ps1
 
+      # Increase the swap size on Linux to aviod running out of memory
+      - name: Increase swap size on Linux
+        if: runner.os == 'Linux'
+        uses: thejerrybao/setup-swap-space@v1
+        with:
+          swap-size-gb: 12
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -43,6 +50,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Fast stability tests
     steps:
+
+      # Increase the swap size on Linux to aviod running out of memory
+      - name: Increase swap size on Linux
+        if: runner.os == 'Linux'
+        uses: thejerrybao/setup-swap-space@v1
+        with:
+          swap-size-gb: 12
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
