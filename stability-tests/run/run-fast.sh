@@ -30,6 +30,9 @@ echo "Running simple-sync"
 cd "${PROJECT_ROOT}/simple-sync/run" && ./run.sh || failedTests+=("simple-sync")
 echo "Done running simple-sync"
 
+echo "Moving khashv2 pre-computed dag file"
+mv "${PROJECT_ROOT}/simple-sync/run/hashes.dat" "${PROJECT_ROOT}/many-tips/run"
+
 echo "Running orphans"
 cd "${PROJECT_ROOT}/orphans/run" && ./run.sh || failedTests+=("orphans")
 echo "Done running orphans"
@@ -41,6 +44,9 @@ echo "Done running reorg"
 echo "Running many-tips"
 cd "${PROJECT_ROOT}/many-tips/run" && ./run.sh || failedTests+=("many-tips")
 echo "Done running many-tips"
+
+echo "Removing khashv2 pre-computed dag file"
+rm "${PROJECT_ROOT}/many-tips/run/hashes.dat"
 
 echo "Running netsync - fast"
 cd "${PROJECT_ROOT}/netsync/run" && ./run-fast.sh || failedTests+=("netsync")

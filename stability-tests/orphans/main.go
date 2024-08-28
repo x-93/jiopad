@@ -49,8 +49,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Wait a second to let karlsend process orphans
-	<-time.After(1 * time.Second)
+	// Wait 5 seconds to let karlsend process orphans
+	<-time.After(5 * time.Second)
 
 	err = checkTopBlockIsTip(rpcClient, topBlock)
 	if err != nil {
