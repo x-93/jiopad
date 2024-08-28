@@ -79,6 +79,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Produce code coverage
     steps:
+
+      # Increase the swap size on Linux to aviod running out of memory
+      - name: Increase swap size on Linux
+        if: runner.os == 'Linux'
+        uses: thejerrybao/setup-swap-space@v1
+        with:
+          swap-size-gb: 12
+
       - name: Check out code into the Go module directory
         uses: actions/checkout@v4
 
