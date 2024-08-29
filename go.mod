@@ -1,4 +1,4 @@
-module github.com/karlsen-network/karlsend
+module github.com/karlsen-network/karlsend/v2
 
 go 1.18
 
