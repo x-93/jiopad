@@ -9,8 +9,8 @@ import (
 const validCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"
 
 const (
-	appMajor uint = 1
-	appMinor uint = 2
+	appMajor uint = 2
+	appMinor uint = 1
 	appPatch uint = 0
 )
 

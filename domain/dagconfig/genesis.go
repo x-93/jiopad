@@ -121,7 +121,7 @@ var devnetGenesisBlock = externalapi.DomainBlock{
 		&externalapi.DomainHash{},
 		externalapi.NewDomainHashFromByteArray(muhash.EmptyMuHashHash.AsArray()),
 		0x11e9db49828,
-		525264379,
+		0x1f4ee5fb,
 		0x48e5e,
 		0,
 		0,

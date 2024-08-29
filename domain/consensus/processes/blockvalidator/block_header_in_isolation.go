@@ -59,9 +59,18 @@ func (v *blockValidator) checkParentsLimit(header externalapi.BlockHeader) error
 }
 
 func (v *blockValidator) checkBlockVersion(header externalapi.BlockHeader) error {
-	if header.Version() != constants.BlockVersion {
-		return errors.Wrapf(
-			ruleerrors.ErrWrongBlockVersion, "The block version should be %d", constants.BlockVersion)
+	/*
+		if header.Version() != constants.BlockVersion {
+			return errors.Wrapf(
+				ruleerrors.ErrWrongBlockVersion, "The block version should be %d", constants.BlockVersion)
+		}
+	*/
+	if header.DAAScore() >= v.hfDAAScore && header.Version() != constants.BlockVersionKHashV2 {
+		log.Warnf("After HF1 the block version should be %d - block[%d][v%d]", constants.BlockVersionKHashV2, header.DAAScore(), header.Version())
+		return errors.Wrapf(ruleerrors.ErrWrongBlockVersion, "The block version should be %d", constants.BlockVersionKHashV2)
+	} else if header.DAAScore() < v.hfDAAScore && header.Version() != constants.BlockVersionKHashV1 {
+		log.Warnf("Before HF1 the block version should be %d - block[%d][v%d]", constants.BlockVersionKHashV1, header.DAAScore(), header.Version())
+		return errors.Wrapf(ruleerrors.ErrWrongBlockVersion, "The block version should be %d", constants.BlockVersionKHashV1)
 	}
 	return nil
 }

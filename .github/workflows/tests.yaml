@@ -28,28 +28,36 @@ jobs:
         if: runner.os == 'Windows'
         run: powershell -command .github\workflows\SetPageFileSize.ps1
 
+      # Increase the swap size on Linux to aviod running out of memory
+      - name: Increase swap size on Linux
+        if: runner.os == 'Linux'
+        uses: thejerrybao/setup-swap-space@v1
+        with:
+          swap-size-gb: 12
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
           go-version: 1.21
 
-      # Source: https://github.com/actions/cache/blob/main/examples.md#go---modules
-      - name: Go Cache
-        uses: actions/cache@v4
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
       - name: Test
         shell: bash
+        env:
+          NO_PARALLEL: 1
         run: ./build_and_test.sh
 
   stability-test-fast:
     runs-on: ubuntu-latest
     name: Fast stability tests
     steps:
+
+      # Increase the swap size on Linux to aviod running out of memory
+      - name: Increase swap size on Linux
+        if: runner.os == 'Linux'
+        uses: thejerrybao/setup-swap-space@v1
+        with:
+          swap-size-gb: 12
+
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -71,6 +79,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Produce code coverage
     steps:
+
+      # Increase the swap size on Linux to aviod running out of memory
+      - name: Increase swap size on Linux
+        if: runner.os == 'Linux'
+        uses: thejerrybao/setup-swap-space@v1
+        with:
+          swap-size-gb: 12
+
       - name: Check out code into the Go module directory
         uses: actions/checkout@v4
 
@@ -83,7 +99,7 @@ jobs:
         run: rm -r stability-tests
 
       - name: Create coverage file
-        run: go test -v -covermode=atomic -coverpkg=./... -coverprofile coverage.txt ./...
+        run: go test -timeout 120m -parallel=1 -v -covermode=atomic -coverpkg=./... -coverprofile coverage.txt ./...
 
       - name: Upload coverage file
         run: bash <(curl -s https://codecov.io/bash)

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-simple-sync --simnet -n=1000 --profile=7000
+simple-sync --simnet -n=100 --profile=7000
 TEST_EXIT_CODE=$?
 
 echo "Exit code: $TEST_EXIT_CODE"

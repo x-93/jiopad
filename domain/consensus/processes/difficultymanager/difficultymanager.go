@@ -100,6 +100,11 @@ func (dm *difficultyManager) RequiredDifficulty(stagingArea *model.StagingArea, 
 	return dm.requiredDifficultyFromTargetsWindow(targetsWindow)
 }
 
+// GenesisDifficulty returns the difficulty current network genesis block
+func (dm *difficultyManager) GenesisDifficulty() uint32 {
+	return dm.genesisBits
+}
+
 func (dm *difficultyManager) requiredDifficultyFromTargetsWindow(targetsWindow blockWindow) (uint32, error) {
 	if dm.disableDifficultyAdjustment {
 		return dm.genesisBits, nil

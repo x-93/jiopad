@@ -89,4 +89,5 @@ func (mat *matrix) HeavyHash(hash *externalapi.DomainHash) *externalapi.DomainHa
 	writer := hashes.NewHeavyHashWriter()
 	writer.InfallibleWrite(res[:])
 	return writer.Finalize()
+	//return externalapi.NewDomainHashFromByteArray(&res)
 }
