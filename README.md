@@ -38,18 +38,15 @@ miners. We will ensure long-term GPU-friendly mining.
 ### Hashing Function
 
 We initially started with `kHeavyHash` and `blake3` modifications
-on-top. This algorithm is called `KarlsenHashv1`. However `kHeavyHash`
-and `blake3` are not future proof in ASIC resistence. Therefore we've
-launched already our `testnet-1` with [FishHash](https://github.com/iron-fish/fish-hash/blob/main/FishHash.pdf).
-It is the worlds first implementation of FishHash with Golang in a
-1bps blockchain.
+on-top. This algorithm is called `KarlsenHashv1`.
 
 `KarlsenHashv1` is currently used in [mainnet](https://github.com/karlsen-network/karlsend/releases/tag/v1.1.0)
 and can be mined using the following miners maintained by the Karlsen
 developers:
 
 * Built-in CPU miner from `karlsend`
-* Karlsen [GPU miner](https://github.com/karlsen-network/karlsen-miner) as reference implementation of `kHeavyHash` with `blake3`.
+* Karlsen [GPU miner](https://github.com/karlsen-network/karlsen-miner)
+  as reference implementation of `kHeavyHash` with `blake3`.
 
 The following third-party miners are available and have added
 `KarlsenHashv1`:
@@ -61,14 +58,42 @@ The following third-party miners are available and have added
 * [Rigel](https://github.com/rigelminer/rigel)
 * [GMiner](https://github.com/develsoftware/GMinerRelease)
 
-`KarlsenHashv2` is currently being investigated and tested in [testnet-1](https://github.com/karlsen-network/karlsend/releases/tag/v2.0.0-testnet-1-fishhash)
+`KarlsenHashv2` will become active via hardfork at DAA score `26.962.009`.
+It is based on [FishHash](https://github.com/iron-fish/fish-hash/blob/main/FishHash.pdf)
+written from scratch in our Golang node implementation. It is FPGA/ASIC
+resistent. It is the worlds first implementation of FishHash with Golang
+in `mainnet` in a 1bps blockchain.
+
+`KarlsenHashv2` is currently used in [mainnet](https://github.com/karlsen-network/karlsend/releases/tag/v2.1.0)
 and can be mined using the following miners maintained by the Karlsen
 developers:
 
 * Built-in CPU miner from `karlsend`
-* Karlsen [GPU miner](https://github.com/wam-rd/karlsen-miner/releases/tag/v2.0.0-alpha) as bleeding edge and unoptimized reference implementation of FishHash.
+* Karlsen [GPU miner](https://github.com/karlsen-network/karlsen-miner/releases/tag/v2.0.0)
+  as bleeding edge and unoptimized reference implementation of
+  `KarlsenHashv2`. Please follow the steps in the [README.md](https://github.com/karlsen-network/karlsen-miner/blob/main/README.md)
+  to generate a DAG file.
 
-There are no third-party miners available as of now.
+The following third-party miners are available and have added
+`KarlsenHashv2`:
+
+* [SRBMiner](https://github.com/doktor83/SRBMiner-Multi)
+
+### DAG Generation
+
+To start mining using the built-in CPU miner it needs a pre-generated
+DAG file. `KarlsenHashv2` miner uses a 4GB DAG for efficient mining.
+It generates this DAG with 8 CPU threads and saves it as `hashes.dat`
+for faster subsequent runs.
+
+* First Run: Generates a 4GB DAG using 8 CPU threads. This may take
+  time depending on your computer. Saves the DAG as `hashes.dat` for
+  future use.
+* Next Runs: Loads `hashes.dat` to skip DAG generation, speeding up
+  startup.
+
+If you need to regenerate the DAG, delete `hashes.dat` and run the
+`karlsenminer` again.
 
 ## Smart Contracts
 
