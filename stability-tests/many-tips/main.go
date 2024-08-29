@@ -115,7 +115,7 @@ func startNode() (teardown func(), err error) {
 		"--appdir", dataDir,
 		"--logdir", dataDir,
 		"--rpclisten", rpcAddress,
-		"--loglevel", "debug",
+		"--loglevel", "info",
 		"--allow-submit-block-when-not-synced",
 	)
 	if err != nil {

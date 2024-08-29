@@ -75,7 +75,7 @@ func getContext(full bool, log *logger.Logger) *fishhashContext {
 
 // SetLogger uses a specified Logger to output package logging info
 func SetLogger(backend *logger.Backend, level logger.Level) {
-	const logSubsystem = "POW"
+	const logSubsystem = "POWK"
 	log = backend.Logger(logSubsystem)
 	log.SetLevel(level)
 	spawn = panics.GoroutineWrapperFunc(log)
@@ -145,10 +145,10 @@ func (state *State) CalculateProofOfWorkValue() *big.Int {
 	//log.Infof("Hash b3-1: %x", powHash.ByteSlice())
 	finalHash := powHash
 	if state.blockVersion == constants.BlockVersionKHashV1 {
-		log.Debugf("Using khashv1 %d %d\n", state.blockVersion, constants.BlockVersionKHashV1)
+		log.Debugf("Using khashv1 %d %d", state.blockVersion, constants.BlockVersionKHashV1)
 		finalHash = state.mat.HeavyHash(powHash)
 	} else {
-		log.Debugf("Using khashv2 %d %d\n", state.blockVersion, constants.BlockVersionKHashV1)
+		log.Debugf("Using khashv2 %d %d", state.blockVersion, constants.BlockVersionKHashV2)
 		middleHash := fishHashPlus(&state.context, powHash)
 		writer2 := hashes.NewPoWHashWriter()
 		writer2.InfallibleWrite(middleHash.ByteSlice())
