@@ -278,7 +278,7 @@ var MainnetParams = Params{
 	// This means that any block that has a level lower or equal to genesis will be level 0.
 	MaxBlockLevel: 225,
 	MergeDepth:    defaultMergeDepth,
-	HFDAAScore:    42000042, // TODO: define the fork date DAAscore
+	HFDAAScore:    26962009, // HF DAAscore to switch to khashv2 (Fri Sep 13 01:37:00 PM UTC 2024)
 }
 
 // TestnetParams defines the network parameters for the test Karlsen network.
