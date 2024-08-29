@@ -3,16 +3,16 @@ package standalone
 import (
 	"sync"
 
-	"github.com/karlsen-network/karlsend/app/protocol/common"
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/common"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/id"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/id"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 
-	"github.com/karlsen-network/karlsend/infrastructure/config"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter"
 
 	"github.com/pkg/errors"
 )

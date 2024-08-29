@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/utils"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet/bip32"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/utils"
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/keys"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/keys"
 )
 
 func create(conf *createConfig) error {

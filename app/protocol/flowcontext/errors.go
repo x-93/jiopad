@@ -5,9 +5,9 @@ import (
 	"strings"
 	"sync/atomic"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 
-	"github.com/karlsen-network/karlsend/app/protocol/protocolerrors"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/protocolerrors"
 )
 
 var (

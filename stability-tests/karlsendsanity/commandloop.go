@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
-	"github.com/karlsen-network/karlsend/stability-tests/common"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common"
 	"github.com/pkg/errors"
 )
 

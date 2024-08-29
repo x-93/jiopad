@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/v2/util"
 )
 
 func main() {

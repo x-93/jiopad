@@ -4,18 +4,18 @@ import (
 	"sync"
 	"time"
 
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
-	"github.com/karlsen-network/karlsend/domain"
+	"github.com/karlsen-network/karlsend/v2/domain"
 
-	peerpkg "github.com/karlsen-network/karlsend/app/protocol/peer"
-	"github.com/karlsen-network/karlsend/infrastructure/config"
-	"github.com/karlsen-network/karlsend/infrastructure/network/addressmanager"
-	"github.com/karlsen-network/karlsend/infrastructure/network/connmanager"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/id"
+	peerpkg "github.com/karlsen-network/karlsend/v2/app/protocol/peer"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/addressmanager"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/connmanager"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/id"
 )
 
 // OnNewBlockTemplateHandler is a handler function that's triggered when a new block template is available

@@ -5,9 +5,9 @@ import (
 	"sort"
 	"time"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
 	"github.com/pkg/errors"
 )
 

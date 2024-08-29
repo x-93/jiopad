@@ -1,10 +1,10 @@
 package blockrelay
 
 import (
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	peerpkg "github.com/karlsen-network/karlsend/app/protocol/peer"
-	"github.com/karlsen-network/karlsend/domain"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	peerpkg "github.com/karlsen-network/karlsend/v2/app/protocol/peer"
+	"github.com/karlsen-network/karlsend/v2/domain"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 )
 
 // PruningPointProofRequestsContext is the interface for the context needed for the HandlePruningPointProofRequests flow.

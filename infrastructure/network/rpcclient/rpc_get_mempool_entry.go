@@ -1,6 +1,6 @@
 package rpcclient
 
-import "github.com/karlsen-network/karlsend/app/appmessage"
+import "github.com/karlsen-network/karlsend/v2/app/appmessage"
 
 // GetMempoolEntry sends an RPC request respective to the function's name and returns the RPC server's response
 func (c *RPCClient) GetMempoolEntry(txID string, includeOrphanPool bool, filterTransactionPool bool) (*appmessage.GetMempoolEntryResponseMessage, error) {

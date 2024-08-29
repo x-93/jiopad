@@ -4,13 +4,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/id"
-	mathUtil "github.com/karlsen-network/karlsend/util/math"
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/id"
+	mathUtil "github.com/karlsen-network/karlsend/v2/util/math"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 )
 
 // Peer holds data about a peer.

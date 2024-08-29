@@ -3,7 +3,7 @@ package dagconfig_test
 import (
 	"testing"
 
-	. "github.com/karlsen-network/karlsend/domain/dagconfig"
+	. "github.com/karlsen-network/karlsend/v2/domain/dagconfig"
 )
 
 // Define some of the required parameters for a user-registered

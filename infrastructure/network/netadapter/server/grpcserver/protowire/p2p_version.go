@@ -1,9 +1,9 @@
 package protowire
 
 import (
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/id"
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/id"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 	"github.com/pkg/errors"
 )
 

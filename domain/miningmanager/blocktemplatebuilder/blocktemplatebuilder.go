@@ -4,18 +4,18 @@ import (
 	"math"
 	"sort"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/processes/coinbasemanager"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/merkle"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/transactionhelper"
-	"github.com/karlsen-network/karlsend/domain/consensusreference"
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/processes/coinbasemanager"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/merkle"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/transactionhelper"
+	"github.com/karlsen-network/karlsend/v2/domain/consensusreference"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 
-	"github.com/karlsen-network/karlsend/util/difficulty"
+	"github.com/karlsen-network/karlsend/v2/util/difficulty"
 
-	consensusexternalapi "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/ruleerrors"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/subnetworks"
-	miningmanagerapi "github.com/karlsen-network/karlsend/domain/miningmanager/model"
+	consensusexternalapi "github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/ruleerrors"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/subnetworks"
+	miningmanagerapi "github.com/karlsen-network/karlsend/v2/domain/miningmanager/model"
 	"github.com/pkg/errors"
 )
 

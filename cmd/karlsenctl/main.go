@@ -5,14 +5,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/karlsen-network/karlsend/version"
+	"github.com/karlsen-network/karlsend/v2/version"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/server/grpcserver/protowire"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/server/grpcserver/protowire"
 
 	"github.com/pkg/errors"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/rpcclient/grpcclient"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient/grpcclient"
 )
 
 func main() {

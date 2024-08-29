@@ -5,8 +5,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/karlsen-network/karlsend/stability-tests/common"
-	"github.com/karlsen-network/karlsend/stability-tests/common/mine"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common/mine"
 	"github.com/pkg/errors"
 )
 

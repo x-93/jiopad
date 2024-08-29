@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/karlsen-network/karlsend/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/rpcclient"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient"
 )
 
 const rpcTimeout = 10 * time.Second

@@ -3,9 +3,9 @@ package main
 import (
 	"sync/atomic"
 
-	"github.com/karlsen-network/karlsend/stability-tests/common"
-	"github.com/karlsen-network/karlsend/util/panics"
-	"github.com/karlsen-network/karlsend/util/profiling"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
+	"github.com/karlsen-network/karlsend/v2/util/profiling"
 	"github.com/pkg/errors"
 )
 

@@ -7,7 +7,7 @@ package appmessage
 import (
 	"net"
 
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 )
 
 // NetAddress defines information about a peer on the network including the time

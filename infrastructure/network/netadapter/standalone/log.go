@@ -1,8 +1,8 @@
 package standalone
 
 import (
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 )
 
 var log = logger.RegisterSubSystem("NTAR")

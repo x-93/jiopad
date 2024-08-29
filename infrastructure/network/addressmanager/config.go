@@ -3,7 +3,7 @@ package addressmanager
 import (
 	"net"
 
-	"github.com/karlsen-network/karlsend/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
 )
 
 // Config is a descriptor which specifies the AddressManager instance configuration.

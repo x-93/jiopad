@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/server"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/server"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/peer"

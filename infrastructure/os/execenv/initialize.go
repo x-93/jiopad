@@ -5,7 +5,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/karlsen-network/karlsend/infrastructure/os/limits"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/os/limits"
 )
 
 // Initialize initializes the execution environment required to run karlsend

@@ -3,10 +3,10 @@ package main
 import (
 	"time"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/stability-tests/common"
-	"github.com/karlsen-network/karlsend/stability-tests/common/rpc"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common/rpc"
+	"github.com/karlsen-network/karlsend/v2/util"
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 )

@@ -1,6 +1,6 @@
 package subnetworks
 
-import "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+import "github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
 var (
 	// SubnetworkIDNative is the default subnetwork ID which is used for transactions without related payload data

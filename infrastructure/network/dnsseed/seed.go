@@ -12,15 +12,15 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	pb2 "github.com/karlsen-network/karlsend/infrastructure/network/dnsseed/pb"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	pb2 "github.com/karlsen-network/karlsend/v2/infrastructure/network/dnsseed/pb"
 	"google.golang.org/grpc"
 
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
 )
 
 const (

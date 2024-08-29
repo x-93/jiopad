@@ -3,11 +3,11 @@ package libkarlsenwallet
 import (
 	"encoding/hex"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/transactionid"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/utxo"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/pb"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/transactionid"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/utxo"
 )
 
 // KarlsenwalletdUTXOsTolibkarlsenwalletUTXOs converts a  []*pb.UtxosByAddressesEntry to a []*libkarlsenwallet.UTXO

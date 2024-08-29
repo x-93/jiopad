@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/server"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/server"
 
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/pb"
 	"google.golang.org/grpc"
 )
 

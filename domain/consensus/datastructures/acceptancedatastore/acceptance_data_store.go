@@ -1,11 +1,11 @@
 package acceptancedatastore
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus/database/serialization"
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/lrucache"
-	"github.com/karlsen-network/karlsend/util/staging"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/database/serialization"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/lrucache"
+	"github.com/karlsen-network/karlsend/v2/util/staging"
 	"google.golang.org/protobuf/proto"
 )
 

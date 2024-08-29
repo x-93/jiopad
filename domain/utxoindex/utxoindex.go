@@ -3,10 +3,10 @@ package utxoindex
 import (
 	"sync"
 
-	"github.com/karlsen-network/karlsend/domain"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/infrastructure/db/database"
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/domain"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
 )
 
 // UTXOIndex maintains an index between transaction scriptPublicKeys

@@ -4,11 +4,11 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/karlsen-network/karlsend/util/txmass"
+	"github.com/karlsen-network/karlsend/v2/util/txmass"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/util/difficulty"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/util/difficulty"
 )
 
 // blockValidator exposes a set of validation classes, after which

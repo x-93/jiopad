@@ -1,9 +1,9 @@
 package grpcserver
 
 import (
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/server"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/server/grpcserver/protowire"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/server"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/server/grpcserver/protowire"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 )
 
 type rpcServer struct {

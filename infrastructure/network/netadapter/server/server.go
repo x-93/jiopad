@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 )
 
 // OnConnectedHandler is a function that is to be called

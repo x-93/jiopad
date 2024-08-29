@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/util"
 
-	"github.com/karlsen-network/karlsend/version"
+	"github.com/karlsen-network/karlsend/v2/version"
 
 	"github.com/pkg/errors"
 
 	_ "net/http/pprof"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/pow"
-	"github.com/karlsen-network/karlsend/infrastructure/os/signal"
-	"github.com/karlsen-network/karlsend/util/panics"
-	"github.com/karlsen-network/karlsend/util/profiling"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/pow"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/os/signal"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
+	"github.com/karlsen-network/karlsend/v2/util/profiling"
 )
 
 func main() {

@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
 
 	// Required for profiling
 	_ "net/http/pprof"
@@ -16,7 +16,7 @@ import (
 	"runtime"
 	"runtime/pprof"
 
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 )
 
 // heapDumpFileName is the name of the heap dump file. We want every run to have its own

@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
 )
 
 // RunKarlsendForTesting runs karlsend for testing purposes

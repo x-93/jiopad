@@ -1,9 +1,9 @@
 package syncmanager
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus/database"
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/database"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 

@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/keys"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/keys"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet"
 	"github.com/pkg/errors"
 )
 

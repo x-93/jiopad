@@ -1,8 +1,8 @@
 package rpcclient
 
 import (
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	routerpkg "github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	routerpkg "github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 )
 

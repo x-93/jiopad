@@ -1,6 +1,6 @@
 package protowire
 
-import "github.com/karlsen-network/karlsend/app/appmessage"
+import "github.com/karlsen-network/karlsend/v2/app/appmessage"
 
 func (x *KarlsendMessage_UnexpectedPruningPoint) toAppMessage() (appmessage.Message, error) {
 	return &appmessage.MsgUnexpectedPruningPoint{}, nil

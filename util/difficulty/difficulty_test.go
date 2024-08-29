@@ -6,11 +6,11 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/testutils"
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/util/difficulty"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/testutils"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/util/difficulty"
 )
 
 func TestGetHashrateString(t *testing.T) {

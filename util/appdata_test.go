@@ -12,7 +12,7 @@ import (
 	"testing"
 	"unicode"
 
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/util"
 )
 
 // TestAppDataDir tests the API for AppDir to ensure it gives expected
