@@ -84,11 +84,6 @@ func (app *karlsendApp) main(startedChan chan<- struct{}) error {
 	// Show version at startup.
 	log.Infof("Version %s", version.Version())
 	log.Infof("Using KarlsenHashV2 impl: %s", pow.GetHashingAlgoVersion())
-	if !app.cfg.Testnet && !app.cfg.Devnet && !app.cfg.Simnet {
-		log.Warnf("You are trying to connect to Mainnet")
-		log.Errorf("This version is using KarlsenHashV2, please add --testnet parameter")
-		os.Exit(42)
-	}
 
 	// Enable http profiling server if requested.
 	if app.cfg.Profile != "" {
