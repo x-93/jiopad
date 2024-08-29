@@ -1,6 +1,6 @@
 package model
 
-import "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+import "github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
 // ConsensusStateStore represents a store for the current consensus state
 type ConsensusStateStore interface {

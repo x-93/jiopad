@@ -9,10 +9,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/util"
 )
 
 // mustParseShortForm parses the passed short form script and returns the

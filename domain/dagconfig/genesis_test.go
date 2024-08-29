@@ -7,7 +7,7 @@ package dagconfig
 import (
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
 )
 
 // TestGenesisBlock tests the genesis block of the main network for validity by

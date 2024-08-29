@@ -3,10 +3,10 @@ package consensushashing
 import (
 	"io"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/serialization"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/serialization"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashes"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/hashes"
 	"github.com/pkg/errors"
 )
 

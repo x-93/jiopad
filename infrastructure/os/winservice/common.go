@@ -1,6 +1,6 @@
 package winservice
 
-import "github.com/karlsen-network/karlsend/infrastructure/config"
+import "github.com/karlsen-network/karlsend/v2/infrastructure/config"
 
 // ServiceDescription contains information about a service, needed to administer it
 type ServiceDescription struct {

@@ -3,8 +3,8 @@ package serialization
 import (
 	"io"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/util/binaryserializer"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/util/binaryserializer"
 	"github.com/pkg/errors"
 )
 

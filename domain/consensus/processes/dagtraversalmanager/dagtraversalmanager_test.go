@@ -3,11 +3,11 @@ package dagtraversalmanager_test
 import (
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
 
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/testutils"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/testutils"
 )
 
 func TestLowestChainBlockAboveOrEqualToBlueScore(t *testing.T) {

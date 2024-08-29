@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
 )
 
 func validateCurrentCursorKeyAndValue(t *testing.T, testName string, cursor database.Cursor,

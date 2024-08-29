@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
 )
 
 func prepareDatabaseForTest(t *testing.T, testName string) (ldb *LevelDB, teardownFunc func()) {

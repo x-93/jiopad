@@ -1,7 +1,7 @@
 package appmessage
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 // MaxInvPerRequestTransactionsMsg is the maximum number of hashes that can

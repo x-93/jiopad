@@ -5,9 +5,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet/bip32"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/util"
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 )

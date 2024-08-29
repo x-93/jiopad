@@ -5,17 +5,17 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/subnetworks"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/subnetworks"
 
 	"github.com/kaspanet/go-secp256k1"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/txscript"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/utxo"
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/txscript"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/utxo"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/util"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 // shortened versions of SigHash types to fit in single line of test case

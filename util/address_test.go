@@ -13,7 +13,7 @@ import (
 
 	"golang.org/x/crypto/blake2b"
 
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/util"
 )
 
 func TestAddresses(t *testing.T) {

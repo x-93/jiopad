@@ -3,13 +3,13 @@ package transactionvalidator_test
 import (
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/ruleerrors"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/subnetworks"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/testutils"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/transactionhelper"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/ruleerrors"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/subnetworks"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/testutils"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/transactionhelper"
 	"github.com/pkg/errors"
 )
 

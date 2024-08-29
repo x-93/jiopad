@@ -13,10 +13,10 @@ import (
 
 	"github.com/gofrs/flock"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/utils"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/utils"
 
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/util"
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/argon2"
 	"golang.org/x/crypto/chacha20poly1305"

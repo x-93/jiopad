@@ -5,14 +5,14 @@ import (
 	"math/big"
 	"sort"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/testapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/blockheader"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/transactionhelper"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/txscript"
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/testapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/blockheader"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/transactionhelper"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/txscript"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
 	"github.com/pkg/errors"
 )
 

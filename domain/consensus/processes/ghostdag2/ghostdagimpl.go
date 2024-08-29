@@ -3,12 +3,12 @@ package ghostdag2
 import (
 	"sort"
 
-	"github.com/karlsen-network/karlsend/util/difficulty"
+	"github.com/karlsen-network/karlsend/v2/util/difficulty"
 
 	"math/big"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 type ghostdagHelper struct {

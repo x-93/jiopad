@@ -8,7 +8,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
 )
 
 // RenderDAGToDot is a helper function for debugging tests.

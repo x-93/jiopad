@@ -1,10 +1,10 @@
 package blockparentbuilder
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashset"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/hashset"
 	"github.com/pkg/errors"
 )
 

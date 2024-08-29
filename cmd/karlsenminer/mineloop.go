@@ -6,15 +6,15 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/karlsen-network/karlsend/version"
+	"github.com/karlsen-network/karlsend/v2/version"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/cmd/karlsenminer/templatemanager"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/pow"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenminer/templatemanager"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/pow"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/util"
 	"github.com/pkg/errors"
 )
 

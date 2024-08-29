@@ -5,16 +5,16 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/constants"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/testutils"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/txscript"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/utxo"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/testutils"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/txscript"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/utxo"
+	"github.com/karlsen-network/karlsend/v2/util"
 )
 
 func forSchnorrAndECDSA(t *testing.T, testFunc func(t *testing.T, ecdsa bool)) {

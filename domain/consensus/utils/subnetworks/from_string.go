@@ -3,7 +3,7 @@ package subnetworks
 import (
 	"encoding/hex"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 // FromString creates a DomainSubnetworkID from the given byte slice

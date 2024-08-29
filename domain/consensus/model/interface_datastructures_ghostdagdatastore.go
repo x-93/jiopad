@@ -1,6 +1,6 @@
 package model
 
-import "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+import "github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
 // GHOSTDAGDataStore represents a store of BlockGHOSTDAGData
 type GHOSTDAGDataStore interface {

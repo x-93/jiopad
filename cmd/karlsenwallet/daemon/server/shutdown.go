@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/pb"
 )
 
 func (s *server) Shutdown(ctx context.Context, request *pb.ShutdownRequest) (*pb.ShutdownResponse, error) {

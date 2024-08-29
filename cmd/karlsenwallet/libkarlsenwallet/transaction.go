@@ -1,13 +1,13 @@
 package libkarlsenwallet
 
 import (
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/bip32"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/subnetworks"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/txscript"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet/bip32"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet/serialization"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/subnetworks"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/txscript"
+	"github.com/karlsen-network/karlsend/v2/util"
 	"github.com/pkg/errors"
 )
 

@@ -4,22 +4,22 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
-	"github.com/karlsen-network/karlsend/domain/miningmanager/mempool"
+	"github.com/karlsen-network/karlsend/v2/domain/miningmanager/mempool"
 
-	"github.com/karlsen-network/karlsend/app/protocol"
-	"github.com/karlsen-network/karlsend/app/rpc"
-	"github.com/karlsen-network/karlsend/domain"
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/domain/utxoindex"
-	"github.com/karlsen-network/karlsend/infrastructure/config"
-	infrastructuredatabase "github.com/karlsen-network/karlsend/infrastructure/db/database"
-	"github.com/karlsen-network/karlsend/infrastructure/network/addressmanager"
-	"github.com/karlsen-network/karlsend/infrastructure/network/connmanager"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/id"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/app/protocol"
+	"github.com/karlsen-network/karlsend/v2/app/rpc"
+	"github.com/karlsen-network/karlsend/v2/domain"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/utxoindex"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	infrastructuredatabase "github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/addressmanager"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/connmanager"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/id"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 )
 
 // ComponentManager is a wrapper for all the karlsend services

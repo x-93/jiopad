@@ -3,13 +3,13 @@ package blockrelay
 import (
 	"sort"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/app/protocol/peer"
-	"github.com/karlsen-network/karlsend/app/protocol/protocolerrors"
-	"github.com/karlsen-network/karlsend/domain"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/infrastructure/config"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/peer"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/protocolerrors"
+	"github.com/karlsen-network/karlsend/v2/domain"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 )
 
 // RequestAnticoneContext is the interface for the context needed for the HandleRequestHeaders flow.

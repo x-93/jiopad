@@ -7,18 +7,18 @@ import (
 	"sync"
 	"time"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
-	"github.com/karlsen-network/karlsend/util/txmass"
+	"github.com/karlsen-network/karlsend/v2/util/txmass"
 
-	"github.com/karlsen-network/karlsend/util/profiling"
+	"github.com/karlsen-network/karlsend/v2/util/profiling"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/keys"
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/infrastructure/network/rpcclient"
-	"github.com/karlsen-network/karlsend/infrastructure/os/signal"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/pb"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/keys"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/os/signal"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 	"github.com/pkg/errors"
 
 	"google.golang.org/grpc"

@@ -1,16 +1,16 @@
 package v5
 
 import (
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/app/protocol/common"
-	"github.com/karlsen-network/karlsend/app/protocol/flowcontext"
-	"github.com/karlsen-network/karlsend/app/protocol/flows/v5/addressexchange"
-	"github.com/karlsen-network/karlsend/app/protocol/flows/v5/blockrelay"
-	"github.com/karlsen-network/karlsend/app/protocol/flows/v5/ping"
-	"github.com/karlsen-network/karlsend/app/protocol/flows/v5/rejects"
-	"github.com/karlsen-network/karlsend/app/protocol/flows/v5/transactionrelay"
-	peerpkg "github.com/karlsen-network/karlsend/app/protocol/peer"
-	routerpkg "github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/common"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/flowcontext"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/flows/v5/addressexchange"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/flows/v5/blockrelay"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/flows/v5/ping"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/flows/v5/rejects"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/flows/v5/transactionrelay"
+	peerpkg "github.com/karlsen-network/karlsend/v2/app/protocol/peer"
+	routerpkg "github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 )
 
 type protocolManager interface {

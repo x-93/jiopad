@@ -3,10 +3,10 @@ package blockprocessor
 import (
 	"time"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/processes/blockprocessor/blocklogger"
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/processes/blockprocessor/blocklogger"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
 )
 
 // blockProcessor is responsible for processing incoming blocks

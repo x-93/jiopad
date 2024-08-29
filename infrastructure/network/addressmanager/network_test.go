@@ -8,7 +8,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
 )
 
 // TestIPTypes ensures the various functions which determine the type of an IP

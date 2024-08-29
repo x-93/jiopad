@@ -4,8 +4,8 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 	"github.com/pkg/errors"
 )
 

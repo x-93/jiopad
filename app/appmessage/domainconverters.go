@@ -6,14 +6,14 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/blockheader"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashes"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/utxo"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/blockheader"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/hashes"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/utxo"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/subnetworks"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/transactionid"
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/subnetworks"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/transactionid"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 )
 
 // DomainBlockToMsgBlock converts an externalapi.DomainBlock to MsgBlock

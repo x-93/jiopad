@@ -7,8 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/karlsen-network/karlsend/stability-tests/common"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 	"github.com/pkg/errors"
 )
 

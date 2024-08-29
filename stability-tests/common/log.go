@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
-	"github.com/karlsen-network/karlsend/stability-tests/common/mine"
-	"github.com/karlsen-network/karlsend/stability-tests/common/rpc"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common/mine"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common/rpc"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 )
 
 // log is a logger that is initialized with no output filters. This

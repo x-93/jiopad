@@ -9,10 +9,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/infrastructure/config"
-	"github.com/karlsen-network/karlsend/infrastructure/db/database/ldb"
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database/ldb"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 )
 
 func newAddressManagerForTest(t *testing.T, testName string) (addressManager *AddressManager, teardown func()) {

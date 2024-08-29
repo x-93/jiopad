@@ -3,15 +3,15 @@ package mempool
 import (
 	"sync"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/ruleerrors"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/ruleerrors"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/constants"
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/domain/consensusreference"
+	"github.com/karlsen-network/karlsend/v2/domain/consensusreference"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	miningmanagermodel "github.com/karlsen-network/karlsend/domain/miningmanager/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	miningmanagermodel "github.com/karlsen-network/karlsend/v2/domain/miningmanager/model"
 )
 
 type mempool struct {

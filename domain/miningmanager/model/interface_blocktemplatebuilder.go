@@ -1,7 +1,7 @@
 package model
 
 import (
-	consensusexternalapi "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	consensusexternalapi "github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 // BlockTemplateBuilder builds block templates for miners to consume

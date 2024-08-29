@@ -3,9 +3,9 @@ package mine
 import (
 	"path/filepath"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/infrastructure/db/database"
-	"github.com/karlsen-network/karlsend/infrastructure/db/database/ldb"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database/ldb"
 )
 
 const leveldbCacheSizeMiB = 256

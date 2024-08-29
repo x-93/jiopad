@@ -4,10 +4,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/karlsen-network/karlsend/domain/consensusreference"
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
-	"github.com/karlsen-network/karlsend/domain/miningmanager/blocktemplatebuilder"
-	mempoolpkg "github.com/karlsen-network/karlsend/domain/miningmanager/mempool"
+	"github.com/karlsen-network/karlsend/v2/domain/consensusreference"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/domain/miningmanager/blocktemplatebuilder"
+	mempoolpkg "github.com/karlsen-network/karlsend/v2/domain/miningmanager/mempool"
 )
 
 // Factory instantiates new mining managers

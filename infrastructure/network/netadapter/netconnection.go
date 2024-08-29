@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	routerpkg "github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	routerpkg "github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/id"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/server"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/id"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/server"
 )
 
 // NetConnection is a wrapper to a server connection for use by services external to NetAdapter

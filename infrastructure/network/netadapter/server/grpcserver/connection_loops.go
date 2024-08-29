@@ -8,13 +8,13 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
 
-	routerpkg "github.com/karlsen-network/karlsend/infrastructure/network/netadapter/router"
+	routerpkg "github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/router"
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/server/grpcserver/protowire"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/server/grpcserver/protowire"
 )
 
 func (c *gRPCConnection) connectionLoops() error {

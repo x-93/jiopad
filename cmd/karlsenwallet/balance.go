@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/client"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/daemon/pb"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/utils"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/client"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/pb"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/utils"
 )
 
 func balance(conf *balanceConfig) error {

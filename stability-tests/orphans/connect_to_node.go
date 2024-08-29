@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/karlsen-network/karlsend/infrastructure/config"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/standalone"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/standalone"
 )
 
 func connectToNode() *standalone.Routes {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/keys"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/keys"
 )
 
 // ForAllPaths runs the passed testFunc with all available derivation paths

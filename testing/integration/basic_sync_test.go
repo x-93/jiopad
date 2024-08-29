@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
 )
 
 func TestIntegrationBasicSync(t *testing.T) {

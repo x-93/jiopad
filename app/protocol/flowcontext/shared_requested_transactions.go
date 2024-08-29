@@ -3,7 +3,7 @@ package flowcontext
 import (
 	"sync"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 // SharedRequestedTransactions is a data structure that is shared between peers that

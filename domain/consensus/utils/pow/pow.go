@@ -1,14 +1,14 @@
 package pow
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashes"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/serialization"
-	"github.com/karlsen-network/karlsend/infrastructure/logger"
-	"github.com/karlsen-network/karlsend/util/difficulty"
-	"github.com/karlsen-network/karlsend/util/panics"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/hashes"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/serialization"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/logger"
+	"github.com/karlsen-network/karlsend/v2/util/difficulty"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
 	"github.com/pkg/errors"
 
 	"math/big"

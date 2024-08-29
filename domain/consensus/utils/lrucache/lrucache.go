@@ -1,7 +1,7 @@
 package lrucache
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 // LRUCache is a least-recently-used cache for any type

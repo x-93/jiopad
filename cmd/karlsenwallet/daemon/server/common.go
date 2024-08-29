@@ -1,6 +1,6 @@
 package server
 
-import "github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+import "github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
 type walletUTXO struct {
 	Outpoint  *externalapi.DomainOutpoint

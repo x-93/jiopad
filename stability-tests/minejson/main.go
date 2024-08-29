@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/stability-tests/common"
-	"github.com/karlsen-network/karlsend/stability-tests/common/mine"
-	"github.com/karlsen-network/karlsend/stability-tests/common/rpc"
-	"github.com/karlsen-network/karlsend/util/panics"
-	"github.com/karlsen-network/karlsend/util/profiling"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common/mine"
+	"github.com/karlsen-network/karlsend/v2/stability-tests/common/rpc"
+	"github.com/karlsen-network/karlsend/v2/util/panics"
+	"github.com/karlsen-network/karlsend/v2/util/profiling"
 	"github.com/pkg/errors"
 )
 

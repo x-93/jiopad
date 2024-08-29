@@ -3,7 +3,7 @@ package flowcontext
 import (
 	"sync"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 )
 
 // SharedRequestedBlocks is a data structure that is shared between peers that

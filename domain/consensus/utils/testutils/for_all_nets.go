@@ -3,8 +3,8 @@ package testutils
 import (
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
 )
 
 // ForAllNets runs the passed testFunc with all available networks

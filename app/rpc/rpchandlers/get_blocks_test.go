@@ -5,18 +5,18 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model"
 
-	"github.com/karlsen-network/karlsend/app/appmessage"
-	"github.com/karlsen-network/karlsend/app/rpc/rpccontext"
-	"github.com/karlsen-network/karlsend/app/rpc/rpchandlers"
-	"github.com/karlsen-network/karlsend/domain/consensus"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/testapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/hashes"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/testutils"
-	"github.com/karlsen-network/karlsend/domain/miningmanager"
-	"github.com/karlsen-network/karlsend/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/app/appmessage"
+	"github.com/karlsen-network/karlsend/v2/app/rpc/rpccontext"
+	"github.com/karlsen-network/karlsend/v2/app/rpc/rpchandlers"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/testapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/hashes"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/testutils"
+	"github.com/karlsen-network/karlsend/v2/domain/miningmanager"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
 )
 
 type fakeDomain struct {

@@ -5,7 +5,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/karlsen-network/karlsend/app/protocol/common"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/common"
 	"github.com/pkg/errors"
 )
 

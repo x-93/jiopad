@@ -4,14 +4,14 @@ import (
 	"github.com/kaspanet/go-secp256k1"
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet"
-	"github.com/karlsen-network/karlsend/cmd/karlsenwallet/libkarlsenwallet/serialization"
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/consensushashing"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/constants"
-	"github.com/karlsen-network/karlsend/domain/consensus/utils/utxo"
-	"github.com/karlsen-network/karlsend/domain/miningmanager/mempool"
-	"github.com/karlsen-network/karlsend/util"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet/serialization"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/constants"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/utxo"
+	"github.com/karlsen-network/karlsend/v2/domain/miningmanager/mempool"
+	"github.com/karlsen-network/karlsend/v2/util"
 )
 
 // maybeAutoCompoundTransaction checks if a transaction's mass is higher that what is allowed for a standard

@@ -4,14 +4,14 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/karlsen-network/karlsend/domain/dagconfig"
+	"github.com/karlsen-network/karlsend/v2/domain/dagconfig"
 
-	"github.com/karlsen-network/karlsend/infrastructure/db/database/ldb"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database/ldb"
 
-	"github.com/karlsen-network/karlsend/infrastructure/db/database"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/db/database"
 
-	"github.com/karlsen-network/karlsend/app"
-	"github.com/karlsen-network/karlsend/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/app"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
 )
 
 type appHarness struct {

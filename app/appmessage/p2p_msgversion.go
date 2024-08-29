@@ -8,11 +8,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
-	"github.com/karlsen-network/karlsend/version"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/version"
 
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter/id"
-	"github.com/karlsen-network/karlsend/util/mstime"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter/id"
+	"github.com/karlsen-network/karlsend/v2/util/mstime"
 )
 
 // MaxUserAgentLen is the maximum allowed length for the user agent field in a

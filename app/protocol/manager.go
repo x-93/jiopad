@@ -5,20 +5,20 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/karlsen-network/karlsend/app/protocol/common"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/common"
 
 	"github.com/pkg/errors"
 
-	"github.com/karlsen-network/karlsend/domain"
+	"github.com/karlsen-network/karlsend/v2/domain"
 
-	"github.com/karlsen-network/karlsend/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
-	"github.com/karlsen-network/karlsend/app/protocol/flowcontext"
-	peerpkg "github.com/karlsen-network/karlsend/app/protocol/peer"
-	"github.com/karlsen-network/karlsend/infrastructure/config"
-	"github.com/karlsen-network/karlsend/infrastructure/network/addressmanager"
-	"github.com/karlsen-network/karlsend/infrastructure/network/connmanager"
-	"github.com/karlsen-network/karlsend/infrastructure/network/netadapter"
+	"github.com/karlsen-network/karlsend/v2/app/protocol/flowcontext"
+	peerpkg "github.com/karlsen-network/karlsend/v2/app/protocol/peer"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/config"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/addressmanager"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/connmanager"
+	"github.com/karlsen-network/karlsend/v2/infrastructure/network/netadapter"
 )
 
 // Manager manages the p2p protocol
