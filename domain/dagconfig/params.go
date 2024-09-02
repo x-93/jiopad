@@ -343,7 +343,7 @@ var TestnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	HFDAAScore:    6000000, // TODO: define the fork date DAAscore
+	HFDAAScore:    43200, // HF DAAscore to switch to khashv2 (12 hours after testnet launch)
 }
 
 // SimnetParams defines the network parameters for the simulation test Karlsen
