@@ -26,6 +26,7 @@ type difficultyManager struct {
 	genesisHash                    *externalapi.DomainHash
 	powMax                         *big.Int
 	difficultyAdjustmentWindowSize int
+	minDifficultyWindowLen         int
 	disableDifficultyAdjustment    bool
 	targetTimePerBlock             time.Duration
 	genesisBits                    uint32
@@ -41,6 +42,7 @@ func New(databaseContext model.DBReader,
 	dagTraversalManager model.DAGTraversalManager,
 	powMax *big.Int,
 	difficultyAdjustmentWindowSize int,
+	minDifficultyWindowLen int,
 	disableDifficultyAdjustment bool,
 	targetTimePerBlock time.Duration,
 	genesisHash *externalapi.DomainHash,
@@ -55,6 +57,7 @@ func New(databaseContext model.DBReader,
 		dagTraversalManager:            dagTraversalManager,
 		powMax:                         powMax,
 		difficultyAdjustmentWindowSize: difficultyAdjustmentWindowSize,
+		minDifficultyWindowLen:         minDifficultyWindowLen,
 		disableDifficultyAdjustment:    disableDifficultyAdjustment,
 		targetTimePerBlock:             targetTimePerBlock,
 		genesisHash:                    genesisHash,
@@ -117,7 +120,8 @@ func (dm *difficultyManager) requiredDifficultyFromTargetsWindow(targetsWindow b
 	// We could instead clamp the timestamp difference to `targetTimePerBlock`,
 	// but then everything will cancel out and we'll get the target from the last block, which will be the same as genesis.
 	// We add 64 as a safety margin
-	if len(targetsWindow) < 2 || len(targetsWindow) < dm.difficultyAdjustmentWindowSize {
+	//if len(targetsWindow) < 2 || len(targetsWindow) < dm.difficultyAdjustmentWindowSize {
+	if len(targetsWindow) < 2 || len(targetsWindow) < dm.minDifficultyWindowLen {
 		return dm.genesisBits, nil
 	}
 

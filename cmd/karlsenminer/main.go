@@ -30,7 +30,7 @@ func main() {
 
 	// Show version at startup.
 	log.Infof("Version %s", version.Version())
-	log.Infof("Using KarlsenHashV2 impl: %s", pow.GetHashingAlgoVersion())
+	log.Infof("Miner compatibility KarlsenHashV1 & KarlsenHashV2 impl: %s", pow.GetHashingAlgoVersion())
 
 	// Enable http profiling server if requested.
 	if cfg.Profile != "" {
