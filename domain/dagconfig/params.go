@@ -417,7 +417,7 @@ var SimnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	HFDAAScore:    50,
+	HFDAAScore:    3600,
 }
 
 // DevnetParams defines the network parameters for the development Karlsen network.
@@ -481,7 +481,7 @@ var DevnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	HFDAAScore:    50,
+	HFDAAScore:    3600,
 }
 
 // ErrDuplicateNet describes an error where the parameters for a Karlsen
