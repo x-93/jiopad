@@ -233,6 +233,7 @@ func (f *factory) NewConsensus(config *Config, db infrastructuredatabase.Databas
 		dagTraversalManager,
 		config.PowMax,
 		config.DifficultyAdjustmentWindowSize,
+		config.MinDifficultyWindowLen,
 		config.DisableDifficultyAdjustment,
 		config.TargetTimePerBlock,
 		config.GenesisHash,
