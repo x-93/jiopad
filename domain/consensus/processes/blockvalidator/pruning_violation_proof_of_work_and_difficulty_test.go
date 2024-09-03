@@ -304,7 +304,7 @@ func TestValidateDifficulty(t *testing.T) {
 			genesisBits:     consensusConfig.GenesisBlock.Header.Bits()}
 		factory.SetTestDifficultyManager(func(_ model.DBReader, _ model.GHOSTDAGManager, _ model.GHOSTDAGDataStore,
 			_ model.BlockHeaderStore, daaBlocksStore model.DAABlocksStore, _ model.DAGTopologyManager,
-			_ model.DAGTraversalManager, _ *big.Int, _ int, _ bool, _ time.Duration,
+			_ model.DAGTraversalManager, _ *big.Int, _ int, _ int, _ bool, _ time.Duration,
 			_ *externalapi.DomainHash, _ uint32) model.DifficultyManager {
 
 			mocDifficulty.daaBlocksStore = daaBlocksStore
@@ -344,11 +344,17 @@ func TestValidateDifficulty(t *testing.T) {
 }
 
 type mocDifficultyManager struct {
-	testDifficulty  uint32
-	testGenesisBits uint32
-	daaBlocksStore  model.DAABlocksStore
-	genesisDaaScore uint64
-	genesisBits     uint32
+	testDifficulty                 uint32
+	testGenesisBits                uint32
+	daaBlocksStore                 model.DAABlocksStore
+	genesisDaaScore                uint64
+	genesisBits                    uint32
+	difficultyAdjustmentWindowSize int
+}
+
+// DifficultyAdjustmentWindowSize implements model.DifficultyManager.
+func (dm *mocDifficultyManager) DifficultyAdjustmentWindowSize() int {
+	return dm.difficultyAdjustmentWindowSize
 }
 
 // GenesisDifficulty implements model.DifficultyManager.

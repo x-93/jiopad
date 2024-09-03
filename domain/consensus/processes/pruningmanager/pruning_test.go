@@ -40,7 +40,7 @@ func TestPruning(t *testing.T) {
 			dagconfig.MainnetParams.Name: "503",
 			dagconfig.TestnetParams.Name: "502",
 			dagconfig.DevnetParams.Name:  "503",
-			dagconfig.SimnetParams.Name:  "503",
+			dagconfig.SimnetParams.Name:  "502",
 		},
 	}
 

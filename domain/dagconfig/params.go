@@ -110,6 +110,10 @@ type Params struct {
 	// to calculate the required difficulty of each block.
 	DifficultyAdjustmentWindowSize int
 
+	// MinDifficultyWindowLen is the minimum size of window that can be inspected
+	// under this value the genesis difficulty is sent.
+	MinDifficultyWindowLen int
+
 	// These fields are related to voting on consensus rule changes as
 	// defined by BIP0009.
 	//
@@ -234,6 +238,7 @@ var MainnetParams = Params{
 	TargetTimePerBlock:              defaultTargetTimePerBlock,
 	FinalityDuration:                defaultFinalityDuration,
 	DifficultyAdjustmentWindowSize:  defaultDifficultyAdjustmentWindowSize,
+	MinDifficultyWindowLen:          10,
 	TimestampDeviationTolerance:     defaultTimestampDeviationTolerance,
 
 	// Consensus rule change deployments.
@@ -303,6 +308,7 @@ var TestnetParams = Params{
 	TargetTimePerBlock:              defaultTargetTimePerBlock,
 	FinalityDuration:                defaultFinalityDuration,
 	DifficultyAdjustmentWindowSize:  defaultDifficultyAdjustmentWindowSize,
+	MinDifficultyWindowLen:          10,
 	TimestampDeviationTolerance:     defaultTimestampDeviationTolerance,
 
 	// Consensus rule change deployments.
@@ -372,6 +378,7 @@ var SimnetParams = Params{
 	TargetTimePerBlock:              time.Millisecond,
 	FinalityDuration:                time.Minute,
 	DifficultyAdjustmentWindowSize:  defaultDifficultyAdjustmentWindowSize,
+	MinDifficultyWindowLen:          10,
 	TimestampDeviationTolerance:     defaultTimestampDeviationTolerance,
 
 	// Consensus rule change deployments.
@@ -410,7 +417,7 @@ var SimnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	HFDAAScore:    50,
+	HFDAAScore:    3600,
 }
 
 // DevnetParams defines the network parameters for the development Karlsen network.
@@ -433,6 +440,7 @@ var DevnetParams = Params{
 	TargetTimePerBlock:              defaultTargetTimePerBlock,
 	FinalityDuration:                defaultFinalityDuration,
 	DifficultyAdjustmentWindowSize:  defaultDifficultyAdjustmentWindowSize,
+	MinDifficultyWindowLen:          10,
 	TimestampDeviationTolerance:     defaultTimestampDeviationTolerance,
 
 	// Consensus rule change deployments.
@@ -473,7 +481,7 @@ var DevnetParams = Params{
 
 	MaxBlockLevel: 250,
 	MergeDepth:    defaultMergeDepth,
-	HFDAAScore:    50,
+	HFDAAScore:    3600,
 }
 
 // ErrDuplicateNet describes an error where the parameters for a Karlsen

@@ -11,4 +11,5 @@ type DifficultyManager interface {
 	RequiredDifficulty(stagingArea *StagingArea, blockHash *externalapi.DomainHash) (uint32, error)
 	EstimateNetworkHashesPerSecond(startHash *externalapi.DomainHash, windowSize int) (uint64, error)
 	GenesisDifficulty() uint32
+	DifficultyAdjustmentWindowSize() int
 }

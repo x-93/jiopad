@@ -212,9 +212,9 @@ func (bb *blockBuilder) buildHeader(stagingArea *model.StagingArea, transactions
 	}
 
 	// adjust the difficulty
-	/*if daaScore <= (bb.hfDAAScore+10) && daaScore >= bb.hfDAAScore {
+	if daaScore <= (bb.hfDAAScore+uint64(bb.difficultyManager.DifficultyAdjustmentWindowSize())) && daaScore >= bb.hfDAAScore {
 		bits = bb.difficultyManager.GenesisDifficulty()
-	}*/
+	}
 
 	hashMerkleRoot := bb.newBlockHashMerkleRoot(transactions)
 	acceptedIDMerkleRoot, err := bb.newBlockAcceptedIDMerkleRoot(stagingArea)
