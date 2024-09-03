@@ -108,6 +108,11 @@ func (dm *difficultyManager) GenesisDifficulty() uint32 {
 	return dm.genesisBits
 }
 
+// DifficultyAdjustmentWindowSize returns the size of the window of diff adjustment
+func (dm *difficultyManager) DifficultyAdjustmentWindowSize() int {
+	return dm.difficultyAdjustmentWindowSize
+}
+
 func (dm *difficultyManager) requiredDifficultyFromTargetsWindow(targetsWindow blockWindow) (uint32, error) {
 	if dm.disableDifficultyAdjustment {
 		return dm.genesisBits, nil

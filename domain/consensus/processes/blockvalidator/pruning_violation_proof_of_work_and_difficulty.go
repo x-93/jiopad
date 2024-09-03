@@ -135,7 +135,7 @@ func (v *blockValidator) validateDifficulty(stagingArea *model.StagingArea,
 	}
 
 	// bypass the difficulty check during HF
-	if header.DAAScore() <= (v.hfDAAScore+10) && header.DAAScore() >= v.hfDAAScore {
+	if header.DAAScore() <= (v.hfDAAScore+uint64(v.difficultyManager.DifficultyAdjustmentWindowSize())) && header.DAAScore() >= v.hfDAAScore {
 		expectedBits = v.difficultyManager.GenesisDifficulty()
 	}
 

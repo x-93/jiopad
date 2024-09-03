@@ -344,11 +344,17 @@ func TestValidateDifficulty(t *testing.T) {
 }
 
 type mocDifficultyManager struct {
-	testDifficulty  uint32
-	testGenesisBits uint32
-	daaBlocksStore  model.DAABlocksStore
-	genesisDaaScore uint64
-	genesisBits     uint32
+	testDifficulty                 uint32
+	testGenesisBits                uint32
+	daaBlocksStore                 model.DAABlocksStore
+	genesisDaaScore                uint64
+	genesisBits                    uint32
+	difficultyAdjustmentWindowSize int
+}
+
+// DifficultyAdjustmentWindowSize implements model.DifficultyManager.
+func (dm *mocDifficultyManager) DifficultyAdjustmentWindowSize() int {
+	return dm.difficultyAdjustmentWindowSize
 }
 
 // GenesisDifficulty implements model.DifficultyManager.
