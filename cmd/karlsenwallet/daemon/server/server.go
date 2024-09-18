@@ -5,6 +5,7 @@ import (
 	"net"
 	"os"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/karlsen-network/karlsend/v2/domain/version"
@@ -29,17 +30,22 @@ import (
 type server struct {
 	pb.UnimplementedKarlsenwalletdServer
 
-	rpcClient *rpcclient.RPCClient
-	params    *dagconfig.Params
+	rpcClient           *rpcclient.RPCClient // RPC client for ongoing user requests
+	backgroundRPCClient *rpcclient.RPCClient // RPC client dedicated for address and UTXO background fetching
+	params              *dagconfig.Params
+	coinbaseMaturity    uint64 // Is different from default if we use testnet-11
 
-	lock                sync.RWMutex
-	utxosSortedByAmount []*walletUTXO
-	nextSyncStartIndex  uint32
-	keysFile            *keys.File
-	shutdown            chan struct{}
-	addressSet          walletAddressSet
-	txMassCalculator    *txmass.Calculator
-	usedOutpoints       map[externalapi.DomainOutpoint]time.Time
+	lock                            sync.RWMutex
+	utxosSortedByAmount             []*walletUTXO
+	nextSyncStartIndex              uint32
+	keysFile                        *keys.File
+	shutdown                        chan struct{}
+	forceSyncChan                   chan struct{}
+	startTimeOfLastCompletedRefresh time.Time
+	addressSet                      walletAddressSet
+	txMassCalculator                *txmass.Calculator
+	usedOutpoints                   map[externalapi.DomainOutpoint]time.Time
+	firstSyncDone                   atomic.Bool
 
 	isLogFinalProgressLineShown bool
 	maxUsedAddressesForLog      uint32
@@ -73,11 +79,25 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 	if err != nil {
 		return (errors.Wrapf(err, "Error connecting to RPC server %s", rpcServer))
 	}
+	backgroundRPCClient, err := connectToRPC(params, rpcServer, timeout)
+	if err != nil {
+		return (errors.Wrapf(err, "Error making a second connection to RPC server %s", rpcServer))
+	}
 
 	log.Infof("Connected, reading keys file %s...", keysFilePath)
 	keysFile, err := keys.ReadKeysFile(params, keysFilePath)
 	if err != nil {
 		return (errors.Wrapf(err, "Error reading keys file %s", keysFilePath))
+	}
+
+	dagInfo, err := rpcClient.GetBlockDAGInfo()
+	if err != nil {
+		return nil
+	}
+
+	coinbaseMaturity := params.BlockCoinbaseMaturity
+	if dagInfo.NetworkName == "karlsen-testnet-1" {
+		coinbaseMaturity = 1000
 	}
 
 	err = keysFile.TryLock()
@@ -99,11 +119,14 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 
 	serverInstance := &server{
 		rpcClient:                   rpcClient,
+		backgroundRPCClient:         backgroundRPCClient,
 		params:                      params,
+		coinbaseMaturity:            coinbaseMaturity,
 		utxosSortedByAmount:         []*walletUTXO{},
 		nextSyncStartIndex:          0,
 		keysFile:                    keysFile,
 		shutdown:                    make(chan struct{}),
+		forceSyncChan:               make(chan struct{}),
 		addressSet:                  make(walletAddressSet),
 		txMassCalculator:            txmass.NewCalculator(params.MassPerTxByte, params.MassPerScriptPubKeyByte, params.MassPerSigOp),
 		usedOutpoints:               map[externalapi.DomainOutpoint]time.Time{},
@@ -113,8 +136,8 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 	}
 
 	log.Infof("Read, syncing the wallet...")
-	spawn("serverInstance.sync", func() {
-		err := serverInstance.sync()
+	spawn("serverInstance.syncLoop", func() {
+		err := serverInstance.syncLoop()
 		if err != nil {
 			printErrorAndExit(errors.Wrap(err, "error syncing the wallet"))
 		}
