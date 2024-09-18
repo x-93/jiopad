@@ -22,6 +22,8 @@ const (
 	newAddressSubCmd                = "new-address"
 	dumpUnencryptedDataSubCmd       = "dump-unencrypted-data"
 	startDaemonSubCmd               = "start-daemon"
+	versionSubCmd                   = "version"
+	getDaemonVersionSubCmd          = "get-daemon-version"
 )
 
 const (
@@ -30,6 +32,7 @@ const (
 )
 
 type configFlags struct {
+	ShowVersion bool `short:"V" long:"version" description:"Display version information and exit"`
 	config.NetworkFlags
 }
 
@@ -130,6 +133,13 @@ type dumpUnencryptedDataConfig struct {
 	config.NetworkFlags
 }
 
+type versionConfig struct {
+}
+
+type getDaemonVersionConfig struct {
+	DaemonAddress string `long:"daemonaddress" short:"d" description:"Wallet daemon server to connect to"`
+}
+
 func parseCommandLine() (subCommand string, config interface{}) {
 	cfg := &configFlags{}
 	parser := flags.NewParser(cfg, flags.PrintErrors|flags.HelpFlag)
@@ -186,6 +196,9 @@ func parseCommandLine() (subCommand string, config interface{}) {
 		Listen:    defaultListen,
 	}
 	parser.AddCommand(startDaemonSubCmd, "Start the wallet daemon", "Start the wallet daemon", startDaemonConf)
+	parser.AddCommand(versionSubCmd, "Get the wallet version", "Get the wallet version", &versionConfig{})
+	getDaemonVersionConf := &getDaemonVersionConfig{DaemonAddress: defaultListen}
+	parser.AddCommand(getDaemonVersionSubCmd, "Get the wallet daemon version", "Get the wallet daemon version", getDaemonVersionConf)
 
 	_, err := parser.Parse()
 	if err != nil {
@@ -291,6 +304,9 @@ func parseCommandLine() (subCommand string, config interface{}) {
 			printErrorAndExit(err)
 		}
 		config = startDaemonConf
+	case versionSubCmd:
+	case getDaemonVersionSubCmd:
+		config = getDaemonVersionConf
 	}
 
 	return parser.Command.Active.Name, config

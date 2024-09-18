@@ -7,6 +7,8 @@ import (
 	"sync"
 	"time"
 
+	"github.com/karlsen-network/karlsend/v2/domain/version"
+
 	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
 	"github.com/karlsen-network/karlsend/v2/util/txmass"
@@ -59,6 +61,7 @@ func Start(params *dagconfig.Params, listen, rpcServer string, keysFilePath stri
 		profiling.Start(profile, log)
 	}
 
+	log.Infof("Version %s", version.Version())
 	listener, err := net.Listen("tcp", listen)
 	if err != nil {
 		return (errors.Wrapf(err, "Error listening to TCP on %s", listen))
