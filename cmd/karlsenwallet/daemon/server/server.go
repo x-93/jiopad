@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/karlsen-network/karlsend/v2/domain/version"
+	"github.com/karlsen-network/karlsend/v2/version"
 
 	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
 
