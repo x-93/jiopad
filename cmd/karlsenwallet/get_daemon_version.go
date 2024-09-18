@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/karlsen-network/karlsend/v2//cmd/karlsenwallet/daemon/pb"
 	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/client"
+	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/daemon/pb"
 )
 
 func getDaemonVersion(conf *getDaemonVersionConfig) error {

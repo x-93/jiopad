@@ -9,6 +9,7 @@ import (
 	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet"
 	"github.com/karlsen-network/karlsend/v2/cmd/karlsenwallet/libkarlsenwallet/serialization"
 	"github.com/karlsen-network/karlsend/v2/domain/consensus/model/externalapi"
+	"github.com/karlsen-network/karlsend/v2/domain/consensus/utils/consensushashing"
 	"github.com/karlsen-network/karlsend/v2/infrastructure/network/rpcclient"
 	"github.com/pkg/errors"
 )
@@ -60,7 +61,7 @@ func (s *server) broadcast(transactions [][]byte, isDomain bool) ([]string, erro
 }
 
 func sendTransaction(client *rpcclient.RPCClient, tx *externalapi.DomainTransaction) (string, error) {
-	submitTransactionResponse, err := client.SubmitTransaction(appmessage.DomainTransactionToRPCTransaction(tx), false)
+	submitTransactionResponse, err := client.SubmitTransaction(appmessage.DomainTransactionToRPCTransaction(tx), consensushashing.TransactionID(tx).String(), false)
 	if err != nil {
 		return "", errors.Wrapf(err, "error submitting transaction")
 	}
