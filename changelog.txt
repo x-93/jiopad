@@ -1,3 +1,55 @@
+Karlsend v2.2.1 - 2024-09-19
+============================
+
+* Wallet-related improvements and fixes
+
+Karlsend v2.2.0 - 2024-09-03
+============================
+
+* Critical bug fix for difficulty adjustment after hardfork block
+
+* Adjust difficulty managment between rusty and golang nodes during the first block window
+* fix for integration test diff manager signature
+* difficulty adjustment window fix
+* Hardfork in devnet and simnet after the difficulty adjustment window
+* Fix simnet pruning test
+
+Karlsend v2.1.0 - 2024-08-29
+============================
+
+* Fishhash plus implementation with hard fork procedure
+* hard fork procedure from `khashv1` to `khashv2`
+* HF procedure with diff adjustment
+* Mainnet HFDAAScore set to 26962009 to switch to `khashv2`
+
+* First `fishhash` tests
+* refresh seeder url
+* add minor version
+* fix logging
+* Fix issue on word32 usage in kernel mixing step
+* Fix the dataset and light cache generation
+* Code cleanup and dag generation correct logging
+* Added lock on mainnet connection
+* Remove blocking tests on block version because node contains both algorithm
+* fix critical bug in matrix generation
+* align with rusty block version test
+* Removed periodic race detection workflow
+* Added `HFDAAScore` to `simnet` to pass tests
+* Fixed pruning_test in `simnet` and `devnet` genesis from Rust node
+* Fixed remaining integration tests and Go modules update
+* Use 4-char abbreviation as rest of KLS logging system (POW->POWK)
+* Increase windows runner pagefile to 32gb
+* Remove Go cache in test workflow due to its constant failures
+* Increase code coverage timeout to 120m due to `khashv2`
+* Increase timeout in integration tests and sequential execution
+* Fixed `BlockVersionKHashV2` in debug output and removed linebreak
+* Moving `khashv2` pre-computed dag file during stability tests
+* Give orphans stability test more time to process blocks
+* Increase Linux swapfile size in GitHub runner to avoid OOM
+* Increase swap size for code coverage to support `khashv2`
+* Version bump to 2.1.0 for `khashv2`
+* Updated README.md and added `khashv2` paragraph
+
 Karlsend v1.2.0 - 2024-03-07
 ============================
 
